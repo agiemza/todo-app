@@ -1,3 +1,4 @@
+import Header from "./layout/Header"
 import Navbar from "./layout/Navbar"
 
 export default class App {
@@ -8,6 +9,7 @@ export default class App {
     }
 
     static loadLayout() {
+        Header.render(root)
         Navbar.render(root)
     }
 }
