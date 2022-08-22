@@ -84,6 +84,12 @@ footer>a>img {
     height: 2rem;
 }
 
+/* Main section */
+
+main {
+    background-color: rgb(246, 246, 246);
+}
+
 @media screen and (min-width: 700px) {
     header {
         justify-items: start;

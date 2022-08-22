@@ -1,11 +1,13 @@
 import Icon from "../../assets/github-icon.png"
 
 export default class Footer {
+
     static render(output) {
         const footer = document.createElement("footer")
         footer.appendChild(this.createGitHubLink())
         output.appendChild(footer)
     }
+
     static createGitHubLink() {
         const link = document.createElement("a")
         link.href = "https://github.com/agiemza/todo-app"
@@ -21,4 +23,5 @@ export default class Footer {
 
         return link
     }
+    
 }
