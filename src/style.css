@@ -74,6 +74,17 @@ nav>section>button {
     cursor: pointer;
 }
 
+.nav-fixed-button {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
+}
+
+.nav-fixed-button>img {
+    width: 1.5rem;
+}
+
 nav>section>h2 {
     font-weight: 400;
     font-size: 1.2rem;
@@ -116,7 +127,8 @@ main {
         justify-items: start;
     }
 
-    nav, .nav-open {
+    nav,
+    .nav-open {
         grid-column: 1;
         transform: translateX(0);
     }

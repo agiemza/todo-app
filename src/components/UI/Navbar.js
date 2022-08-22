@@ -1,3 +1,8 @@
+import HomeIcon from "../../assets/home-icon.svg"
+import TodayIcon from "../../assets/today-icon.svg"
+import WeekIcon from "../../assets/week-icon.svg"
+import MonthIcon from "../../assets/month-icon.svg"
+
 export default class Navbar {
 
     static render(output) {
@@ -9,11 +14,33 @@ export default class Navbar {
 
     static createTabsSection() {
         const section = document.createElement("section")
-        const tabs = ["Home", "Today", "This week", "This month"]
+        const tabs = [
+            {
+                name: "Home",
+                icon: HomeIcon
+            },
+            {
+                name: "Today",
+                icon: TodayIcon
+            },
+            {
+                name: "This week",
+                icon: WeekIcon
+            },
+            {
+                name: "This month",
+                icon: MonthIcon
+            }
+        ]
         tabs.forEach(tab => {
             const element = document.createElement("button")
             element.classList.add("nav-fixed-button")
-            element.textContent = tab
+            const icon = new Image()
+            icon.src = tab.icon
+            const text = document.createElement("div")
+            text.textContent = tab.name
+            element.appendChild(icon)
+            element.appendChild(text)
             section.appendChild(element)
         })
         return section
