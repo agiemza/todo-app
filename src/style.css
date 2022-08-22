@@ -8,7 +8,7 @@
 }
 
 :root {
-    --main-font: "Open Sans", sans-serif ;
+    --main-font: "Open Sans", sans-serif;
 }
 
 #root {
@@ -60,6 +60,28 @@ nav>section>h2 {
     font-weight: 400;
     font-size: 1.2rem;
     cursor: default;
+}
+
+/* Footer section */
+
+footer {
+    display: grid;
+    grid-row: -1;
+    grid-column: 1/-1;
+    justify-items: center;
+    align-items: center;
+    background-color: lightgray;
+    padding: 5px;
+}
+
+footer>a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+footer>a>img {
+    height: 2rem;
 }
 
 @media screen and (min-width: 700px) {
