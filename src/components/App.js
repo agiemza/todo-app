@@ -1,7 +1,7 @@
-import Footer from "./layout/Footer"
-import Header from "./layout/Header"
-import Main from "./layout/Main"
-import Navbar from "./layout/Navbar"
+import Footer from "./UI/Footer"
+import Header from "./UI/Header"
+import Main from "./UI/Main"
+import Navbar from "./UI/Navbar"
 
 export default class App {
 
@@ -17,5 +17,5 @@ export default class App {
         Main.render(root)
         Footer.render(root)
     }
-    
+
 }

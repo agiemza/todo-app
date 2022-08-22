@@ -23,16 +23,28 @@
 
 header {
     display: grid;
+    grid-template-columns: auto 1fr auto;
     justify-items: center;
     align-items: center;
-    padding: 10px;
+    gap: 15px;
     grid-column: 1 / -1;
+    padding: 10px;
     background-color: lightgray;
 }
 
 .logo {
     font-size: 1.5rem;
     cursor: default;
+}
+
+.menu-button {
+    width: 50px;
+    height: 50px;
+    background-image: url("./assets/close-icon.svg");
+}
+
+.menu-button-open {
+    background-image: url("./assets/menu-icon.svg");
 }
 
 /* Navbar section */
@@ -45,6 +57,12 @@ nav {
     grid-column: 1 / -1;
     gap: 1rem;
     background-color: rgb(240, 240, 240);
+    transform: translateX(-100%);
+    transition: all 0.3s;
+}
+
+.nav-open {
+    transform: translateX(0);
 }
 
 nav>section {
@@ -87,6 +105,9 @@ footer>a>img {
 /* Main section */
 
 main {
+    display: grid;
+    justify-items: center;
+    align-items: center;
     background-color: rgb(246, 246, 246);
 }
 
@@ -95,7 +116,12 @@ main {
         justify-items: start;
     }
 
-    nav {
+    nav, .nav-open {
         grid-column: 1;
+        transform: translateX(0);
+    }
+
+    .menu-button {
+        display: none;
     }
 }
