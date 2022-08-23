@@ -35,11 +35,13 @@ export default class Navbar {
         tabs.forEach(tab => {
             const element = document.createElement("button")
             element.classList.add("nav-fixed-button")
-            const icon = new Image()
-            icon.src = tab.icon
+            if (tab.icon) {
+                const icon = new Image()
+                icon.src = tab.icon
+                element.appendChild(icon)
+            }
             const text = document.createElement("div")
             text.textContent = tab.name
-            element.appendChild(icon)
             element.appendChild(text)
             section.appendChild(element)
         })
