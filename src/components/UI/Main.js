@@ -14,4 +14,10 @@ export default class Main {
         this.main.appendChild(content)
     }
 
+    static createProjectElement(id) {
+        const projectContent = document.createElement("div")
+        projectContent.innerHTML = id
+        return projectContent
+    }
+
 }

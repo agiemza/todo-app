@@ -1,8 +1,12 @@
+import Navbar from "./Navbar"
+
 export default class Header {
+
+    static menuButton = this.createMenuButton()
 
     static render(output) {
         const header = document.createElement("header")
-        header.appendChild(this.createMenuButton())
+        header.appendChild(this.menuButton)
         header.appendChild(this.createLogo())
         output.appendChild(header)
     }
@@ -18,14 +22,8 @@ export default class Header {
         const button = document.createElement("button")
         button.classList.add("menu-button", "menu-button-open")
         button.setAttribute("data-menu-open", "false")
-        button.addEventListener("click", () => this.handleMenuClick(button))
+        button.addEventListener("click", () => Navbar.changeNavbarVisibility(button))
         return button
-    }
-
-    static handleMenuClick(button) {
-        const nav = document.querySelector("nav")
-        button.classList.toggle("menu-button-open")
-        nav.classList.toggle("nav-open")
     }
 
 }

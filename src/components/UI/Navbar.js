@@ -3,14 +3,23 @@ import TodayIcon from "../../assets/today-icon.svg"
 import WeekIcon from "../../assets/week-icon.svg"
 import MonthIcon from "../../assets/month-icon.svg"
 import Main from "./Main"
+import Header from "./Header"
+import ProjectForm from "../Forms/ProjectForm"
 
 export default class Navbar {
 
+    static htmlElement = this.createNav()
+    static projectsList = this.createPojectsList()
+
     static render(output) {
+        this.htmlElement.appendChild(this.createTabsSection())
+        this.htmlElement.appendChild(this.createProjectsSection())
+        output.appendChild(this.htmlElement)
+    }
+
+    static createNav() {
         const nav = document.createElement("nav")
-        nav.appendChild(this.createTabsSection())
-        nav.appendChild(this.createProjectsSection())
-        output.appendChild(nav)
+        return nav
     }
 
     static createTabsSection() {
@@ -51,41 +60,67 @@ export default class Navbar {
 
     static createProjectsSection() {
         const section = document.createElement("section")
-        const heading = document.createElement("h2")
-        heading.textContent = "Projects"
-        const list = document.createElement("ul")
-        list.classList.add("nav-projects-list")
-        section.appendChild(heading)
-        section.appendChild(list)
+        section.appendChild(this.createHeading())
+        section.appendChild(this.projectsList)
+
         // dummy data
-        this.addProjectToList({title: "myProject", id: 1}, list)
-        this.addProjectToList({title: "myProject", id: 2}, list)
-        this.addProjectToList({title: "myProject", id: 3}, list)
-        this.addProjectToList({title: "myProject", id: 4}, list)
-        this.addProjectToList({title: "myProject", id: 5}, list)
-        this.addProjectToList({title: "myProject", id: 6}, list)
+        this.addProjectToList({ title: "myProject", id: 1 })
+        this.addProjectToList({ title: "myProject", id: 2 })
+        this.addProjectToList({ title: "myProject", id: 3 })
+        this.addProjectToList({ title: "myProject", id: 4 })
+        this.addProjectToList({ title: "myProject", id: 5 })
+        this.addProjectToList({ title: "myProject", id: 6 })
         // ----
         return section
     }
 
-    static addProjectToList(project, output) {
-        const list =  output || document.querySelector(".nav-projects-list")
-        const button = document.createElement("button")
-        button.textContent = project.title
-        button.addEventListener("click", () => this.handleProjectClick(project.id))
-        const listItem = document.createElement("li")
-        listItem.appendChild(button)
-        list.appendChild(listItem)
+    static createHeading() {
+        const headingContainer = document.createElement("div")
+        headingContainer.classList.add("nav-projects-heading")
+        const heading = document.createElement("h2")
+        heading.textContent = "Projects"
+        headingContainer.appendChild(heading)
+
+        const newProjectButton = document.createElement("button")
+        newProjectButton.classList.add("nav-projects-new-button")
+        newProjectButton.textContent = "+"
+        newProjectButton.addEventListener("click", () => this.handleNewProjectClick())
+        headingContainer.appendChild(newProjectButton)
+
+        return headingContainer
     }
 
-    static handleProjectClick(id) {
-        this.openProject(id)
+    static createPojectsList() {
+        const list = document.createElement("ul")
+        list.classList.add("nav-projects-list")
+        return list
+    }
+
+    static handleNewProjectClick() {
+        const form = new ProjectForm
+        Main.changeContent(form.render())
+        this.changeNavbarVisibility()
+    }
+
+    static addProjectToList(project) {
+        const button = document.createElement("button")
+        button.textContent = project.title
+        button.addEventListener("click", () => this.openProject(project.id))
+        const listItem = document.createElement("li")
+        listItem.appendChild(button)
+        this.projectsList.appendChild(listItem)
     }
 
     static openProject(id) {
-        const projectContent = document.createElement("div")
-        projectContent.innerHTML = id
-        Main.changeContent(projectContent)
+        const element = Main.createProjectElement(id)
+        Main.changeContent(element)
+        this.changeNavbarVisibility()
     }
-    
+
+    static changeNavbarVisibility() {
+        const menuButton = Header.menuButton
+        menuButton.classList.toggle("menu-button-open")
+        this.htmlElement.classList.toggle("nav-open")
+    }
+
 }

@@ -96,10 +96,20 @@ nav>section>h2 {
     cursor: default;
 }
 
+.nav-projects-heading {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.nav-projects-new-button {
+    width: 30px;
+}
+
 .nav-projects-list {
     list-style: none;
 }
-.nav-projects-list li{
+
+.nav-projects-list li {
     display: grid;
 }
 
@@ -136,6 +146,18 @@ main {
     background-color: rgb(246, 246, 246);
 }
 
+/* Forms */
+
+form {
+    display: grid;
+    border: 1px solid black;
+    padding: 2rem;
+}
+
+form>input {
+    margin-bottom: 1rem;
+}
+
 @media screen and (min-width: 700px) {
     header {
         justify-items: start;
@@ -149,5 +171,10 @@ main {
 
     .menu-button {
         display: none;
+    }
+
+    main {
+        grid-row: 2;
+        grid-column: 2 / -1;
     }
 }
