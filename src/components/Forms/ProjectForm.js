@@ -1,5 +1,4 @@
 import Project from "../Project/Project"
-import Navbar from "../UI/Navbar"
 import Form from "./Form"
 
 export default class ProjectForm extends Form {

@@ -5,6 +5,7 @@ import MonthIcon from "../../assets/month-icon.svg"
 import Main from "./Main"
 import Header from "./Header"
 import ProjectForm from "../Forms/ProjectForm"
+import LocalStorage from "../LocalStorage"
 
 export default class Navbar {
 
@@ -62,16 +63,15 @@ export default class Navbar {
         const section = document.createElement("section")
         section.appendChild(this.createHeading())
         section.appendChild(this.projectsList)
-
-        // dummy data
-        this.addProjectToList({ title: "myProject", id: 1 })
-        this.addProjectToList({ title: "myProject", id: 2 })
-        this.addProjectToList({ title: "myProject", id: 3 })
-        this.addProjectToList({ title: "myProject", id: 4 })
-        this.addProjectToList({ title: "myProject", id: 5 })
-        this.addProjectToList({ title: "myProject", id: 6 })
-        // ----
+        this.displayProjects()
         return section
+    }
+
+    static displayProjects() {
+        const projects = LocalStorage.get()
+        projects.forEach(project => {
+            this.addProjectToList({ title: project.title, id: project.id })
+        })
     }
 
     static createHeading() {
