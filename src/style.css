@@ -70,6 +70,11 @@ nav>section {
     grid-template-columns: 1fr;
 }
 
+nav>section:nth-child(2) {
+    gap: 1rem;
+    grid-template-rows: auto 1fr;
+}
+
 nav>section>button {
     cursor: pointer;
 }
@@ -89,6 +94,13 @@ nav>section>h2 {
     font-weight: 400;
     font-size: 1.2rem;
     cursor: default;
+}
+
+.nav-projects-list {
+    list-style: none;
+}
+.nav-projects-list li{
+    display: grid;
 }
 
 /* Footer section */
@@ -119,6 +131,8 @@ main {
     display: grid;
     justify-items: center;
     align-items: center;
+    grid-row: 2;
+    grid-column: 1 / -1;
     background-color: rgb(246, 246, 246);
 }
 

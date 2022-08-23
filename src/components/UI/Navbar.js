@@ -2,6 +2,7 @@ import HomeIcon from "../../assets/home-icon.svg"
 import TodayIcon from "../../assets/today-icon.svg"
 import WeekIcon from "../../assets/week-icon.svg"
 import MonthIcon from "../../assets/month-icon.svg"
+import Main from "./Main"
 
 export default class Navbar {
 
@@ -56,7 +57,29 @@ export default class Navbar {
         list.classList.add("nav-projects-list")
         section.appendChild(heading)
         section.appendChild(list)
+        // dummy data
+        this.addProjectToList({title: "myProject", id: 1}, list)
+        this.addProjectToList({title: "myProject", id: 2}, list)
+        this.addProjectToList({title: "myProject", id: 3}, list)
+        this.addProjectToList({title: "myProject", id: 4}, list)
+        this.addProjectToList({title: "myProject", id: 5}, list)
+        this.addProjectToList({title: "myProject", id: 6}, list)
+        // ----
         return section
+    }
+
+    static addProjectToList(project, output) {
+        const list =  output || document.querySelector(".nav-projects-list")
+        const button = document.createElement("button")
+        button.textContent = project.title
+        button.addEventListener("click", () => this.handleProjectClick(project.id))
+        const listItem = document.createElement("li")
+        listItem.appendChild(button)
+        list.appendChild(listItem)
+    }
+
+    static handleProjectClick(id) {
+        console.log(id)
     }
 
 }
