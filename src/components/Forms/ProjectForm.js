@@ -14,11 +14,7 @@ export default class ProjectForm extends Form {
     handleSubmit(e) {
         e.preventDefault()
         const project = new Project(this.inputTitle.value, this.inputDescription.value)
-        this.saveProject(project)
-    }
-
-    saveProject(project) {
-        Navbar.addProjectToList(project)
+        project.save()
     }
 
 }
