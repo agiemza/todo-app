@@ -79,7 +79,13 @@ export default class Navbar {
     }
 
     static handleProjectClick(id) {
-        console.log(id)
+        this.openProject(id)
     }
 
+    static openProject(id) {
+        const projectContent = document.createElement("div")
+        projectContent.innerHTML = id
+        Main.changeContent(projectContent)
+    }
+    
 }
