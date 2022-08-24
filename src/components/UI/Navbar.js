@@ -112,9 +112,13 @@ export default class Navbar {
         this.projectsList.appendChild(listItem)
     }
 
+    static upadateProjectList() {
+        this.projectsList.innerHTML = ""
+        this.displayProjects()
+    }
+
     static openProject(id) {
         Project.display(id)
-        // Main.displayProject(id)
         this.changeNavbarVisibility()
     }
 

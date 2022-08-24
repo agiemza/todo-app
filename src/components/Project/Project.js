@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import TaskForm from "../Forms/TaskForm"
 import LocalStorage from "../LocalStorage"
 import Main from "../UI/Main"
 import Navbar from "../UI/Navbar"
@@ -27,22 +28,28 @@ export default class Project {
         const projectContainer = document.createElement("div")
         projectContainer.classList.add("project-container")
 
-        projectContainer.appendChild(this.createDetailsContainer(project.title, project.description))
+        projectContainer.appendChild(this.createDetailsContainer(project.title, project.description, project.id))
         projectContainer.appendChild(this.createTasksContainer(project.tasks))
 
         return projectContainer
     }
 
-    static createDetailsContainer(title, description) {
+    static createDetailsContainer(title, description, id) {
         const titleContainer = document.createElement("h2")
         titleContainer.textContent = title
 
         const descriptionContainer = document.createElement("p")
         descriptionContainer.textContent = description
 
+        const addTaskButton = document.createElement("button")
+        addTaskButton.classList.add("task-add-button")
+        addTaskButton.textContent = "+"
+        addTaskButton.addEventListener("click", () => TaskForm.open(id))
+
         const detailsContainer = document.createElement("div")
         detailsContainer.appendChild(titleContainer)
         detailsContainer.appendChild(descriptionContainer)
+        detailsContainer.appendChild(addTaskButton)
 
         return detailsContainer
     }
@@ -76,6 +83,12 @@ export default class Project {
             dueDate.classList.add("task-date")
             dueDate.textContent = task.dueDate
             container.appendChild(dueDate)
+
+            const edit = document.createElement("button")
+            edit.classList.add("task-edit-button")
+            edit.textContent = "edit"
+            edit.addEventListener("click", () => console.log("edit", task.id))
+            container.appendChild(edit)
 
             const remove = document.createElement("button")
             remove.classList.add("task-remove-button")

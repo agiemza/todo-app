@@ -2,8 +2,13 @@ export default class LocalStorage {
 
     static add(item) {
         const array = this.get()
-        array.push(item)
+        array.unshift(item)
         localStorage.setItem("todo-projects", JSON.stringify(array))
+    }
+
+    static remove(item) {
+        const array = this.get()
+        localStorage.setItem("todo-projects", JSON.stringify(array.filter(project => project.id !== item.id)))
     }
 
     static get() {
@@ -15,7 +20,12 @@ export default class LocalStorage {
     }
 
     static getProject(id) {
-        return LocalStorage.get().find(project => project.id === id)
+        return this.get().find(project => project.id === id)
+    }
+
+    static saveProject(project) {
+        this.remove(project)
+        this.add(project)
     }
 
 }

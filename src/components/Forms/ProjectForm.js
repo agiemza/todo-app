@@ -22,6 +22,7 @@ export default class ProjectForm extends Form {
     }
 
     validateForm() {
+        this.errorBox.textContent = ""
         const titlePattern = /^.{1,}$/g
         if (!titlePattern.test(this.inputTitle.value)) {
             this.errorBox.textContent = "Title must contain at least 1 character"
