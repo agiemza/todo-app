@@ -3,6 +3,8 @@ export default class Form {
     constructor() {
         this.htmlElement = this.createForm()
         this.submitButtonText = "Submit"
+        this.submitButton = this.createSubmit()
+        this.errorBox = this.createErrorBox()
     }
 
     createForm() {
@@ -38,7 +40,14 @@ export default class Form {
         return label
     }
 
-    addSubmit() {
+    createErrorBox() {
+        const errorBox = document.createElement("div")
+        errorBox.classList.add("form-error")
+
+        return errorBox
+    }
+
+    createSubmit() {
         const button = document.createElement("button")
         button.textContent = this.submitButtonText
         button.addEventListener("click", e => this.submitButtonHandler(e))
@@ -46,7 +55,8 @@ export default class Form {
     }
 
     render() {
-        this.htmlElement.appendChild(this.addSubmit())
+        this.htmlElement.appendChild(this.submitButton)
+        this.htmlElement.appendChild(this.errorBox)
         return this.htmlElement
     }
 
