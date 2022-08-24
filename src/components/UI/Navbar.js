@@ -4,6 +4,7 @@ import WeekIcon from "../../assets/week-icon.svg"
 import MonthIcon from "../../assets/month-icon.svg"
 import Main from "./Main"
 import Header from "./Header"
+import Project from "../Project/Project"
 import ProjectForm from "../Forms/ProjectForm"
 import LocalStorage from "../LocalStorage"
 
@@ -112,8 +113,8 @@ export default class Navbar {
     }
 
     static openProject(id) {
-        const element = Main.createProjectElement(id)
-        Main.changeContent(element)
+        Project.display(id)
+        // Main.displayProject(id)
         this.changeNavbarVisibility()
     }
 

@@ -14,4 +14,8 @@ export default class LocalStorage {
         localStorage.setItem("todo-projects", JSON.stringify(""))
     }
 
+    static getProject(id) {
+        return LocalStorage.get().find(project => project.id === id)
+    }
+
 }
