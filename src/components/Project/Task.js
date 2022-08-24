@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import TaskEditForm from "../Forms/TaskEditForm"
 import LocalStorage from "../LocalStorage"
 import Project from "./Project"
 
@@ -10,9 +11,9 @@ export default class Task {
         this.dueDate = dueDate
     }
 
-    save(projectId) {
+    static add(task, projectId) {
         const project = LocalStorage.getProject(projectId)
-        project.tasks.unshift(this)
+        project.tasks.unshift(task)
         LocalStorage.saveProject(project)
     }
 
@@ -24,6 +25,13 @@ export default class Task {
         })
         LocalStorage.saveProject(project)
         Project.display(project.id)
+    }
+
+    static edit(project, task) {
+        const container = document.querySelector(`[data-task-id=${task.id}]`)
+        container.innerHTML = ""
+        const form = new TaskEditForm(task, project)
+        form.render().forEach(element => container.appendChild(element))
     }
 
     static delete(project, task) {
@@ -66,7 +74,7 @@ export default class Task {
             const edit = document.createElement("button")
             edit.classList.add("task-edit-button")
             edit.textContent = "edit"
-            edit.addEventListener("click", () => console.log("edit", task.id))
+            edit.addEventListener("click", () => this.edit(project, task))
             container.appendChild(edit)
 
             const remove = document.createElement("button")
@@ -85,4 +93,5 @@ export default class Task {
 
         return tasksContainer
     }
+
 }

@@ -20,7 +20,7 @@ export default class TaskForm extends Form {
         }
 
         const task = new Task(this.inputContent.value, this.inputDueDate.value)
-        task.save(this.projectId)
+        Task.add(task, this.projectId)
     }
 
     validateForm() {
