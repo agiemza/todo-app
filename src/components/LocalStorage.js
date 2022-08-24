@@ -1,3 +1,5 @@
+import Navbar from "./UI/Navbar"
+
 export default class LocalStorage {
 
     static add(item) {
@@ -26,6 +28,7 @@ export default class LocalStorage {
     static saveProject(project) {
         this.remove(project)
         this.add(project)
+        Navbar.upadateProjectList()
     }
 
 }

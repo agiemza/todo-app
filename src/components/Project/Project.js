@@ -3,6 +3,7 @@ import TaskForm from "../Forms/TaskForm"
 import LocalStorage from "../LocalStorage"
 import Main from "../UI/Main"
 import Navbar from "../UI/Navbar"
+import Task from './Task'
 
 export default class Project {
 
@@ -29,7 +30,7 @@ export default class Project {
         projectContainer.classList.add("project-container")
 
         projectContainer.appendChild(this.createDetailsContainer(project.title, project.description, project.id))
-        projectContainer.appendChild(this.createTasksContainer(project.tasks))
+        projectContainer.appendChild(Task.createTasksContainer(project))
 
         return projectContainer
     }
@@ -52,59 +53,6 @@ export default class Project {
         detailsContainer.appendChild(addTaskButton)
 
         return detailsContainer
-    }
-
-    static createTasksContainer(tasks) {
-        const tasksContainer = document.createElement("div")
-
-        if (!tasks.length > 0) {
-            tasksContainer.textContent = "This project is empty"
-            return tasksContainer
-        }
-
-        tasks.forEach(task => {
-            const container = document.createElement("div")
-
-            container.classList.add("task-container")
-            container.setAttribute("data-task-id", task.id)
-
-            const check = document.createElement("button")
-            check.classList.add("task-check-button")
-            check.textContent = "check"
-            check.addEventListener("click", () => console.log("check", task.id))
-            container.appendChild(check)
-
-            const content = document.createElement("div")
-            content.classList.add("task-text")
-            content.textContent = task.content
-            container.appendChild(content)
-
-            const dueDate = document.createElement("div")
-            dueDate.classList.add("task-date")
-            dueDate.textContent = task.dueDate
-            container.appendChild(dueDate)
-
-            const edit = document.createElement("button")
-            edit.classList.add("task-edit-button")
-            edit.textContent = "edit"
-            edit.addEventListener("click", () => console.log("edit", task.id))
-            container.appendChild(edit)
-
-            const remove = document.createElement("button")
-            remove.classList.add("task-remove-button")
-            remove.textContent = "remove"
-            remove.addEventListener("click", () => console.log("remove", task.id))
-            container.appendChild(remove)
-
-            if (task.checked) {
-                container.classList.add("task-container-checked")
-                check.classList.add("task-check-button-checked")
-            }
-
-            tasksContainer.appendChild(container)
-        })
-
-        return tasksContainer
     }
 
 }
