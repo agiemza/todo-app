@@ -5,6 +5,7 @@ import Project from "./Project"
 export default class Task {
     constructor(content, dueDate) {
         this.id = nanoid()
+        this.checked = false
         this.content = content
         this.dueDate = dueDate
     }
@@ -13,6 +14,16 @@ export default class Task {
         const project = LocalStorage.getProject(projectId)
         project.tasks.unshift(this)
         LocalStorage.saveProject(project)
+    }
+
+    static check(project, task) {
+        project.tasks.find(item => {
+            if (item.id === task.id) {
+                item.checked = !item.checked
+            }
+        })
+        LocalStorage.saveProject(project)
+        Project.display(project.id)
     }
 
     static delete(project, task) {
@@ -39,7 +50,7 @@ export default class Task {
             const check = document.createElement("button")
             check.classList.add("task-check-button")
             check.textContent = "check"
-            check.addEventListener("click", () => console.log("check", task.id))
+            check.addEventListener("click", () => this.check(project, task))
             container.appendChild(check)
 
             const content = document.createElement("div")
