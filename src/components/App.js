@@ -4,7 +4,6 @@ import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
 
 export default class App {
-
     static root = document.querySelector("#root")
 
     static load() {
@@ -17,5 +16,4 @@ export default class App {
         Main.render(root)
         Footer.render(root)
     }
-
 }

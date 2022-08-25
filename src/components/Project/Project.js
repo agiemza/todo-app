@@ -1,12 +1,11 @@
 import { nanoid } from "nanoid"
-import TaskForm from "../Forms/TaskForm"
+import NewTaskForm from "../Forms/NewTaskForm"
 import LocalStorage from "../LocalStorage"
 import Main from "../UI/Main"
 import Navbar from "../UI/Navbar"
 import Task from './Task'
 
 export default class Project {
-
     constructor(title, description) {
         this.id = nanoid()
         this.title = title
@@ -69,7 +68,7 @@ export default class Project {
         const addTaskButton = document.createElement("button")
         addTaskButton.classList.add("task-add-button")
         addTaskButton.textContent = "+"
-        addTaskButton.addEventListener("click", () => TaskForm.open(id))
+        addTaskButton.addEventListener("click", () => NewTaskForm.open(id))
 
         const detailsContainer = document.createElement("div")
         detailsContainer.appendChild(titleContainer)
@@ -79,5 +78,4 @@ export default class Project {
 
         return detailsContainer
     }
-
 }

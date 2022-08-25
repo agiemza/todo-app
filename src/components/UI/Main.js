@@ -1,5 +1,4 @@
 export default class Main {
-
     constructor() {
         this.main
     }
@@ -13,5 +12,4 @@ export default class Main {
         this.main.innerHTML = ""
         this.main.appendChild(content)
     }
-
 }

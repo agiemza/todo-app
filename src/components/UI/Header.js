@@ -1,7 +1,6 @@
 import Navbar from "./Navbar"
 
 export default class Header {
-
     static menuButton = this.createMenuButton()
 
     static render(output) {
@@ -25,5 +24,4 @@ export default class Header {
         button.addEventListener("click", () => Navbar.changeNavbarVisibility(button))
         return button
     }
-
 }

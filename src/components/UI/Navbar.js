@@ -5,11 +5,10 @@ import MonthIcon from "../../assets/month-icon.svg"
 import Main from "./Main"
 import Header from "./Header"
 import Project from "../Project/Project"
-import ProjectForm from "../Forms/ProjectForm"
+import NewProjectForm from "../Forms/NewProjectForm"
 import LocalStorage from "../LocalStorage"
 
 export default class Navbar {
-
     static htmlElement = this.createNav()
     static projectsList = this.createPojectsList()
 
@@ -98,7 +97,7 @@ export default class Navbar {
     }
 
     static handleNewProjectClick() {
-        const form = new ProjectForm
+        const form = new NewProjectForm
         Main.changeContent(form.render())
         this.changeNavbarVisibility()
     }
@@ -139,5 +138,4 @@ export default class Navbar {
         menuButton.classList.toggle("menu-button-open")
         this.htmlElement.classList.toggle("nav-open")
     }
-
 }

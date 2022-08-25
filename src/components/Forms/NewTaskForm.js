@@ -1,9 +1,9 @@
+import Project from "../Project/Project"
 import Task from "../Project/Task"
 import Main from "../UI/Main"
-import Navbar from "../UI/Navbar"
 import Form from "./Form"
 
-export default class TaskForm extends Form {
+export default class NewTaskForm extends Form {
     constructor(projectId) {
         super()
         this.projectId = projectId
@@ -21,6 +21,7 @@ export default class TaskForm extends Form {
 
         const task = new Task(this.inputContent.value, this.inputDueDate.value)
         Task.add(task, this.projectId)
+        Project.display(this.projectId)
     }
 
     validateForm() {
@@ -34,7 +35,7 @@ export default class TaskForm extends Form {
     }
 
     static open(id) {
-        const taskForm = new TaskForm(id)
+        const taskForm = new NewTaskForm(id)
         Main.changeContent(taskForm.render())
     }
 }

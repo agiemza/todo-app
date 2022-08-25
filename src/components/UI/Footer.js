@@ -1,7 +1,6 @@
 import Icon from "../../assets/github-icon.png"
 
 export default class Footer {
-
     static render(output) {
         const footer = document.createElement("footer")
         footer.appendChild(this.createGitHubLink())
@@ -22,6 +21,5 @@ export default class Footer {
         link.appendChild(author)
 
         return link
-    }
-    
+    } 
 }

@@ -3,7 +3,6 @@ import Task from "../Project/Task"
 import Form from "./Form"
 
 export default class TaskEditForm extends Form {
-
     constructor(task, project) {
         super()
         this.task = task
@@ -39,7 +38,6 @@ export default class TaskEditForm extends Form {
     }
 
     render() {
-
         this.inputContent = this.addInput(
             [
                 { type: "id", value: "edit-content" },
@@ -60,6 +58,5 @@ export default class TaskEditForm extends Form {
             this.inputDueDate,
             this.submitButton,
         ]
-
     }
 }

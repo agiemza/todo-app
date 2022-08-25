@@ -1,5 +1,4 @@
 export default class Form {
-
     constructor() {
         this.htmlElement = this.createForm()
         this.submitButtonText = "Submit"
@@ -59,5 +58,4 @@ export default class Form {
         this.htmlElement.appendChild(this.errorBox)
         return this.htmlElement
     }
-
 }

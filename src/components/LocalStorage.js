@@ -1,7 +1,6 @@
 import Navbar from "./UI/Navbar"
 
 export default class LocalStorage {
-    
     static set(item) {
         localStorage.setItem("todo-projects", JSON.stringify(item))
     }

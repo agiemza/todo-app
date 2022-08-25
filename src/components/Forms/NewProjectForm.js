@@ -1,8 +1,7 @@
 import Project from "../Project/Project"
 import Form from "./Form"
 
-export default class ProjectForm extends Form {
-
+export default class NewProjectForm extends Form {
     constructor() {
         super()
         this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "title" },], "Title")
@@ -12,13 +11,12 @@ export default class ProjectForm extends Form {
 
     handleSubmit(e) {
         e.preventDefault()
-
         if (!this.validateForm()) {
             return
         }
-
         const project = new Project(this.inputTitle.value, this.inputDescription.value)
         project.save()
+        Project.display(project.id)
     }
 
     validateForm() {
@@ -30,5 +28,4 @@ export default class ProjectForm extends Form {
         }
         return true
     }
-
 }
