@@ -104,6 +104,11 @@ export default class Navbar {
     }
 
     static addProjectToList(project) {
+        const item = this.createProjectListItem(project)
+        this.projectsList.prepend(item)
+    }
+
+    static createProjectListItem(project) {
         const projectTitile = document.createElement("div")
         projectTitile.textContent = project.title
         projectTitile.addEventListener("click", () => this.openProject(project.id))
@@ -115,7 +120,8 @@ export default class Navbar {
         const listItem = document.createElement("li")
         listItem.appendChild(projectTitile)
         listItem.appendChild(deleteButton)
-        this.projectsList.appendChild(listItem)
+
+        return listItem
     }
 
     static upadateProjectList() {

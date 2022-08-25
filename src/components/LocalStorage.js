@@ -1,14 +1,14 @@
 import Navbar from "./UI/Navbar"
 
 export default class LocalStorage {
-
+    
     static set(item) {
         localStorage.setItem("todo-projects", JSON.stringify(item))
     }
 
     static add(item) {
         const array = this.get()
-        array.push(item)
+        array.unshift(item)
         localStorage.setItem("todo-projects", JSON.stringify(array))
     }
 
