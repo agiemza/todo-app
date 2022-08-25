@@ -5,8 +5,29 @@ export default class NewProjectForm extends Form {
     constructor() {
         super()
         this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "title" },], "Title")
-        this.inputDescription = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "description" },], "Description")
+        this.inputDescription = this.addTextArea([{ type: "id", value: "description" },], "Description")
         this.submitButtonHandler = this.handleSubmit
+    }
+
+    addTextArea(attributes, label) {
+        const textArea = document.createElement("textarea")
+        if (label && attributes.find(item => item.type === "id")) {
+            this.htmlElement.appendChild(this.addLabel(
+                attributes.find(item => {
+                    if (item.type === "id") {
+                        return item.value
+                    }
+                }),
+                label
+            ))
+        }
+
+        attributes.forEach(({ type, value }) => {
+            textArea.setAttribute(type, value)
+        })
+
+        this.htmlElement.appendChild(textArea)
+        return textArea
     }
 
     handleSubmit(e) {

@@ -65,15 +65,9 @@ export default class Project {
         deleteProjectButton.textContent = "delete project"
         deleteProjectButton.addEventListener("click", () => this.delete(id))
 
-        const addTaskButton = document.createElement("button")
-        addTaskButton.classList.add("task-add-button")
-        addTaskButton.textContent = "+"
-        addTaskButton.addEventListener("click", () => NewTaskForm.open(id))
-
         const detailsContainer = document.createElement("div")
         detailsContainer.appendChild(titleContainer)
         detailsContainer.appendChild(descriptionContainer)
-        detailsContainer.appendChild(addTaskButton)
         detailsContainer.appendChild(deleteProjectButton)
 
         return detailsContainer

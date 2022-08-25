@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import NewTaskForm from "../Forms/NewTaskForm"
 import TaskEditForm from "../Forms/TaskEditForm"
 import LocalStorage from "../LocalStorage"
 import Project from "./Project"
@@ -42,13 +43,38 @@ export default class Task {
 
     static createTasksContainer(project) {
         const tasksContainer = document.createElement("div")
-        const tasks = project.tasks
+        tasksContainer.appendChild(this.createTasksHeadline(project.id))
 
-        if (!tasks.length > 0) {
-            tasksContainer.textContent = "This project is empty"
+
+        if (!project.tasks.length > 0) {
+            const message = document.createElement("div")
+            message.textContent = "This project is empty"
+            tasksContainer.appendChild(message)
             return tasksContainer
         }
 
+        tasksContainer.appendChild(this.createTasksList(project))
+
+        return tasksContainer
+    }
+
+    static createTasksHeadline(id) {
+        const tasksHeadline = document.createElement("div")
+        tasksHeadline.classList.add("tasks-headline")
+
+        const addTaskButton = document.createElement("button")
+        addTaskButton.classList.add("task-add-button")
+        addTaskButton.textContent = "+"
+        addTaskButton.addEventListener("click", () => NewTaskForm.open(id))
+
+        tasksHeadline.appendChild(addTaskButton)
+
+        return tasksHeadline
+    }
+
+    static createTasksList(project) {
+        const list = document.createElement("div")
+        const tasks = project.tasks
         tasks.forEach(task => {
             const container = document.createElement("div")
 
@@ -88,9 +114,8 @@ export default class Task {
                 check.classList.add("task-check-button-checked")
             }
 
-            tasksContainer.appendChild(container)
+            list.appendChild(container)
         })
-
-        return tasksContainer
+        return list
     }
 }
