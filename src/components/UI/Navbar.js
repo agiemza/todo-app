@@ -69,7 +69,7 @@ export default class Navbar {
     }
 
     static displayProjects() {
-        const projects = LocalStorage.get()
+        const projects = LocalStorage.get().reverse()
         projects.forEach(project => {
             this.addProjectToList({ title: project.title, id: project.id })
         })

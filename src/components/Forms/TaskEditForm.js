@@ -55,10 +55,10 @@ export default class TaskEditForm extends Form {
             ])
 
         return [
-            this.submitButton,
+            this.cancelButton,
             this.inputContent,
             this.inputDueDate,
-            this.cancelButton
+            this.submitButton,
         ]
 
     }

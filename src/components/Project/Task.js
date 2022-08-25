@@ -13,7 +13,7 @@ export default class Task {
 
     static add(task, projectId) {
         const project = LocalStorage.getProject(projectId)
-        project.tasks.unshift(task)
+        project.tasks.push(task)
         LocalStorage.saveProject(project)
     }
 

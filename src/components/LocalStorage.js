@@ -2,9 +2,13 @@ import Navbar from "./UI/Navbar"
 
 export default class LocalStorage {
 
+    static set(item) {
+        localStorage.setItem("todo-projects", JSON.stringify(item))
+    }
+
     static add(item) {
         const array = this.get()
-        array.unshift(item)
+        array.push(item)
         localStorage.setItem("todo-projects", JSON.stringify(array))
     }
 
@@ -31,4 +35,7 @@ export default class LocalStorage {
         Navbar.upadateProjectList()
     }
 
+    static isEmpty() {
+        return !this.get()[0]
+    }
 }
