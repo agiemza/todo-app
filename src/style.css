@@ -111,6 +111,7 @@ nav>section>h2 {
 
 .nav-projects-list li {
     display: grid;
+    grid-template-columns: 1fr auto;
 }
 
 /* Footer section */

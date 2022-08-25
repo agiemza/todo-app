@@ -104,11 +104,17 @@ export default class Navbar {
     }
 
     static addProjectToList(project) {
-        const button = document.createElement("button")
-        button.textContent = project.title
-        button.addEventListener("click", () => this.openProject(project.id))
+        const projectTitile = document.createElement("div")
+        projectTitile.textContent = project.title
+        projectTitile.addEventListener("click", () => this.openProject(project.id))
+
+        const deleteButton = document.createElement("button")
+        deleteButton.textContent = "delete"
+        deleteButton.addEventListener("click", () => Project.delete(project.id))
+
         const listItem = document.createElement("li")
-        listItem.appendChild(button)
+        listItem.appendChild(projectTitile)
+        listItem.appendChild(deleteButton)
         this.projectsList.appendChild(listItem)
     }
 
