@@ -22,9 +22,9 @@ export default class EditProjectForm extends NewProjectForm {
         if (!this.validateForm()) {
             return
         }
-        const project = new Project(this.inputTitle.value, this.inputDescription.value)
-        project.save()
-        Project.display(project.id)
+        this.project.title = this.inputTitle.value
+        this.project.description = this.inputDescription.value
+        Project.update(this.project)
     }
 
     render() {

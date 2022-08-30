@@ -19,6 +19,13 @@ export default class Project {
         LocalStorage.add(this)
     }
 
+    static update(project) {
+        LocalStorage.remove(project)
+        LocalStorage.add(project)
+        Project.display(project.id)
+        Navbar.upadateProjectList()
+    }
+
     static delete(projectId) {
         const projects = LocalStorage.get().filter(item => item.id !== projectId)
         LocalStorage.set(projects)
