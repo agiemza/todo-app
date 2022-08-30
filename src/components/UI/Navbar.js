@@ -7,6 +7,7 @@ import Header from "./Header"
 import Project from "../Project/Project"
 import NewProjectForm from "../Forms/NewProjectForm"
 import LocalStorage from "../LocalStorage"
+import Home from "../Home"
 
 export default class Navbar {
     static htmlElement = this.createNavElement()
@@ -46,7 +47,8 @@ export default class Navbar {
         const tabs = [
             {
                 name: "Home",
-                icon: HomeIcon
+                icon: HomeIcon,
+                handler: () => Home.open()
             },
             {
                 name: "Today",
@@ -68,6 +70,9 @@ export default class Navbar {
                 const icon = new Image()
                 icon.src = tab.icon
                 element.appendChild(icon)
+            }
+            if (tab.handler) {
+                element.addEventListener("click", () => tab.handler())
             }
             const text = document.createElement("div")
             text.textContent = tab.name
