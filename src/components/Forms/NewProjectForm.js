@@ -26,10 +26,6 @@ export default class NewProjectForm extends Form {
         Project.display(project.id)
     }
 
-    cancelHandler() {
-        console.log("Cancel")
-    }
-
     validateForm() {
         this.errorBox.textContent = ""
         const titlePattern = /^.{1,}$/g
@@ -43,8 +39,9 @@ export default class NewProjectForm extends Form {
     render() {
         this.htmlElement.appendChild(this.inputTitle)
         this.htmlElement.appendChild(this.createSubmit("Save"))
-        this.htmlElement.appendChild(this.createCancel())
         this.htmlElement.appendChild(this.inputDescription)
+        this.htmlElement.appendChild(this.errorBox)
+        this.htmlElement.classList.add("project-form")
         return this.htmlElement
     }
 }

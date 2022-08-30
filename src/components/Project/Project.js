@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import EditProjectForm from "../Forms/EditProjectForm"
 import NewTaskForm from "../Forms/NewTaskForm"
 import LocalStorage from "../LocalStorage"
 import Main from "../UI/Main"
@@ -28,6 +29,13 @@ export default class Project {
             Project.display(LocalStorage.get()[0].id)
         }
         Navbar.upadateProjectList()
+    }
+
+    static edit(projectId) {
+        const form = new EditProjectForm(projectId)
+        const element = form.render()
+        Main.changeContent(element)
+        form.inputTitle.focus()
     }
 
     static display(projectId) {
@@ -60,6 +68,11 @@ export default class Project {
         const descriptionContainer = document.createElement("p")
         descriptionContainer.textContent = description
 
+        const editProjectButton = document.createElement("button")
+        editProjectButton.classList.add("edit-delete-button")
+        editProjectButton.textContent = "edit"
+        editProjectButton.addEventListener("click", () => this.edit(id))
+
         const deleteProjectButton = document.createElement("button")
         deleteProjectButton.classList.add("project-delete-button")
         deleteProjectButton.textContent = "delete project"
@@ -68,6 +81,7 @@ export default class Project {
         const detailsContainer = document.createElement("div")
         detailsContainer.appendChild(titleContainer)
         detailsContainer.appendChild(descriptionContainer)
+        detailsContainer.appendChild(editProjectButton)
         detailsContainer.appendChild(deleteProjectButton)
 
         return detailsContainer

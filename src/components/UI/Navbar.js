@@ -99,7 +99,6 @@ export default class Navbar {
     static handleNewProjectClick() {
         const form = new NewProjectForm
         const element = form.render()
-        element.classList.add("new-project-form")
         Main.changeContent(element)
         form.inputTitle.focus()
         this.changeNavbarVisibility()
