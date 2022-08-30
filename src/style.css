@@ -282,7 +282,7 @@ form {
     align-items: center;
 }
 
-.home-tasks-list-expand-icon{
+.home-tasks-list-expand-icon {
     width: 1.2rem;
     height: 1.2rem;
     background-size: cover;
@@ -300,6 +300,10 @@ form {
     display: grid;
     gap: 1rem;
     list-style: none;
+}
+
+.task-project-name {
+    color: gray;
 }
 
 @media screen and (max-width: 699px) {

@@ -28,35 +28,28 @@ export default class Home {
     }
 
     static displayTasksForToday() {
-        const pastListContainer = this.displayTasksList("Past")
-        const todayListContainer = this.displayTasksList("Today")
-        const futureListContainer = this.displayTasksList("Future")
-
         const today = new Date().toISOString().split("T")[0]
 
+        const todayListContainer = this.displayTasksList("Today's tasks")
         const projects = LocalStorage.get()
         projects.forEach(project => {
             project.tasks.forEach(task => {
-                if (task.dueDate < today) {
-                    this.displayTask(pastListContainer, task, project)
-                }
                 if (task.dueDate === today) {
                     this.displayTask(todayListContainer, task, project)
-                }
-                if (task.dueDate > today) {
-                    this.displayTask(futureListContainer, task, project)
                 }
             })
         })
 
-        this.htmlElement.appendChild(pastListContainer)
         this.htmlElement.appendChild(todayListContainer)
-        this.htmlElement.appendChild(futureListContainer)
     }
 
     static displayTask(list, task, project) {
         const listElement = list.querySelector("ul")
         const item = document.createElement("li")
+        const projectName = document.createElement("div")
+        projectName.classList.add("task-project-name")
+        projectName.textContent = project.title
+        item.appendChild(projectName)
         item.appendChild(Task.createTaskHtmlElement(task, project))
         listElement.appendChild(item)
     }
