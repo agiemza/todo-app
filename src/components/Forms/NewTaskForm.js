@@ -16,12 +16,16 @@ export default class NewTaskForm extends Form {
         const taskForm = new NewTaskForm(projectId)
         const container = document.querySelector(".tasks-list")
         container.prepend(taskForm.render())
+        taskForm.inputContent.focus()
     }
 
     submitButtonHandler(e) {
         e.preventDefault()
         if (!this.validateForm()) {
             return
+        }
+        if (!this.inputDueDate.value) {
+            this.inputDueDate.value = new Date().toISOString().split("T")[0]
         }
         const task = new Task(this.inputContent.value, this.inputDueDate.value)
         Task.add(task, this.projectId)

@@ -21,7 +21,7 @@ export default class Header {
         const button = document.createElement("button")
         button.classList.add("menu-button", "menu-button-open")
         button.setAttribute("data-menu-open", "false")
-        button.addEventListener("click", () => Navbar.changeNavbarVisibility(button))
+        button.addEventListener("click", () => Navbar.changeVisibility(button))
         return button
     }
 }
