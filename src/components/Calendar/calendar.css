@@ -1,0 +1,29 @@
+.calendar {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(7, 2rem);
+    grid-template-rows: repeat(6, 2rem);
+    max-height: 14rem;
+}
+
+.calendar > div {
+    border: 1px solid salmon;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.current-month-day {
+    /* background-color: lightgray; */
+}
+.another-month-day {
+    background-color: lightgray;
+    color: black;
+}
+
+.saturday {
+    color: rgb(87, 87, 87);
+}
+.sunday {
+    color: darkred;
+}
