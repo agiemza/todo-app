@@ -4,33 +4,19 @@ import Form from "./Form"
 export default class NewProjectForm extends Form {
     constructor() {
         super()
-        this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "title" },], "Title")
-        this.inputDescription = this.addTextArea([{ type: "id", value: "description" },], "Description")
-        this.submitButtonHandler = this.handleSubmit
+        this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "title" }, { type: "placeholder", value: "Title" }])
+        this.inputDescription = this.addTextArea([{ type: "id", value: "description" }, { type: "placeholder", value: "Description" }])
     }
 
-    addTextArea(attributes, label) {
+    addTextArea(attributes) {
         const textArea = document.createElement("textarea")
-        if (label && attributes.find(item => item.type === "id")) {
-            this.htmlElement.appendChild(this.addLabel(
-                attributes.find(item => {
-                    if (item.type === "id") {
-                        return item.value
-                    }
-                }),
-                label
-            ))
-        }
-
         attributes.forEach(({ type, value }) => {
             textArea.setAttribute(type, value)
         })
-
-        this.htmlElement.appendChild(textArea)
         return textArea
     }
 
-    handleSubmit(e) {
+    submitButtonHandler(e) {
         e.preventDefault()
         if (!this.validateForm()) {
             return
@@ -38,6 +24,10 @@ export default class NewProjectForm extends Form {
         const project = new Project(this.inputTitle.value, this.inputDescription.value)
         project.save()
         Project.display(project.id)
+    }
+
+    cancelHandler() {
+        console.log("Cancel")
     }
 
     validateForm() {
@@ -48,5 +38,13 @@ export default class NewProjectForm extends Form {
             return false
         }
         return true
+    }
+
+    render() {
+        this.htmlElement.appendChild(this.inputTitle)
+        this.htmlElement.appendChild(this.createSubmit("Save"))
+        this.htmlElement.appendChild(this.createCancel())
+        this.htmlElement.appendChild(this.inputDescription)
+        return this.htmlElement
     }
 }

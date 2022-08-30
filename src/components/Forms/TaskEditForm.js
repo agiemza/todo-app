@@ -7,29 +7,15 @@ export default class TaskEditForm extends Form {
         super()
         this.task = task
         this.project = project
-        this.submitButtonText = "Save"
-        this.submitButtonHandler = this.handleSave
-        this.submitButton = this.createSubmit()
-        this.cancelButton = this.createCancelButton()
-        this.inputContent
-        this.inputDueDate
         this.content = task.content
         this.dueDate = task.dueDate
     }
 
-    createCancelButton() {
-        const cancelButton = document.createElement("button")
-        cancelButton.classList.add("cancel-button")
-        cancelButton.textContent = "x"
-        cancelButton.addEventListener("click", () => this.handleCancel())
-        return cancelButton
-    }
-
-    handleCancel() {
+    cancelHandler() {
         Project.display(this.project.id)
     }
 
-    handleSave() {
+    submitButtonHandler() {
         this.task.content = this.inputContent.value
         this.task.dueDate = this.inputDueDate.value
         Task.delete(this.project, this.task)
@@ -53,10 +39,10 @@ export default class TaskEditForm extends Form {
             ])
 
         return [
-            this.cancelButton,
+            this.createCancel(),
             this.inputContent,
             this.inputDueDate,
-            this.submitButton,
+            this.createSubmit("Save"),
         ]
     }
 }

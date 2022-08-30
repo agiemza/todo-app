@@ -7,12 +7,12 @@ export default class NewTaskForm extends Form {
     constructor(projectId) {
         super()
         this.projectId = projectId
-        this.inputContent = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "taskContent" }], "Task")
-        this.inputDueDate = this.addInput([{ type: "type", value: "date" }, { type: "id", value: "taskDueDate" }], "Due date")
-        this.submitButtonHandler = this.handleSubmit
+        this.inputContent = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "taskContent" }, { type: "placeholder", value: "Task" }])
+        this.inputDueDate = this.addInput([{ type: "type", value: "date" }, { type: "id", value: "taskDueDate" }])
+        this.errorBox = this.createErrorBox()
     }
 
-    handleSubmit(e) {
+    submitButtonHandler(e) {
         e.preventDefault()
 
         if (!this.validateForm()) {
@@ -24,10 +24,14 @@ export default class NewTaskForm extends Form {
         Project.display(this.projectId)
     }
 
+    cancelHandler() {
+        console.log("Cancel")
+    }
+
     validateForm() {
         this.errorBox.textContent = ""
         const contentPatern = /^.{1,}$/g
-        if (!contentPatern.test(this.inputContent.value)) {
+        if (!contentPatern.test(this.inputContent.value.trim())) {
             this.errorBox.textContent = "Task must contain at least 1 character"
             return false
         }
@@ -37,5 +41,15 @@ export default class NewTaskForm extends Form {
     static open(id) {
         const taskForm = new NewTaskForm(id)
         Main.changeContent(taskForm.render())
+    }
+
+    render() {
+        this.htmlElement.appendChild(this.inputContent)
+        this.htmlElement.appendChild(this.inputDueDate)
+        this.htmlElement.appendChild(this.createCancel())
+        this.htmlElement.appendChild(this.createSubmit("add"))
+        this.htmlElement.appendChild(this.errorBox)
+
+        return this.htmlElement
     }
 }

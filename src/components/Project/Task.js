@@ -14,7 +14,7 @@ export default class Task {
 
     static add(task, projectId) {
         const project = LocalStorage.getProject(projectId)
-        project.tasks.push(task)
+        project.tasks.unshift(task)
         LocalStorage.saveProject(project)
     }
 
@@ -62,11 +62,15 @@ export default class Task {
         const tasksHeadline = document.createElement("div")
         tasksHeadline.classList.add("tasks-headline")
 
+        const title = document.createElement("div")
+        title.classList.add("tasks-headlie-title")
+        title.textContent = "Tasks"
+        tasksHeadline.appendChild(title)
+
         const addTaskButton = document.createElement("button")
         addTaskButton.classList.add("task-add-button")
         addTaskButton.textContent = "+"
         addTaskButton.addEventListener("click", () => NewTaskForm.open(id))
-
         tasksHeadline.appendChild(addTaskButton)
 
         return tasksHeadline
@@ -74,48 +78,61 @@ export default class Task {
 
     static createTasksList(project) {
         const list = document.createElement("div")
+        list.classList.add("tasks-list")
         const tasks = project.tasks
         tasks.forEach(task => {
-            const container = document.createElement("div")
-
-            container.classList.add("task-container")
-            container.setAttribute("data-task-id", task.id)
-
-            const check = document.createElement("button")
-            check.classList.add("task-check-button")
-            check.textContent = "check"
-            check.addEventListener("click", () => this.check(project, task))
-            container.appendChild(check)
-
-            const content = document.createElement("div")
-            content.classList.add("task-text")
-            content.textContent = task.content
-            container.appendChild(content)
-
-            const dueDate = document.createElement("div")
-            dueDate.classList.add("task-date")
-            dueDate.textContent = task.dueDate
-            container.appendChild(dueDate)
-
-            const edit = document.createElement("button")
-            edit.classList.add("task-edit-button")
-            edit.textContent = "edit"
-            edit.addEventListener("click", () => this.edit(project, task))
-            container.appendChild(edit)
-
-            const remove = document.createElement("button")
-            remove.classList.add("task-remove-button")
-            remove.textContent = "remove"
-            remove.addEventListener("click", () => this.delete(project, task))
-            container.appendChild(remove)
-
-            if (task.checked) {
-                container.classList.add("task-container-checked")
-                check.classList.add("task-check-button-checked")
-            }
-
-            list.appendChild(container)
+            list.appendChild(this.createTaskHtmlElement(task, project))
         })
         return list
+    }
+
+    static createTaskHtmlElement(task, project) {
+        const container = document.createElement("div")
+
+        container.classList.add("task-container")
+        container.setAttribute("data-task-id", task.id)
+
+        const check = document.createElement("button")
+        check.classList.add("task-check-button")
+        check.textContent = "check"
+        check.addEventListener("click", () => this.check(project, task))
+        container.appendChild(check)
+
+        const content = document.createElement("div")
+        content.classList.add("task-text")
+        content.textContent = task.content
+        container.appendChild(content)
+
+        const dueDate = document.createElement("div")
+        dueDate.classList.add("task-date")
+        dueDate.textContent = task.dueDate
+        container.appendChild(dueDate)
+        if (task.dueDate) {
+            dueDate.prepend(document.createElement("div").textContent = "Due: ")
+        }
+
+        const buttonsWrapper = document.createElement("div")
+        buttonsWrapper.classList.add("task-buttons")
+
+        const edit = document.createElement("button")
+        edit.classList.add("task-edit-button")
+        edit.textContent = "edit"
+        edit.addEventListener("click", () => this.edit(project, task))
+        buttonsWrapper.appendChild(edit)
+
+        const remove = document.createElement("button")
+        remove.classList.add("task-remove-button")
+        remove.textContent = "remove"
+        remove.addEventListener("click", () => this.delete(project, task))
+        buttonsWrapper.appendChild(remove)
+
+        container.appendChild(buttonsWrapper)
+
+        if (task.checked) {
+            container.classList.add("task-container-checked")
+            check.classList.add("task-check-button-checked")
+        }
+
+        return container
     }
 }
