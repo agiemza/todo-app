@@ -12,20 +12,24 @@ export default class NewTaskForm extends Form {
         this.errorBox = this.createErrorBox()
     }
 
+    static open(projectId) {
+        const taskForm = new NewTaskForm(projectId)
+        const container = document.querySelector(".tasks-list")
+        container.prepend(taskForm.render())
+    }
+
     submitButtonHandler(e) {
         e.preventDefault()
-
         if (!this.validateForm()) {
             return
         }
-
         const task = new Task(this.inputContent.value, this.inputDueDate.value)
         Task.add(task, this.projectId)
         Project.display(this.projectId)
     }
 
     cancelHandler() {
-        console.log("Cancel")
+        Project.display(this.projectId)
     }
 
     validateForm() {
@@ -38,18 +42,13 @@ export default class NewTaskForm extends Form {
         return true
     }
 
-    static open(id) {
-        const taskForm = new NewTaskForm(id)
-        Main.changeContent(taskForm.render())
-    }
-
     render() {
         this.htmlElement.appendChild(this.inputContent)
         this.htmlElement.appendChild(this.inputDueDate)
         this.htmlElement.appendChild(this.createCancel())
         this.htmlElement.appendChild(this.createSubmit("add"))
         this.htmlElement.appendChild(this.errorBox)
-
+        this.htmlElement.classList.add("task-container", "new-task")
         return this.htmlElement
     }
 }

@@ -260,6 +260,10 @@ form {
     width: 100px;
 }
 
+.new-task {
+    grid-template-columns: 1fr auto !important;
+}
+
 @media screen and (max-width: 699px) {
     .task-container {
         gap: 0.5rem;

@@ -45,9 +45,9 @@ export default class Task {
         const tasksContainer = document.createElement("div")
         tasksContainer.appendChild(this.createTasksHeadline(project.id))
 
-
         if (!project.tasks.length > 0) {
             const message = document.createElement("div")
+            message.classList.add("tasks-list")
             message.textContent = "This project is empty"
             tasksContainer.appendChild(message)
             return tasksContainer
@@ -58,7 +58,7 @@ export default class Task {
         return tasksContainer
     }
 
-    static createTasksHeadline(id) {
+    static createTasksHeadline(projectId) {
         const tasksHeadline = document.createElement("div")
         tasksHeadline.classList.add("tasks-headline")
 
@@ -70,7 +70,7 @@ export default class Task {
         const addTaskButton = document.createElement("button")
         addTaskButton.classList.add("task-add-button")
         addTaskButton.textContent = "+"
-        addTaskButton.addEventListener("click", () => NewTaskForm.open(id))
+        addTaskButton.addEventListener("click", () => NewTaskForm.open(projectId))
         tasksHeadline.appendChild(addTaskButton)
 
         return tasksHeadline
