@@ -29,7 +29,7 @@ export default class Task {
     }
 
     static edit(project, task) {
-        const container = document.querySelector(`[data-task-id=${task.id}]`)
+        const container = document.querySelector(`[data-task-id="${task.id}"]`)
         container.innerHTML = ""
         const form = new TaskEditForm(task, project)
         form.render().forEach(element => container.appendChild(element))

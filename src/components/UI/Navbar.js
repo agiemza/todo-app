@@ -9,7 +9,7 @@ import NewProjectForm from "../Forms/NewProjectForm"
 import LocalStorage from "../LocalStorage"
 
 export default class Navbar {
-    static htmlElement = this.createNav()
+    static htmlElement = this.createNavElement()
     static projectsList = this.createPojectsList()
 
     static render(output) {
@@ -18,7 +18,25 @@ export default class Navbar {
         output.appendChild(this.htmlElement)
     }
 
-    static createNav() {
+    static changeVisibility() {
+        const menuButton = Header.menuButton
+        menuButton.classList.toggle("menu-button-open")
+        this.htmlElement.classList.toggle("nav-open")
+    }
+
+    static displayProjects() {
+        const projects = LocalStorage.get().reverse()
+        projects.forEach(project => {
+            this.addProjectToList({ title: project.title, id: project.id })
+        })
+    }
+
+    static upadateProjectList() {
+        this.projectsList.innerHTML = ""
+        this.displayProjects()
+    }
+
+    static createNavElement() {
         const nav = document.createElement("nav")
         return nav
     }
@@ -61,20 +79,13 @@ export default class Navbar {
 
     static createProjectsSection() {
         const section = document.createElement("section")
-        section.appendChild(this.createHeading())
+        section.appendChild(this.createProjectsSectionHeading())
         section.appendChild(this.projectsList)
         this.displayProjects()
         return section
     }
 
-    static displayProjects() {
-        const projects = LocalStorage.get().reverse()
-        projects.forEach(project => {
-            this.addProjectToList({ title: project.title, id: project.id })
-        })
-    }
-
-    static createHeading() {
+    static createProjectsSectionHeading() {
         const headingContainer = document.createElement("div")
         headingContainer.classList.add("nav-projects-heading")
         const heading = document.createElement("h2")
@@ -101,7 +112,12 @@ export default class Navbar {
         const element = form.render()
         Main.changeContent(element)
         form.inputTitle.focus()
-        this.changeNavbarVisibility()
+        this.changeVisibility()
+    }
+
+    static handleProjectListItemClick(projectId) {
+        Project.display(projectId)
+        this.changeVisibility()
     }
 
     static addProjectToList(project) {
@@ -112,7 +128,7 @@ export default class Navbar {
     static createProjectListItem(project) {
         const projectTitile = document.createElement("div")
         projectTitile.textContent = project.title
-        projectTitile.addEventListener("click", () => this.openProject(project.id))
+        projectTitile.addEventListener("click", () => this.handleProjectListItemClick(project.id))
 
         const deleteButton = document.createElement("button")
         deleteButton.textContent = "delete"
@@ -123,21 +139,5 @@ export default class Navbar {
         listItem.appendChild(deleteButton)
 
         return listItem
-    }
-
-    static upadateProjectList() {
-        this.projectsList.innerHTML = ""
-        this.displayProjects()
-    }
-
-    static openProject(id) {
-        Project.display(id)
-        this.changeNavbarVisibility()
-    }
-
-    static changeNavbarVisibility() {
-        const menuButton = Header.menuButton
-        menuButton.classList.toggle("menu-button-open")
-        this.htmlElement.classList.toggle("nav-open")
     }
 }
