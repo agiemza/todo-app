@@ -1,5 +1,6 @@
 import Home from "../Home"
 import Task from "../Project/Task"
+import ConvertDate from "../Utils/ConvertDate"
 import TouchEvents from "../Utils/TouchEvent"
 import "./calendar.css"
 
@@ -160,6 +161,12 @@ export default class Calendar {
         }
     }
 
+    static handleDayClick(date) {
+        Home.clearTasksList()
+        const list = document.querySelector(".home-tasks-list-container")
+        list.appendChild(Home.displayTasksFromDate(date))
+    }
+
     static diplayCalendarGrid(date) {
         const container = document.createElement("div")
         container.classList.add("calendar-grid-container")
@@ -182,7 +189,6 @@ export default class Calendar {
 
         const dayContainer = document.createElement("div")
         dayContainer.classList.add("day-container")
-        // container.appendChild(dayContainer)
 
         const dayNumberContainer = document.createElement("div")
         dayNumberContainer.classList.add("day-number")
@@ -193,7 +199,10 @@ export default class Calendar {
             && i - firstDayOfWeek + 1 < lastDayOfCurrentMonth.getDate()) {
             const day = i + 2 - firstDayOfWeek
             this.highlightIfToday(day, dayContainer)
-            const date = new Date(this.date.getFullYear(), this.date.getMonth(), day + 1)
+            const date = ConvertDate.toYYYYMMDD(new Date(this.date.getFullYear(), this.date.getMonth(), day))
+
+            dayContainer.addEventListener("click", () => this.handleDayClick(date))
+
             if (Task.findTasksForDate(date).length) {
                 dayNumberContainer.classList.add("day-with-task")
             }
@@ -204,9 +213,7 @@ export default class Calendar {
         if (i + 1 < firstDayOfWeek) {
             dayContainer.classList.add("another-month-day")
             const day = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
-
-            const currentDate = new Date(this.getPreviousMonth(this.date, day))
-
+            // const currentDate = new Date(this.getPreviousMonth(this.date, day))
             dayNumberContainer.textContent = day
         }
 

@@ -2,6 +2,7 @@ import { nanoid } from "nanoid"
 import NewTaskForm from "../Forms/NewTaskForm"
 import TaskEditForm from "../Forms/TaskEditForm"
 import LocalStorage from "../LocalStorage"
+import ConvertDate from "../Utils/ConvertDate"
 import Project from "./Project"
 
 export default class Task {
@@ -42,7 +43,6 @@ export default class Task {
     }
 
     static findTasksForDate(date) {
-        date = date.toISOString().split("T")[0]
         const projects = LocalStorage.get()
         const tasks = []
         projects.forEach(project => {

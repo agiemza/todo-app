@@ -62,6 +62,11 @@
     color: rgb(170, 170, 170);
 }
 
+.another-month-day:hover {
+    cursor: default;
+    text-shadow: none;
+}
+
 .day-with-task {
     position: relative;
 }

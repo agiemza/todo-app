@@ -1,8 +1,8 @@
 import Calendar from "./Calendar/Calendar"
-import LocalStorage from "./LocalStorage"
 import Task from "./Project/Task"
 import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
+import ConvertDate from "./Utils/ConvertDate"
 
 export default class Home {
     static htmlElement = this.createHomeElement()
@@ -24,15 +24,25 @@ export default class Home {
     static render() {
         this.clear()
         this.htmlElement.appendChild(Calendar.render())
-        this.displayTasksForToday()
+        this.clearTasksList()
+        this.htmlElement.appendChild(this.displayTasksFromDate(ConvertDate.toYYYYMMDD(new Date())))
         this.htmlElement.classList.add("home-container")
         return this.htmlElement
     }
 
-    static displayTasksForToday() {
-        const todayListContainer = this.displayTasksList("Today's tasks")
-        Task.findTasksForDate(new Date()).forEach(({ task, project }) => this.displayTask(todayListContainer, task, project))
-        this.htmlElement.appendChild(todayListContainer)
+    static clearTasksList() {
+        const list = document.querySelector(".home-tasks-list-container")
+        if (list) {
+            list.innerHTML = ""
+        }
+    }
+
+    static displayTasksFromDate(date) {
+        const selectedDateListContainer = this.displayTasksList(
+            date === ConvertDate.toYYYYMMDD(new Date()) ? "Today's tasks" : `Tasks for ${date}`
+        )
+        Task.findTasksForDate(date).forEach(({ task, project }) => this.displayTask(selectedDateListContainer, task, project))
+        return selectedDateListContainer
     }
 
     static displayTask(list, task, project) {
