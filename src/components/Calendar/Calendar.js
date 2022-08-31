@@ -1,5 +1,6 @@
 import Home from "../Home"
 import Task from "../Project/Task"
+import TouchEvents from "../Utils/TouchEvent"
 import "./calendar.css"
 
 export default class Calendar {
@@ -149,55 +150,74 @@ export default class Calendar {
         }
     }
 
+    static handleSwipe(e, touchEvent) {
+        touchEvent.setEndEvent(e)
+        if (touchEvent.isSwipeRight()) {
+            console.log("swipe to right")
+        }
+        if (touchEvent.isSwipeLeft()) {
+            console.log("swipe to left")
+        }
+    }
+
     static diplayCalendarGrid(date) {
         const container = document.createElement("div")
         container.classList.add("calendar-grid-container")
 
+        let touchEvent
+        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e))
+        container.addEventListener("touchend", e => this.handleSwipe(e, touchEvent))
+
+        for (let i = 0; i < 42; i++) {
+            container.appendChild(this.createDayElement(i, date))
+        }
+        return container
+    }
+
+    static createDayElement(i, date) {
         const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1)
         const firstDayOfWeek = this.convertGetDay(firstDayOfCurrentMonth)
         const lastDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
         const lastDayOfPreviousMonth = new Date(date.getFullYear(), date.getMonth(), 0)
 
-        for (let i = 0; i < 42; i++) {
-            const dayContainer = document.createElement("div")
-            dayContainer.classList.add("day-container")
-            container.appendChild(dayContainer)
+        const dayContainer = document.createElement("div")
+        dayContainer.classList.add("day-container")
+        // container.appendChild(dayContainer)
 
-            const dayNumberContainer = document.createElement("div")
-            dayNumberContainer.classList.add("day-number")
-            dayContainer.appendChild(dayNumberContainer)
+        const dayNumberContainer = document.createElement("div")
+        dayNumberContainer.classList.add("day-number")
+        dayContainer.appendChild(dayNumberContainer)
 
-            //show current month days
-            if (i + 1 >= firstDayOfWeek
-                && i - firstDayOfWeek + 1 < lastDayOfCurrentMonth.getDate()) {
-                const day = i + 2 - firstDayOfWeek
-                this.highlightIfToday(day, dayContainer)
-                const date = new Date(this.date.getFullYear(), this.date.getMonth(), day + 1)
-                if (Task.findTasksForDate(date).length) {
-                    dayNumberContainer.classList.add("day-with-task")
-                }
-                dayNumberContainer.textContent = day
+        //show current month days
+        if (i + 1 >= firstDayOfWeek
+            && i - firstDayOfWeek + 1 < lastDayOfCurrentMonth.getDate()) {
+            const day = i + 2 - firstDayOfWeek
+            this.highlightIfToday(day, dayContainer)
+            const date = new Date(this.date.getFullYear(), this.date.getMonth(), day + 1)
+            if (Task.findTasksForDate(date).length) {
+                dayNumberContainer.classList.add("day-with-task")
             }
-
-            //show previous month days
-            if (i + 1 < firstDayOfWeek) {
-                dayContainer.classList.add("another-month-day")
-                const day = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
-
-                const currentDate = new Date(this.getPreviousMonth(this.date, day))
-
-                dayNumberContainer.textContent = day
-            }
-
-            //show next month days
-            if (i + 1 > lastDayOfCurrentMonth.getDate()
-                && i - firstDayOfWeek + 2 > lastDayOfCurrentMonth.getDate()) {
-                dayContainer.classList.add("another-month-day")
-                const day = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth.getDate()
-                dayNumberContainer.textContent = day
-            }
+            dayNumberContainer.textContent = day
         }
-        return container
+
+        //show previous month days
+        if (i + 1 < firstDayOfWeek) {
+            dayContainer.classList.add("another-month-day")
+            const day = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
+
+            const currentDate = new Date(this.getPreviousMonth(this.date, day))
+
+            dayNumberContainer.textContent = day
+        }
+
+        //show next month days
+        if (i + 1 > lastDayOfCurrentMonth.getDate()
+            && i - firstDayOfWeek + 2 > lastDayOfCurrentMonth.getDate()) {
+            dayContainer.classList.add("another-month-day")
+            const day = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth.getDate()
+            dayNumberContainer.textContent = day
+        }
+        return dayContainer
     }
 
     static render() {

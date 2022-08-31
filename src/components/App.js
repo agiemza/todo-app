@@ -3,7 +3,6 @@ import Header from "./UI/Header"
 import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
 import Home from './Home'
-import Calendar from "./Calendar/Calendar"
 
 export default class App {
     static root = document.querySelector("#root")
