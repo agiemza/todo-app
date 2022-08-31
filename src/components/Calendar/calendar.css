@@ -1,29 +1,79 @@
+/* Switch */
+
+.month-switch-contianer {
+    display: grid;
+    justify-content: center;
+}
+
+.month-switch {
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: repeat(4, auto);
+    align-items: center;
+    justify-items: center;
+}
+
+.month-switch>button {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-size: cover;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.month-switch-left {
+    color: gray;
+    background-image: url("../../assets/arrow-left-icon.svg");
+}
+
+.month-switch-right {
+    background-image: url("../../assets/arrow-right-icon.svg");
+}
+
+.month-container {
+    color: gray;
+}
+
+.current-month {
+    color: black;
+}
+
+/* Calendar */
+
 .calendar {
     border: 1px solid black;
     display: grid;
-    grid-template-columns: repeat(7, 2rem);
-    grid-template-rows: repeat(6, 2rem);
     max-height: 14rem;
 }
 
-.calendar > div {
-    border: 1px solid salmon;
+.days-of-week-container {
     display: grid;
+    grid-template-columns: repeat(7, 1fr);
     justify-items: center;
     align-items: center;
 }
 
-.current-month-day {
-    /* background-color: lightgray; */
+.saturday,
+.sunday {
+    color: rgb(87, 87, 87);
 }
+
+.calendar-grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, auto);
+}
+
+.day-container {
+    cursor: pointer;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
+
 .another-month-day {
     background-color: lightgray;
     color: black;
-}
-
-.saturday {
-    color: rgb(87, 87, 87);
-}
-.sunday {
-    color: darkred;
 }
