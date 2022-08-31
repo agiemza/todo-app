@@ -154,10 +154,10 @@ export default class Calendar {
     static handleSwipe(e, touchEvent) {
         touchEvent.setEndEvent(e)
         if (touchEvent.isSwipeRight()) {
-            console.log("swipe to right")
+            this.handleLeftArrowClick()
         }
         if (touchEvent.isSwipeLeft()) {
-            console.log("swipe to left")
+            this.handleRightArrowClick()
         }
     }
 
