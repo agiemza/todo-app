@@ -14,7 +14,7 @@ export default class App {
     }
 
     static loadLayout() {
-        Header.render(root)
+        // Header.render(root)
         Navbar.render(root)
         Main.render(root)
         Footer.render(root)

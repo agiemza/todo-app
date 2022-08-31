@@ -1,29 +1,81 @@
+/* Calendar */
+
+.calendar {
+    display: grid;
+    justify-items: center;
+    padding: 15px;
+    height: fit-content;
+    background: linear-gradient(200deg, rgba(64, 72, 247, 1) 0%, rgba(192, 50, 198, 1) 100%);
+    border-radius: 0 0 10px 10px;
+    color: white;
+    font-weight: 200;
+}
+
+.days-of-week-container {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    align-items: center;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 0.5px solid rgba(200, 200, 200, 0.5);
+    font-size: 0.9rem;
+}
+
+.calendar-grid-container {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, auto);
+    aspect-ratio: 1/1;
+}
+
+.calendar-grid-container>div {
+    aspect-ratio: 1/1;
+}
+
+.day-container {
+    cursor: pointer;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.another-month-day {
+    color: rgb(170, 170, 170);
+}
+
 /* Switch */
 
 .month-switch-contianer {
     display: grid;
-    justify-content: center;
+    padding: 0 0 10px;
 }
 
 .month-switch {
     display: grid;
     gap: 0.7rem;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: 1fr auto auto 1fr;
     align-items: center;
-    justify-items: center;
+    min-width: 235px;
 }
 
 .month-switch>button {
-    height: 1.5rem;
-    width: 1.5rem;
-    background-size: cover;
+    min-height: 1.5rem;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     background-color: transparent;
     border: none;
     cursor: pointer;
+    width: 100%;
 }
 
 .month-switch-left {
-    color: gray;
+    background-position-x: right;
     background-image: url("../../assets/arrow-left-icon.svg");
 }
 
@@ -32,48 +84,12 @@
 }
 
 .month-container {
-    color: gray;
-}
-
-.current-month {
-    color: black;
-}
-
-/* Calendar */
-
-.calendar {
-    border: 1px solid black;
-    display: grid;
-    max-height: 14rem;
-}
-
-.days-of-week-container {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    justify-items: center;
-    align-items: center;
-}
-
-.saturday,
-.sunday {
-    color: rgb(87, 87, 87);
-}
-
-.calendar-grid-container {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, auto);
-}
-
-.day-container {
-    cursor: pointer;
+    color: rgba(210, 210, 210);
+    min-width: 80px;
     display: grid;
     justify-items: center;
-    align-items: center;
-    width: 100%;
 }
 
-.another-month-day {
-    background-color: lightgray;
-    color: black;
+.month-current {
+    color: white;
 }

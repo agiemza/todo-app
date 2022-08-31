@@ -10,6 +10,8 @@
 :root {
     --main-font: "Open Sans", sans-serif;
     --project-container-padding: 25px;
+    --footer-height: calc(2rem + 10px);
+    --avalible-height: calc(100vh - var(--footer-height));
 }
 
 #root {
@@ -135,7 +137,7 @@ footer {
     justify-items: center;
     align-items: center;
     background-color: lightgray;
-    padding: 5px;
+    height: var(--footer-height);
 }
 
 footer>a {

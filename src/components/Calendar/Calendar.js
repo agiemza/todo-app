@@ -2,13 +2,19 @@ import "./calendar.css"
 
 export default class Calendar {
     static htmlElement = document.createElement("div")
+    static date = new Date
 
-    static createCalendar() {
-        const date = new Date
-        date.setMonth(7)
+    static createWidget(date) {
+        this.htmlElement.innerHTML = ""
         this.displayMonthSwitch(date)
-        this.htmlElement.appendChild(this.displayDaysOfWeek())
-        this.htmlElement.appendChild(this.diplayCalendarGrid(date))
+        this.htmlElement.appendChild(this.displayCalendar(date))
+    }
+
+    static displayCalendar(date) {
+        const wrapper = document.createElement("div")
+        wrapper.appendChild(this.displayDaysOfWeek())
+        wrapper.appendChild(this.diplayCalendarGrid(date))
+        return wrapper
     }
 
     static displayMonthSwitch(date) {
@@ -21,12 +27,19 @@ export default class Calendar {
 
         const arrowLeft = document.createElement("button")
         arrowLeft.classList.add("month-switch-left")
+        arrowLeft.addEventListener("click", () => this.handleLeftArrowClick())
 
         const arrowRight = document.createElement("button")
         arrowRight.classList.add("month-switch-right")
+        arrowRight.addEventListener("click", () => this.handleRightArrowClick())
 
         const monthContainer = document.createElement("div")
-        monthContainer.classList.add((date.getMonth() === new Date().getMonth()) ? "month-current" : "month-container")
+        if ((date.getMonth() === new Date().getMonth()) && (date.getFullYear() === new Date().getFullYear())) {
+            monthContainer.classList.add("month-current")
+        } else {
+            monthContainer.classList.add("month-container")
+        }
+
         monthContainer.textContent = this.convertMonthName(date.getMonth())
 
         const yearContianer = document.createElement("div")
@@ -39,6 +52,16 @@ export default class Calendar {
         monthSwitch.appendChild(arrowRight)
 
         this.htmlElement.appendChild(container)
+    }
+
+    static handleLeftArrowClick() {
+        this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1)
+        this.createWidget(this.date)
+    }
+
+    static handleRightArrowClick() {
+        this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1)
+        this.createWidget(this.date)
     }
 
     static convertMonthName(monthNumber) {
@@ -90,15 +113,9 @@ export default class Calendar {
         container.classList.add("days-of-week-container")
         const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-        daysOfWeek.forEach((day, index) => {
+        daysOfWeek.forEach(day => {
             const dayName = document.createElement("div")
             dayName.classList.add("day-of-week")
-            if (index === 5) {
-                dayName.classList.add("saturday")
-            }
-            if (index === 6) {
-                dayName.classList.add("sunday")
-            }
             dayName.textContent = day
             container.appendChild(dayName)
         })
@@ -147,7 +164,7 @@ export default class Calendar {
 
     static render() {
         this.htmlElement.classList.add("calendar")
-        this.createCalendar()
+        this.createWidget(this.date)
         return this.htmlElement
     }
 }
