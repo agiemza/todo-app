@@ -41,6 +41,20 @@ export default class Task {
         Project.display(project.id)
     }
 
+    static findTasksForDate(date) {
+        date = date.toISOString().split("T")[0]
+        const projects = LocalStorage.get()
+        const tasks = []
+        projects.forEach(project => {
+            project.tasks.forEach(task => {
+                if (task.dueDate === date) {
+                    tasks.push({ task, project })
+                }
+            })
+        })
+        return tasks
+    }
+
     static createTasksContainer(project) {
         const tasksContainer = document.createElement("div")
         tasksContainer.appendChild(this.createTasksHeadline(project.id))

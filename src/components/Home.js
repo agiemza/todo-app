@@ -30,18 +30,8 @@ export default class Home {
     }
 
     static displayTasksForToday() {
-        const today = new Date().toISOString().split("T")[0]
-
         const todayListContainer = this.displayTasksList("Today's tasks")
-        const projects = LocalStorage.get()
-        projects.forEach(project => {
-            project.tasks.forEach(task => {
-                if (task.dueDate === today) {
-                    this.displayTask(todayListContainer, task, project)
-                }
-            })
-        })
-
+        Task.findTasksForDate(new Date()).forEach(({ task, project }) => this.displayTask(todayListContainer, task, project))
         this.htmlElement.appendChild(todayListContainer)
     }
 

@@ -1,3 +1,5 @@
+import Home from "../Home"
+import Task from "../Project/Task"
 import "./calendar.css"
 
 export default class Calendar {
@@ -55,13 +57,21 @@ export default class Calendar {
     }
 
     static handleLeftArrowClick() {
-        this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1)
+        this.date = this.getPreviousMonth(this.date)
         this.createWidget(this.date)
     }
 
     static handleRightArrowClick() {
-        this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1)
+        this.date = this.getNextMonth(this.date)
         this.createWidget(this.date)
+    }
+
+    static getPreviousMonth(date, day) {
+        return new Date(date.getFullYear(), date.getMonth() - 1, day ? day : 1)
+    }
+
+    static getNextMonth(date, day) {
+        return new Date(date.getFullYear(), date.getMonth() + 1, day ? day : 1)
     }
 
     static convertMonthName(monthNumber) {
@@ -153,30 +163,38 @@ export default class Calendar {
             dayContainer.classList.add("day-container")
             container.appendChild(dayContainer)
 
-            const dayNumber = document.createElement("div")
-            dayNumber.classList.add("day-number")
-            dayContainer.appendChild(dayNumber)
+            const dayNumberContainer = document.createElement("div")
+            dayNumberContainer.classList.add("day-number")
+            dayContainer.appendChild(dayNumberContainer)
 
             //show current month days
             if (i + 1 >= firstDayOfWeek
-                && i - firstDayOfWeek + 1 <= lastDayOfCurrentMonth.getDate()) {
-                // dayContainer.classList.add("current-month-day")
+                && i - firstDayOfWeek + 1 < lastDayOfCurrentMonth.getDate()) {
                 const day = i + 2 - firstDayOfWeek
                 this.highlightIfToday(day, dayContainer)
-                dayNumber.textContent = day
+                const date = new Date(this.date.getFullYear(), this.date.getMonth(), day + 1)
+                if (Task.findTasksForDate(date).length) {
+                    dayNumberContainer.classList.add("day-with-task")
+                }
+                dayNumberContainer.textContent = day
             }
 
             //show previous month days
             if (i + 1 < firstDayOfWeek) {
                 dayContainer.classList.add("another-month-day")
-                dayNumber.textContent = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
+                const day = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
+
+                const currentDate = new Date(this.getPreviousMonth(this.date, day))
+
+                dayNumberContainer.textContent = day
             }
 
             //show next month days
             if (i + 1 > lastDayOfCurrentMonth.getDate()
                 && i - firstDayOfWeek + 2 > lastDayOfCurrentMonth.getDate()) {
                 dayContainer.classList.add("another-month-day")
-                dayNumber.textContent = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth.getDate()
+                const day = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth.getDate()
+                dayNumberContainer.textContent = day
             }
         }
         return container
