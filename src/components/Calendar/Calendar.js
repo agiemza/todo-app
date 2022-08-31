@@ -127,6 +127,18 @@ export default class Calendar {
         return (d.getDay() === 0 ? 7 : d.getDay())
     }
 
+    static highlightIfToday(day, element) {
+        const currentDate = new Date()
+        if (day === currentDate.getDate()
+            && this.date.getMonth() === currentDate.getMonth()
+            && this.date.getFullYear() === currentDate.getFullYear()) {
+            return element.classList.add("day-container-today")
+        }
+        else {
+            return element.classList.add("current-month-day")
+        }
+    }
+
     static diplayCalendarGrid(date) {
         const container = document.createElement("div")
         container.classList.add("calendar-grid-container")
@@ -148,8 +160,10 @@ export default class Calendar {
             //show current month days
             if (i + 1 >= firstDayOfWeek
                 && i - firstDayOfWeek + 1 <= lastDayOfCurrentMonth.getDate()) {
-                dayContainer.classList.add("current-month-day")
-                dayNumber.textContent = i + 2 - firstDayOfWeek
+                // dayContainer.classList.add("current-month-day")
+                const day = i + 2 - firstDayOfWeek
+                this.highlightIfToday(day, dayContainer)
+                dayNumber.textContent = day
             }
 
             //show previous month days

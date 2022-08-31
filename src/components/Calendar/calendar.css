@@ -53,7 +53,7 @@
 
 .day-container-today {
     font-weight: 400;
-    text-shadow: 0 0 5px rgb(210 210 210 / 60%);
+    text-shadow: 0 0 5px rgba(210, 210, 210);
 }
 
 .another-month-day {
