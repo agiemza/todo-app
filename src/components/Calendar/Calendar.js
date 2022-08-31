@@ -122,11 +122,17 @@ export default class Calendar {
         return container
     }
 
+    static convertGetDay(date) {
+        const d = new Date(date.getFullYear(), date.getMonth(), 1)
+        return (d.getDay() === 0 ? 7 : d.getDay())
+    }
+
     static diplayCalendarGrid(date) {
         const container = document.createElement("div")
         container.classList.add("calendar-grid-container")
 
         const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1)
+        const firstDayOfWeek = this.convertGetDay(firstDayOfCurrentMonth)
         const lastDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
         const lastDayOfPreviousMonth = new Date(date.getFullYear(), date.getMonth(), 0)
 
@@ -140,23 +146,23 @@ export default class Calendar {
             dayContainer.appendChild(dayNumber)
 
             //show current month days
-            if (i + 1 >= firstDayOfCurrentMonth.getDay()
-                && i - firstDayOfCurrentMonth.getDay() + 2 <= lastDayOfCurrentMonth.getDate()) {
+            if (i + 1 >= firstDayOfWeek
+                && i - firstDayOfWeek + 1 <= lastDayOfCurrentMonth.getDate()) {
                 dayContainer.classList.add("current-month-day")
-                dayNumber.textContent = i + 2 - firstDayOfCurrentMonth.getDay()
+                dayNumber.textContent = i + 2 - firstDayOfWeek
             }
 
             //show previous month days
-            if (i + 1 < firstDayOfCurrentMonth.getDay()) {
+            if (i + 1 < firstDayOfWeek) {
                 dayContainer.classList.add("another-month-day")
-                dayNumber.textContent = lastDayOfPreviousMonth.getDate() - firstDayOfCurrentMonth.getDay() + i + 2
+                dayNumber.textContent = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
             }
 
             //show next month days
             if (i + 1 > lastDayOfCurrentMonth.getDate()
-                && i - firstDayOfCurrentMonth.getDay() + 2 > lastDayOfCurrentMonth.getDate()) {
+                && i - firstDayOfWeek + 2 > lastDayOfCurrentMonth.getDate()) {
                 dayContainer.classList.add("another-month-day")
-                dayNumber.textContent = i + 2 - firstDayOfCurrentMonth.getDay() - lastDayOfCurrentMonth.getDate()
+                dayNumber.textContent = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth.getDate()
             }
         }
         return container

@@ -306,6 +306,10 @@ form {
 
 .task-project-name {
     color: gray;
+    width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 699px) {

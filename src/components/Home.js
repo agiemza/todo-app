@@ -1,3 +1,4 @@
+import Calendar from "./Calendar/Calendar"
 import LocalStorage from "./LocalStorage"
 import Task from "./Project/Task"
 import Main from "./UI/Main"
@@ -22,6 +23,7 @@ export default class Home {
 
     static render() {
         this.clear()
+        this.htmlElement.appendChild(Calendar.render())
         this.displayTasksForToday()
         this.htmlElement.classList.add("home-container")
         return this.htmlElement

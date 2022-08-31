@@ -10,11 +10,11 @@ export default class App {
 
     static load() {
         this.loadLayout()
-        Main.changeContent(Calendar.render())
+        Main.changeContent(Home.render())
     }
 
     static loadLayout() {
-        // Header.render(root)
+        Header.render(root)
         Navbar.render(root)
         Main.render(root)
         Footer.render(root)
