@@ -128,7 +128,7 @@ export default class Calendar {
             const day = i + 2 - firstDayOfWeek
             const date = ConvertDate.toYYYYMMDD(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
 
-            this.highlightToday(day, dayContainer)
+            this.highlightToday(new Date(date), dayContainer)
             this.markDayWithTask(date, dayNumberContainer)
 
             dayContainer.addEventListener("click", () => this.handleDayClick(date))
@@ -242,11 +242,11 @@ export default class Calendar {
         return monthNumber
     }
 
-    static highlightToday(day, element) {
+    static highlightToday(date, element) {
         const currentDate = new Date()
-        if (day === currentDate.getDate()
-            && this.todaysDate.getMonth() === currentDate.getMonth()
-            && this.todaysDate.getFullYear() === currentDate.getFullYear()) {
+        if (date.getDate() === currentDate.getDate()
+            && date.getMonth() === currentDate.getMonth()
+            && date.getFullYear() === currentDate.getFullYear()) {
             return element.classList.add("day-container-today")
         }
         else {

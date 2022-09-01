@@ -149,7 +149,8 @@ nav {
 .nav-buttons-wrapper {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(3, auto);
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
     width: 100%;
 }
 
