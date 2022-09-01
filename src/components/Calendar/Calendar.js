@@ -43,9 +43,13 @@ export default class Calendar {
         yearContianer.classList.add("year-container")
         yearContianer.textContent = date.getFullYear()
 
+        const dateWrapper = document.createElement("div")
+        dateWrapper.appendChild(monthContainer)
+        dateWrapper.appendChild(yearContianer)
+        dateWrapper.addEventListener("dblclick", () => this.switchToCurrentMonth())
+
         monthSwitch.appendChild(arrowLeft)
-        monthSwitch.appendChild(monthContainer)
-        monthSwitch.appendChild(yearContianer)
+        monthSwitch.appendChild(dateWrapper)
         monthSwitch.appendChild(arrowRight)
 
         this.htmlElement.appendChild(container)
@@ -173,6 +177,11 @@ export default class Calendar {
 
     static switchToPreviousMonth(date) {
         this.todaysDate = this.getPreviousMonth(date || this.todaysDate)
+        this.createWidget(this.todaysDate)
+    }
+
+    static switchToCurrentMonth() {
+        this.todaysDate = new Date()
         this.createWidget(this.todaysDate)
     }
 
