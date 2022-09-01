@@ -6,22 +6,15 @@ import "./calendar.css"
 
 export default class Calendar {
     static htmlElement = document.createElement("div")
-    static date = new Date
+    static todaysDate = new Date
 
     static createWidget(date) {
         this.htmlElement.innerHTML = ""
-        this.displayMonthSwitch(date)
-        this.htmlElement.appendChild(this.displayCalendar(date))
+        this.createMonthSwitch(date)
+        this.htmlElement.appendChild(this.createCalendars(date))
     }
 
-    static displayCalendar(date) {
-        const wrapper = document.createElement("div")
-        wrapper.appendChild(this.displayDaysOfWeek())
-        wrapper.appendChild(this.diplayCalendarGrid(date))
-        return wrapper
-    }
-
-    static displayMonthSwitch(date) {
+    static createMonthSwitch(date) {
         const container = document.createElement("div")
         container.classList.add("month-switch-contianer")
 
@@ -31,11 +24,11 @@ export default class Calendar {
 
         const arrowLeft = document.createElement("button")
         arrowLeft.classList.add("month-switch-left")
-        arrowLeft.addEventListener("click", () => this.handleLeftArrowClick())
+        arrowLeft.addEventListener("click", () => this.switchToPreviousMonth())
 
         const arrowRight = document.createElement("button")
         arrowRight.classList.add("month-switch-right")
-        arrowRight.addEventListener("click", () => this.handleRightArrowClick())
+        arrowRight.addEventListener("click", () => this.switchToNextMonth())
 
         const monthContainer = document.createElement("div")
         if ((date.getMonth() === new Date().getMonth()) && (date.getFullYear() === new Date().getFullYear())) {
@@ -58,14 +51,134 @@ export default class Calendar {
         this.htmlElement.appendChild(container)
     }
 
-    static handleLeftArrowClick() {
-        this.date = this.getPreviousMonth(this.date)
-        this.createWidget(this.date)
+    static createCalendars(date) {
+        const calendarCurrent = this.createCalendarElement(date)
+        calendarCurrent.classList.add("current-calendar")
+
+        const calendarPrev = this.createCalendarElement(this.getPreviousMonth(date))
+        calendarPrev.classList.add("previous-calendar")
+        calendarPrev.addEventListener("click", () => this.switchToPreviousMonth())
+
+        const calendarNext = this.createCalendarElement(this.getNextMonth(date))
+        calendarNext.classList.add("next-calendar")
+        calendarNext.addEventListener("click", () => this.switchToNextMonth())
+
+        const wrapper = document.createElement("div")
+        wrapper.appendChild(calendarCurrent)
+        wrapper.appendChild(calendarPrev)
+        wrapper.appendChild(calendarNext)
+
+        return wrapper
     }
 
-    static handleRightArrowClick() {
-        this.date = this.getNextMonth(this.date)
-        this.createWidget(this.date)
+    static createCalendarElement(date) {
+        const wrapper = document.createElement("div")
+        wrapper.appendChild(this.createGridHeader())
+        wrapper.appendChild(this.createGrid(date))
+        return wrapper
+    }
+
+    static createGridHeader() {
+        const container = document.createElement("div")
+        container.classList.add("days-of-week-container")
+        const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+        daysOfWeek.forEach(day => {
+            const dayName = document.createElement("div")
+            dayName.classList.add("day-of-week")
+            dayName.textContent = day
+            container.appendChild(dayName)
+        })
+        return container
+    }
+
+    static createGrid(date) {
+        const container = document.createElement("div")
+        container.classList.add("calendar-grid-container")
+
+        let touchEvent
+        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e))
+        container.addEventListener("touchend", e => this.handleSwipe(e, touchEvent))
+
+        for (let i = 0; i < 42; i++) {
+            container.appendChild(this.createGridCell(i, date))
+        }
+        return container
+    }
+
+    static createGridCell(i, date) {
+        const currentDate = date
+        const firstDayOfWeek = ConvertDate.getDay((new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)))
+        const lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
+        const lastDayOfPreviousMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate()
+
+        const dayContainer = document.createElement("div")
+        dayContainer.classList.add("day-container")
+
+        const dayNumberContainer = document.createElement("div")
+        dayNumberContainer.classList.add("day-number")
+        dayContainer.appendChild(dayNumberContainer)
+
+        //show current month day
+        if (i + 1 >= firstDayOfWeek && i - firstDayOfWeek + 1 < lastDayOfCurrentMonth) {
+            const day = i + 2 - firstDayOfWeek
+            const date = ConvertDate.toYYYYMMDD(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
+
+            this.highlightToday(day, dayContainer)
+            this.markDayWithTask(date, dayNumberContainer)
+
+            dayContainer.addEventListener("click", () => this.handleDayClick(date))
+
+            dayNumberContainer.textContent = day
+        }
+
+        //show previous month day
+        if (i + 1 < firstDayOfWeek) {
+            dayContainer.classList.add("another-month-day")
+
+            const day = lastDayOfPreviousMonth - firstDayOfWeek + i + 2
+            const currentDate = new Date(this.getPreviousMonth(this.todaysDate, day))
+            const date = ConvertDate.toYYYYMMDD(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
+
+            this.markDayWithTask(date, dayNumberContainer)
+
+            dayContainer.addEventListener("click", () => {
+                this.handleDayClick(date)
+                this.switchToPreviousMonth()
+            })
+
+            dayNumberContainer.textContent = day
+        }
+
+        //show next month day
+        if (i + 1 > lastDayOfCurrentMonth && i - firstDayOfWeek + 2 > lastDayOfCurrentMonth) {
+            dayContainer.classList.add("another-month-day")
+
+            const day = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth
+            const currentDate = new Date(this.getNextMonth(this.todaysDate, day))
+            const date = ConvertDate.toYYYYMMDD(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
+
+            this.markDayWithTask(date, dayNumberContainer)
+
+            dayContainer.addEventListener("click", () => {
+                this.handleDayClick(date)
+                this.switchToNextMonth()
+            })
+
+            dayNumberContainer.textContent = day
+        }
+
+        return dayContainer
+    }
+
+    static switchToPreviousMonth(date) {
+        this.todaysDate = this.getPreviousMonth(date || this.todaysDate)
+        this.createWidget(this.todaysDate)
+    }
+
+    static switchToNextMonth(date) {
+        this.todaysDate = this.getNextMonth(date || this.todaysDate)
+        this.createWidget(this.todaysDate)
     }
 
     static getPreviousMonth(date, day) {
@@ -120,30 +233,11 @@ export default class Calendar {
         return monthNumber
     }
 
-    static displayDaysOfWeek() {
-        const container = document.createElement("div")
-        container.classList.add("days-of-week-container")
-        const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-
-        daysOfWeek.forEach(day => {
-            const dayName = document.createElement("div")
-            dayName.classList.add("day-of-week")
-            dayName.textContent = day
-            container.appendChild(dayName)
-        })
-        return container
-    }
-
-    static convertGetDay(date) {
-        const d = new Date(date.getFullYear(), date.getMonth(), 1)
-        return (d.getDay() === 0 ? 7 : d.getDay())
-    }
-
-    static highlightIfToday(day, element) {
+    static highlightToday(day, element) {
         const currentDate = new Date()
         if (day === currentDate.getDate()
-            && this.date.getMonth() === currentDate.getMonth()
-            && this.date.getFullYear() === currentDate.getFullYear()) {
+            && this.todaysDate.getMonth() === currentDate.getMonth()
+            && this.todaysDate.getFullYear() === currentDate.getFullYear()) {
             return element.classList.add("day-container-today")
         }
         else {
@@ -151,13 +245,19 @@ export default class Calendar {
         }
     }
 
+    static markDayWithTask(date, container) {
+        if (Task.findTasksForDate(date).length) {
+            container.classList.add("day-with-task")
+        }
+    }
+
     static handleSwipe(e, touchEvent) {
         touchEvent.setEndEvent(e)
         if (touchEvent.isSwipeRight()) {
-            this.handleLeftArrowClick()
+            this.switchToPreviousMonth()
         }
         if (touchEvent.isSwipeLeft()) {
-            this.handleRightArrowClick()
+            this.switchToNextMonth()
         }
     }
 
@@ -167,69 +267,9 @@ export default class Calendar {
         list.appendChild(Home.displayTasksFromDate(date))
     }
 
-    static diplayCalendarGrid(date) {
-        const container = document.createElement("div")
-        container.classList.add("calendar-grid-container")
-
-        let touchEvent
-        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e))
-        container.addEventListener("touchend", e => this.handleSwipe(e, touchEvent))
-
-        for (let i = 0; i < 42; i++) {
-            container.appendChild(this.createDayElement(i, date))
-        }
-        return container
-    }
-
-    static createDayElement(i, date) {
-        const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1)
-        const firstDayOfWeek = this.convertGetDay(firstDayOfCurrentMonth)
-        const lastDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-        const lastDayOfPreviousMonth = new Date(date.getFullYear(), date.getMonth(), 0)
-
-        const dayContainer = document.createElement("div")
-        dayContainer.classList.add("day-container")
-
-        const dayNumberContainer = document.createElement("div")
-        dayNumberContainer.classList.add("day-number")
-        dayContainer.appendChild(dayNumberContainer)
-
-        //show current month days
-        if (i + 1 >= firstDayOfWeek
-            && i - firstDayOfWeek + 1 < lastDayOfCurrentMonth.getDate()) {
-            const day = i + 2 - firstDayOfWeek
-            this.highlightIfToday(day, dayContainer)
-            const date = ConvertDate.toYYYYMMDD(new Date(this.date.getFullYear(), this.date.getMonth(), day))
-
-            dayContainer.addEventListener("click", () => this.handleDayClick(date))
-
-            if (Task.findTasksForDate(date).length) {
-                dayNumberContainer.classList.add("day-with-task")
-            }
-            dayNumberContainer.textContent = day
-        }
-
-        //show previous month days
-        if (i + 1 < firstDayOfWeek) {
-            dayContainer.classList.add("another-month-day")
-            const day = lastDayOfPreviousMonth.getDate() - firstDayOfWeek + i + 2
-            // const currentDate = new Date(this.getPreviousMonth(this.date, day))
-            dayNumberContainer.textContent = day
-        }
-
-        //show next month days
-        if (i + 1 > lastDayOfCurrentMonth.getDate()
-            && i - firstDayOfWeek + 2 > lastDayOfCurrentMonth.getDate()) {
-            dayContainer.classList.add("another-month-day")
-            const day = i + 2 - firstDayOfWeek - lastDayOfCurrentMonth.getDate()
-            dayNumberContainer.textContent = day
-        }
-        return dayContainer
-    }
-
     static render() {
         this.htmlElement.classList.add("calendar")
-        this.createWidget(this.date)
+        this.createWidget(this.todaysDate)
         return this.htmlElement
     }
 }
