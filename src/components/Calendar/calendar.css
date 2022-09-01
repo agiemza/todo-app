@@ -48,6 +48,12 @@
     width: 100%;
 }
 
+.day-container:active {
+    user-select: none;
+    transform: scale(0.9);
+    text-shadow: 0 0 5px rgb(150, 150, 150) !important;
+}
+
 .day-container:hover {
     text-shadow: 0 0 5px white;
     transition: all 0.3s;

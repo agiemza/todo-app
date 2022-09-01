@@ -262,9 +262,7 @@ export default class Calendar {
     }
 
     static handleDayClick(date) {
-        Home.clearTasksList()
-        const list = document.querySelector(".home-tasks-list-container")
-        list.appendChild(Home.displayTasksFromDate(date))
+        Home.updateTasksList(date)
     }
 
     static render() {

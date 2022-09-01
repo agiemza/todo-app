@@ -37,6 +37,12 @@ export default class Home {
         }
     }
 
+    static updateTasksList(date) {
+        this.clearTasksList()
+        const list = document.querySelector(".home-tasks-list-container")
+        list.appendChild(this.displayTasksFromDate(date))
+    }
+
     static displayTasksFromDate(date) {
         const selectedDateListContainer = this.displayTasksList(
             date === ConvertDate.toYYYYMMDD(new Date()) ? "Today's tasks" : `Tasks for ${date}`
