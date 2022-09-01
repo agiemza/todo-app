@@ -10,8 +10,11 @@
 :root {
     --main-font: "Open Sans", sans-serif;
     --project-container-padding: 25px;
-    --footer-height: calc(2rem + 10px);
-    --avalible-height: calc(100vh - var(--footer-height));
+    --nav-height: calc(3rem + 10px);
+    --avalible-height: calc(100vh - var(--nav-height));
+    --background-color: white;
+    --main-color-1: rgba(64, 72, 247, 1);
+    --main-color-2: rgba(192, 50, 198, 1);
 }
 
 #root {
@@ -55,7 +58,7 @@ header {
 }
 
 /* Navbar section */
-
+/* 
 nav {
     display: grid;
     grid-template-columns: 1fr;
@@ -126,28 +129,52 @@ nav>section>h2 {
 
 .nav-projects-list li div {
     overflow: hidden;
-}
+} */
 
-/* Footer section */
+/* Navbar section */
 
-footer {
+nav {
     display: grid;
     grid-row: -1;
     grid-column: 1/-1;
     justify-items: center;
     align-items: center;
-    background-color: lightgray;
-    height: var(--footer-height);
+    background-color: var(--background-color);
+    height: var(--nav-height);
+    box-shadow: 0px 0px 5px lightgray;
+    overflow: hidden;
+    padding: 0 2rem;
 }
 
-footer>a {
-    display: flex;
+.nav-buttons-wrapper {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, auto);
+    width: 100%;
+}
+
+.nav-button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.nav-button-icon-container {
+    display: grid;
     align-items: center;
-    gap: 10px;
+    justify-items: center;
 }
 
-footer>a>img {
-    height: 2rem;
+.nav-button-icon-container img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.nav-button-text-container {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 0.7rem;
 }
 
 /* Main section */
@@ -157,7 +184,7 @@ main {
     grid-row: 2;
     grid-column: 1 / -1;
     width: 100%;
-    background-color: rgb(246, 246, 246);
+    background-color: var(--background-color);
     overflow: hidden;
 }
 
@@ -309,7 +336,7 @@ form {
     color: gray;
     width: 200px;
     text-overflow: ellipsis;
-    overflow: hidden; 
+    overflow: hidden;
     white-space: nowrap;
 }
 
@@ -347,11 +374,11 @@ form {
         justify-items: start;
     }
 
-    nav,
+    /* nav,
     .nav-open {
         grid-column: 1;
         transform: translateX(0);
-    }
+    } */
 
     .menu-button {
         display: none;

@@ -1,4 +1,4 @@
-import Footer from "./UI/Footer"
+import Nav from "./UI/Nav"
 import Header from "./UI/Header"
 import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
@@ -16,6 +16,6 @@ export default class App {
         // Header.render(root)
         // Navbar.render(root)
         Main.render(root)
-        Footer.render(root)
+        Nav.render(root)
     }
 }
