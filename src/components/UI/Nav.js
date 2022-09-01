@@ -1,12 +1,14 @@
-import HomeIcon from "../../assets/home-icon.png"
-import CalendarIcon from "../../assets/calendar-icon.png"
-import ListIcon from "../../assets/tasks-icon.png"
+import HomeIcon from "../Icons/home"
+import CalendarIcon from "../Icons/calendar"
+import TaskIcon from "../Icons/task"
 
 export default class Navbar {
+
+    static nav = document.createElement("nav")
+
     static render(output) {
-        const nav = document.createElement("nav")
-        nav.appendChild(this.createControlsPanel())
-        output.appendChild(nav)
+        this.nav.appendChild(this.createControlsPanel())
+        output.appendChild(this.nav)
     }
 
     static createControlsPanel() {
@@ -16,18 +18,15 @@ export default class Navbar {
         const buttonsArray = [
             {
                 icon: HomeIcon,
-                text: "Home",
-                event: () => console.log("home"),
+                text: "home",
             },
             {
                 icon: CalendarIcon,
-                text: "Calendar",
-                event: () => console.log("cal"),
+                text: "calendar",
             },
             {
-                icon: ListIcon,
-                text: "Projects",
-                event: () => console.log("tasks"),
+                icon: TaskIcon,
+                text: "projects",
             },
         ]
 
@@ -38,14 +37,15 @@ export default class Navbar {
         return wrapper
     }
 
-    static createButton({ icon, text, event }) {
+    static createButton({ icon, text }) {
         const button = document.createElement("button")
         button.classList.add("nav-button")
-        button.addEventListener("click", () => event())
+        button.setAttribute("id", text)
+        button.addEventListener("click", () => this.handleButtonClick(button))
 
         const iconContainer = document.createElement("div")
         iconContainer.classList.add("nav-button-icon-container")
-        iconContainer.appendChild(this.createIcon(icon))
+        iconContainer.innerHTML = icon
         button.appendChild(iconContainer)
 
         const textContainer = document.createElement("div")
@@ -56,9 +56,16 @@ export default class Navbar {
         return button
     }
 
-    static createIcon(icon) {
-        const image = new Image()
-        image.src = icon
-        return image
+    static removeActiveClassFromButtons() {
+        this.nav.querySelectorAll("button").forEach(button => button.classList.remove("nav-button-active"))
+    }
+
+    static setButtonActive(id) {
+        document.querySelector(`#${id}`).classList.add("nav-button-active")
+    }
+
+    static handleButtonClick(button) {
+        this.removeActiveClassFromButtons()
+        this.setButtonActive(button.id)
     }
 }

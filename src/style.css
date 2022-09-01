@@ -157,6 +157,20 @@ nav {
     cursor: pointer;
     border: none;
     background: none;
+    text-transform: capitalize;
+    transition: transform 0.2s;
+}
+
+.nav-button:hover {
+    transform: scale(1.05);
+}
+
+.nav-button:hover path {
+    fill: var(--main-color-1);
+}
+
+.nav-button:hover .nav-button-text-container {
+    color: var(--main-color-1);
 }
 
 .nav-button-icon-container {
@@ -165,7 +179,7 @@ nav {
     justify-items: center;
 }
 
-.nav-button-icon-container img {
+.nav-button-icon-container svg {
     width: 1.5rem;
     height: 1.5rem;
 }
@@ -175,6 +189,24 @@ nav {
     align-items: center;
     justify-items: center;
     font-size: 0.7rem;
+}
+
+.nav-button path {
+    fill: gray;
+    transition: all 0.2s;
+}
+
+.nav-button .nav-button-text-container {
+    color: gray;
+    transition: all 0.2s;
+}
+
+.nav-button-active path {
+    fill: var(--main-color-1);
+}
+
+.nav-button-active .nav-button-text-container {
+    color: var(--main-color-1);
 }
 
 /* Main section */
