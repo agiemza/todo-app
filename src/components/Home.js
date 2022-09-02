@@ -2,6 +2,7 @@ import Calendar from "./Calendar/Calendar"
 import Task from "./Project/Task"
 import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
+import Nav from "./UI/Nav"
 import ConvertDate from "./Utils/ConvertDate"
 
 export default class Home {
@@ -27,6 +28,7 @@ export default class Home {
         this.clearTasksList()
         this.htmlElement.appendChild(this.displayTasksFromDate(ConvertDate.toYYYYMMDD(new Date())))
         this.htmlElement.classList.add("home-container")
+        Nav.setButtonActive("nav-button-calendar")
         return this.htmlElement
     }
 

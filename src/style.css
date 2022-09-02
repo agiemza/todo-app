@@ -335,9 +335,12 @@ form {
 .home-container {
     display: grid;
     align-content: start;
+    overflow-y: auto;
 }
 
-/* .home-tasks-list-container {} */
+.home-tasks-list-container {
+    overflow-y: auto;
+}
 
 .home-tasks-list-title {
     display: grid;
@@ -402,7 +405,7 @@ form {
 
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 769px) {
     header {
         justify-items: start;
     }

@@ -40,7 +40,7 @@ export default class Navbar {
     static createButton({ icon, text }) {
         const button = document.createElement("button")
         button.classList.add("nav-button")
-        button.setAttribute("id", text)
+        button.setAttribute("id", `nav-button-${text}`)
         button.addEventListener("click", () => this.handleButtonClick(button))
 
         const iconContainer = document.createElement("div")
