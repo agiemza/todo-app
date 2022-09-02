@@ -1,5 +1,4 @@
 import Nav from "./UI/Nav"
-import Header from "./UI/Header"
 import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
 import Home from './Home'
@@ -13,7 +12,6 @@ export default class App {
     }
 
     static loadLayout() {
-        // Header.render(root)
         // Navbar.render(root)
         Main.render(root)
         Nav.render(root)

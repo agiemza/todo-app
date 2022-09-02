@@ -6,7 +6,6 @@
     position: relative;
     padding: 15px;
     margin-bottom: 5px;
-    height: fit-content;
     overflow: hidden;
     background: linear-gradient(200deg, var(--main-color-1) 0%, var(--main-color-2) 100%);
     border-radius: 0 0 10px 10px;
@@ -23,7 +22,6 @@
     justify-items: center;
     align-items: center;
     padding-bottom: 5px;
-    margin-bottom: 10px;
     border-bottom: 0.5px solid rgba(200, 200, 200, 0.5);
     font-size: 0.9rem;
 }

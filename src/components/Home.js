@@ -1,7 +1,6 @@
 import Calendar from "./Calendar/Calendar"
 import Task from "./Project/Task"
 import Main from "./UI/Main"
-import Navbar from "./UI/Navbar"
 import Nav from "./UI/Nav"
 import ConvertDate from "./Utils/ConvertDate"
 
@@ -15,7 +14,6 @@ export default class Home {
 
     static open() {
         Main.changeContent(this.render())
-        Navbar.changeVisibility()
     }
 
     static clear() {
@@ -26,7 +24,7 @@ export default class Home {
         this.clear()
         this.htmlElement.appendChild(Calendar.render())
         this.clearTasksList()
-        this.htmlElement.appendChild(this.displayTasksFromDate(ConvertDate.toYYYYMMDD(new Date())))
+        this.htmlElement.appendChild(this.displayList(ConvertDate.toYYYYMMDD(new Date())))
         this.htmlElement.classList.add("home-container")
         Nav.setButtonActive("nav-button-calendar")
         return this.htmlElement
@@ -45,48 +43,70 @@ export default class Home {
         list.appendChild(this.displayTasksFromDate(date))
     }
 
-    static displayTasksFromDate(date) {
-        const selectedDateListContainer = this.displayTasksList(
-            date === ConvertDate.toYYYYMMDD(new Date()) ? "Today's tasks" : `Tasks for ${date}`
-        )
-        Task.findTasksForDate(date).forEach(({ task, project }) => this.displayTask(selectedDateListContainer, task, project))
-        return selectedDateListContainer
+    static displayList(date) {
+        const wrapper = document.createElement("div")
+        wrapper.classList.add("home-tasks-list-wrapper")
+        wrapper.appendChild(this.displayTaskListTitle(date))
+        wrapper.appendChild(this.displayTasksFromDate(date))
+
+        return wrapper
     }
 
-    static displayTask(list, task, project) {
+    static displayTaskListTitle(date) {
+        const titleText = date === ConvertDate.toYYYYMMDD(new Date()) ? "Today's tasks" : `Tasks for ${date}`
+
+        const listTitleContainer = document.createElement("div")
+        listTitleContainer.classList.add("home-tasks-list-title")
+
+        const title = document.createElement("div")
+        title.textContent = titleText
+        listTitleContainer.appendChild(title)
+
+        return listTitleContainer
+    }
+
+
+    static displayTasksFromDate(date) {
+        const container = this.createListContainer()
+        const selectedDateListContainer = this.displayTasksList()
+        container.appendChild(selectedDateListContainer)
+        Task.findTasksForDate(date).forEach(({ task, project }) => this.displayTask(container, task, project, date))
+        return container
+    }
+
+    static displayTask(list, task, project, date) {
         const listElement = list.querySelector("ul")
         const item = document.createElement("li")
-        const projectName = document.createElement("div")
-        projectName.classList.add("task-project-name")
-        projectName.textContent = project.title
-        item.appendChild(projectName)
-        item.appendChild(Task.createTaskHtmlElement(task, project))
+        item.appendChild(Task.createTaskHtmlElement(task, project, () => this.updateTasksList(date)))
         listElement.appendChild(item)
     }
 
-    static displayTasksList(titleText) {
+    static createListContainer() {
         const element = document.createElement("div")
         element.classList.add("home-tasks-list-container")
 
-        const listTitle = document.createElement("div")
-        listTitle.classList.add("home-tasks-list-title")
-        const title = document.createElement("div")
-        title.textContent = titleText
-        listTitle.appendChild(title)
-        const icon = new Image()
-        icon.classList.add("home-tasks-list-expand-icon", "icon-expanded")
-        listTitle.appendChild(icon)
-        listTitle.addEventListener("click", () => this.toggleTasksList(element))
+        const newTaskButton = document.createElement("button")
+        newTaskButton.classList.add("home-new-task-button")
+        newTaskButton.textContent = "+"
+        element.appendChild(newTaskButton)
 
+        return element
+    }
+
+    static displayTasksList() {
+        // const element = document.createElement("div")
+        // element.classList.add("home-tasks-list-container")
 
         const list = document.createElement("ul")
         list.classList.add("home-tasks-list")
 
-        element.appendChild(listTitle)
-        element.appendChild(list)
+        // element.appendChild(list)
 
-        return element
+        // return element
+
+        return list
     }
+
 
     static toggleTasksList(listContainer) {
         const icon = listContainer.querySelector(".home-tasks-list-expand-icon")

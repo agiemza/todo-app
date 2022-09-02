@@ -19,14 +19,15 @@ export default class Task {
         LocalStorage.saveProject(project)
     }
 
-    static check(project, task) {
+    static check(project, task, refreshHandler) {
         project.tasks.find(item => {
             if (item.id === task.id) {
                 item.checked = !item.checked
             }
         })
         LocalStorage.saveProject(project)
-        Project.display(project.id)
+        // Project.display(project.id)
+        refreshHandler()
     }
 
     static edit(project, task) {
@@ -45,14 +46,20 @@ export default class Task {
     static findTasksForDate(date) {
         const projects = LocalStorage.get()
         const tasks = []
+        const tasksDone = []
         projects.forEach(project => {
             project.tasks.forEach(task => {
                 if (task.dueDate === date) {
-                    tasks.push({ task, project })
+                    if (task.checked) {
+                        tasksDone.push({ task, project })
+                    }
+                    if (!task.checked) {
+                        tasks.push({ task, project })
+                    }
                 }
             })
         })
-        return tasks
+        return tasks.concat(tasksDone)
     }
 
     static createTasksContainer(project) {
@@ -100,7 +107,7 @@ export default class Task {
         return list
     }
 
-    static createTaskHtmlElement(task, project) {
+    static createTaskHtmlElement(task, project, refreshHandler) {
         const container = document.createElement("div")
 
         container.classList.add("task-container")
@@ -108,8 +115,7 @@ export default class Task {
 
         const check = document.createElement("button")
         check.classList.add("task-check-button")
-        check.textContent = "check"
-        check.addEventListener("click", () => this.check(project, task))
+        check.addEventListener("click", () => this.check(project, task, refreshHandler))
         container.appendChild(check)
 
         const content = document.createElement("div")
@@ -117,30 +123,23 @@ export default class Task {
         content.textContent = task.content
         container.appendChild(content)
 
-        const dueDate = document.createElement("div")
-        dueDate.classList.add("task-date")
-        dueDate.textContent = task.dueDate
-        container.appendChild(dueDate)
-        if (task.dueDate) {
-            dueDate.prepend(document.createElement("div").textContent = "Due: ")
-        }
+        // const buttonsWrapper = document.createElement("div")
+        // buttonsWrapper.classList.add("task-buttons")
+        // container.appendChild(buttonsWrapper)
 
-        const buttonsWrapper = document.createElement("div")
-        buttonsWrapper.classList.add("task-buttons")
 
-        const edit = document.createElement("button")
-        edit.classList.add("task-edit-button")
-        edit.textContent = "edit"
-        edit.addEventListener("click", () => this.edit(project, task))
-        buttonsWrapper.appendChild(edit)
+        // const edit = document.createElement("button")
+        // edit.classList.add("task-edit-button")
+        // edit.textContent = "edit"
+        // edit.addEventListener("click", () => this.edit(project, task))
+        // buttonsWrapper.appendChild(edit)
 
-        const remove = document.createElement("button")
-        remove.classList.add("task-remove-button")
-        remove.textContent = "remove"
-        remove.addEventListener("click", () => this.delete(project, task))
-        buttonsWrapper.appendChild(remove)
+        // const remove = document.createElement("button")
+        // remove.classList.add("task-remove-button")
+        // remove.textContent = "remove"
+        // remove.addEventListener("click", () => this.delete(project, task))
+        // buttonsWrapper.appendChild(remove)
 
-        container.appendChild(buttonsWrapper)
 
         if (task.checked) {
             container.classList.add("task-container-checked")

@@ -3,7 +3,6 @@ import TodayIcon from "../../assets/today-icon.svg"
 import WeekIcon from "../../assets/week-icon.svg"
 import MonthIcon from "../../assets/month-icon.svg"
 import Main from "./Main"
-import Header from "./Header"
 import Project from "../Project/Project"
 import NewProjectForm from "../Forms/NewProjectForm"
 import LocalStorage from "../LocalStorage"
@@ -17,12 +16,6 @@ export default class Navbar {
         this.htmlElement.appendChild(this.createTabsSection())
         this.htmlElement.appendChild(this.createProjectsSection())
         output.appendChild(this.htmlElement)
-    }
-
-    static changeVisibility() {
-        const menuButton = Header.menuButton
-        menuButton.classList.toggle("menu-button-open")
-        this.htmlElement.classList.toggle("nav-open")
     }
 
     static displayProjects() {
@@ -117,12 +110,10 @@ export default class Navbar {
         const element = form.render()
         Main.changeContent(element)
         form.inputTitle.focus()
-        this.changeVisibility()
     }
 
     static handleProjectListItemClick(projectId) {
         Project.display(projectId)
-        this.changeVisibility()
     }
 
     static addProjectToList(project) {
