@@ -1,8 +1,9 @@
-import Home from "../Home"
+import Home from "../Tabs/Calendar/CalendarTab"
 import Task from "../Project/Task"
 import ConvertDate from "../Utils/ConvertDate"
 import TouchEvents from "../Utils/TouchEvent"
 import "./calendar.css"
+import TasksList from "../Tabs/Subcomponents/TasksList"
 
 export default class Calendar {
     static htmlElement = document.createElement("div")
@@ -271,7 +272,8 @@ export default class Calendar {
     }
 
     static handleDayClick(date) {
-        Home.updateTasksList(date)
+        TasksList.update(date)
+        Home.updateDateContainer(date)
     }
 
     static render() {

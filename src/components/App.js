@@ -1,7 +1,7 @@
 import Nav from "./UI/Nav"
 import Main from "./UI/Main"
 import Navbar from "./UI/Navbar"
-import Home from './Home'
+import Home from './Tabs/Calendar/CalendarTab'
 
 export default class App {
     static root = document.querySelector("#root")

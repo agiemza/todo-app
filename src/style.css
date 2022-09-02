@@ -37,6 +37,7 @@ nav {
     grid-row: -1;
     justify-items: center;
     align-items: center;
+    position: relative;
     background-color: var(--background-color);
     height: var(--nav-height);
     box-shadow: 0px 0px 5px lightgray;
@@ -49,15 +50,20 @@ nav {
     gap: 2rem;
     grid-auto-columns: auto;
     grid-auto-flow: column;
+    justify-items: center;
     width: 100%;
 }
 
 .nav-button {
-    max-width: 100px;
     cursor: pointer;
     border: none;
     background: none;
     text-transform: capitalize;
+    transition: all 0.2s;
+}
+
+.nav-button path {
+    fill: gray;
     transition: all 0.2s;
 }
 
@@ -66,6 +72,14 @@ nav {
 }
 
 .nav-button:hover .nav-button-text-container {
+    color: var(--main-color-1);
+}
+
+.nav-button-active path {
+    fill: var(--main-color-1);
+}
+
+.nav-button-active .nav-button-text-container {
     color: var(--main-color-1);
 }
 
@@ -85,24 +99,8 @@ nav {
     align-items: center;
     justify-items: center;
     font-size: 0.7rem;
-}
-
-.nav-button path {
-    fill: gray;
-    transition: all 0.2s;
-}
-
-.nav-button .nav-button-text-container {
     color: gray;
     transition: all 0.2s;
-}
-
-.nav-button-active path {
-    fill: var(--main-color-1);
-}
-
-.nav-button-active .nav-button-text-container {
-    color: var(--main-color-1);
 }
 
 /* Main section */
@@ -285,81 +283,6 @@ form {
 }
 
 /* Home section */
-
-.home-container {
-    display: grid;
-    align-content: start;
-    overflow-y: auto;
-    position: relative;
-}
-
-.home-new-task-button {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    z-index: 10;
-    width: 4rem;
-    height: 4rem;
-    border: none;
-    border-radius: 50%;
-    background-color: var(--main-color-3);
-    color: var(--lighter-gray);
-    font-size: 2.5rem;
-    font-weight: 300;
-    box-shadow: 0px 1px 5px gray;
-}
-
-
-.home-tasks-list-wrapper {
-    display: grid;
-    overflow-y: auto;
-}
-
-.home-tasks-list-container {
-    padding: 1rem 1rem 5.5rem;
-    overflow-y: scroll;
-
-}
-
-.home-tasks-list-title {
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 10px;
-    border-bottom: 1px solid var(--lighter-gray);
-}
-
-.home-tasks-list-expand-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-    background-size: cover;
-}
-
-.icon-expanded {
-    background-image: url("./assets/expand-icon.svg");
-}
-
-.icon-collapsed {
-    background-image: url("./assets/collapse-icon.svg");
-}
-
-
-.home-tasks-list {
-    display: grid;
-    gap: 10px;
-    list-style: none;
-}
-
-.task-project-name {
-    color: gray;
-    width: 200px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
 
 @media screen and (min-width: 769px) {
     .project-form {

@@ -6,7 +6,7 @@ import Main from "./Main"
 import Project from "../Project/Project"
 import NewProjectForm from "../Forms/NewProjectForm"
 import LocalStorage from "../LocalStorage"
-import Home from "../Home"
+import Home from "../Tabs/Calendar/CalendarTab"
 
 export default class Navbar {
     static htmlElement = this.createNavElement()
