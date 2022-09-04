@@ -26,7 +26,6 @@ export default class Task {
             }
         })
         LocalStorage.saveProject(project)
-        // Project.display(project.id)
         refreshHandler()
     }
 

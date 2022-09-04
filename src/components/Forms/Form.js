@@ -19,9 +19,17 @@ export default class Form {
 
     addLabel(id, text) {
         const label = document.createElement("label")
-        label.for = id
+        label.setAttribute("for", id)
         label.textContent = text
         return label
+    }
+
+    addTextArea(attributes) {
+        const textArea = document.createElement("textarea")
+        attributes.forEach(({ type, value }) => {
+            textArea.setAttribute(type, value)
+        })
+        return textArea
     }
 
     createErrorBox() {
@@ -42,8 +50,8 @@ export default class Form {
 
     createSubmit(buttonText) {
         const button = document.createElement("button")
-        button.classList.add("submit-button")
-        button.textContent = buttonText
+        button.classList.add("submit-button", "floating-button")
+        button.innerHTML = buttonText
         button.addEventListener("click", e => this.submitButtonHandler(e))
         return button
     }

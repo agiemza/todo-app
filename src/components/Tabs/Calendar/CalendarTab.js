@@ -4,7 +4,7 @@ import Nav from "../../UI/Nav"
 import ConvertDate from "../../Utils/ConvertDate"
 import TasksList from "../Subcomponents/TasksList"
 
-export default class Home {
+export default class CalendarTab {
     static htmlElement = this.createHtmlElement()
 
     static render() {
@@ -12,7 +12,6 @@ export default class Home {
         this.htmlElement.appendChild(Calendar.render())
         this.htmlElement.appendChild(this.createDateContainer(today))
         this.htmlElement.appendChild(TasksList.render(today))
-        this.htmlElement.appendChild(this.createNewTaskButton())
         Nav.setButtonActive("nav-button-calendar")
         return this.htmlElement
     }
@@ -21,14 +20,6 @@ export default class Home {
         const element = document.createElement("div")
         element.classList.add("home-container")
         return element
-    }
-
-    static createNewTaskButton() {
-        const newTaskButton = document.createElement("button")
-        newTaskButton.classList.add("home-new-task-button")
-        newTaskButton.textContent = "+"
-        newTaskButton.addEventListener("click", () => console.log("click"))
-        return newTaskButton
     }
 
     static updateDateContainer(date) {
@@ -52,7 +43,6 @@ export default class Home {
         const wrapper = document.createElement("div")
         wrapper.textContent = content
         const dateContainer = document.querySelector(".home-tasks-list-title")
-
         if (dateContainer) dateContainer.appendChild(wrapper)
         if (!dateContainer) return wrapper
     }

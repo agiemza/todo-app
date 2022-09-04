@@ -1,4 +1,6 @@
+import NewTaskForm from "../../Forms/NewTaskForm"
 import Task from "../../Project/Task"
+import Main from "../../UI/Main"
 
 export default class TasksList {
     static htmlElement = this.createHtmlElement()
@@ -32,6 +34,7 @@ export default class TasksList {
     }
 
     static showTasks(date) {
+        this.htmlElement.appendChild(this.createNewTaskButton(date))
         const tasks = Task.findTasksForDate(date)
         if (tasks.length === 0) {
             return this.createEmptyListMessage()
@@ -52,5 +55,14 @@ export default class TasksList {
         message.classList.add("home-tasks-list-empty")
         message.innerHTML = "No tasks for this day. <br> Click + button to create one."
         return message
+    }
+
+    static createNewTaskButton(date) {
+        const newTaskButton = document.createElement("button")
+        newTaskButton.classList.add("home-new-task-button", "floating-button")
+        newTaskButton.textContent = "+"
+
+        newTaskButton.addEventListener("click", () => Main.showSlideContent(new NewTaskForm(date).render()))
+        return newTaskButton
     }
 }

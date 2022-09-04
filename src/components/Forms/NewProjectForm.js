@@ -8,14 +8,6 @@ export default class NewProjectForm extends Form {
         this.inputDescription = this.addTextArea([{ type: "id", value: "description" }, { type: "placeholder", value: "Description" }])
     }
 
-    addTextArea(attributes) {
-        const textArea = document.createElement("textarea")
-        attributes.forEach(({ type, value }) => {
-            textArea.setAttribute(type, value)
-        })
-        return textArea
-    }
-
     submitButtonHandler(e) {
         e.preventDefault()
         if (!this.validateForm()) {
