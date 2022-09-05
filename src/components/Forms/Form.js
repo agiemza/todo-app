@@ -49,6 +49,8 @@ export default class Form {
                 option.setAttribute("selected", "selected")
             }
             if (!this.category) {
+
+                // do this and multiline form validation
                 // set category "default"
             }
             category.appendChild(option)

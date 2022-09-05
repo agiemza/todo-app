@@ -154,6 +154,7 @@ main {
 .slide-container {
     display: grid;
     gap: 1rem;
+    grid-template-columns: auto auto;
     grid-template-rows: auto 1fr;
     position: absolute;
     z-index: 10;
@@ -225,6 +226,7 @@ form {
 }
 
 .task-form {
+    grid-column: 1/-1;
     grid-template-rows: auto auto 2fr auto 1fr;
     grid-template-columns: auto 1fr;
 }
@@ -451,26 +453,31 @@ select {
     background-image: url("./assets/done-icon.svg");
 }
 
-/* .task-remove-button {
+.task-remove-button {
     display: grid;
+    grid-column-end: -1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
     justify-items: center;
     align-items: center;
-    width: 25px;
-    height: 25px;
-    background-color: rgb(230, 230, 230);
-    border-radius: 5px;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
     border: none;
+    background: none;
+    transition: all 0.5s;
 }
 
 .task-remove-button svg {
-    width: 20px;
-    height: 20px;
-    fill: var(--lighter-color);
+    width: 2rem;
+    height: 2rem;
 }
 
 .task-remove-button:hover {
-    background-color: (--lighter-color);
-} */
+    background-color: var(--lighter-gray);
+}
+
 
 /* Home section */
 

@@ -1,7 +1,8 @@
 import { nanoid } from "nanoid"
+import Calendar from "../Calendar/Calendar"
 import EditTaskForm from "../Forms/EditTaskForm"
 import LocalStorage from "../LocalStorage"
-import RemoveIcon from "../Icons/remove"
+import TasksList from "../Tabs/Subcomponents/TasksList"
 import Main from "../UI/Main"
 
 export default class Task {
@@ -51,9 +52,12 @@ export default class Task {
         form.render().forEach(element => container.appendChild(element))
     }
 
-    static delete(category, task) {
+    static remove(category, task) {
         category.tasks = category.tasks.filter(item => item.id !== task.id)
         LocalStorage.saveProject(category)
+        Calendar.createWidget(new Date(task.dueDate))
+        TasksList.update(task.dueDate)
+        Main.closeSlideContainer()
     }
 
     static findTasksForDate(date) {
@@ -80,7 +84,9 @@ export default class Task {
         container.classList.add("task-container")
         container.setAttribute("data-task-id", task.id)
         container.addEventListener("click", () => {
-            Main.showSlideContent(new EditTaskForm(task.id).render())
+            const form = new EditTaskForm(task.id)
+            Main.showSlideContent(form.render())
+            form.createRemoveTaskButton()
         })
 
         const check = document.createElement("button")
