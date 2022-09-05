@@ -1,37 +1,36 @@
-import Navbar from "./UI/Navbar"
-
 export default class LocalStorage {
+    static itemName = "todo-projects"
+
     static set(item) {
-        localStorage.setItem("todo-projects", JSON.stringify(item))
+        localStorage.setItem(this.itemName, JSON.stringify(item))
     }
 
     static add(item) {
         const array = this.get()
         array.unshift(item)
-        localStorage.setItem("todo-projects", JSON.stringify(array))
+        localStorage.setItem(this.itemName, JSON.stringify(array))
     }
 
     static remove(item) {
         const array = this.get()
-        localStorage.setItem("todo-projects", JSON.stringify(array.filter(project => project.id !== item.id)))
+        localStorage.setItem(this.itemName, JSON.stringify(array.filter(folder => folder.id !== item.id)))
     }
 
     static get() {
-        return JSON.parse(localStorage.getItem("todo-projects")) || []
+        return JSON.parse(localStorage.getItem(this.itemName)) || []
     }
 
     static drop() {
-        localStorage.setItem("todo-projects", JSON.stringify(""))
+        localStorage.setItem(this.itemName, JSON.stringify(""))
     }
 
-    static getProject(id) {
-        return this.get().find(project => project.id === id)
+    static getFolder(id) {
+        return this.get().find(folder => folder.id === id)
     }
 
-    static saveProject(project) {
-        this.remove(project)
-        this.add(project)
-        // Navbar.upadateProjectList()
+    static saveFolder(folder) {
+        this.remove(folder)
+        this.add(folder)
     }
 
     static isEmpty() {

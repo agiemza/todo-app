@@ -1,6 +1,6 @@
-import NewTaskForm from "../../Forms/NewTaskForm"
-import Task from "../../Project/Task"
-import Main from "../../UI/Main"
+import NewTaskForm from "../Forms/NewTaskForm"
+import Task from "./Task"
+import Main from "../UI/Main"
 
 export default class TasksList {
     static htmlElement = this.createHtmlElement()
@@ -12,12 +12,12 @@ export default class TasksList {
 
     static createHtmlElement() {
         const htmlElement = document.createElement("div")
-        htmlElement.classList.add("home-tasks-list-container")
+        htmlElement.classList.add("tasks-list-container")
         return htmlElement
     }
 
     static clearHtmlElement() {
-        const container = document.querySelector(".home-tasks-list-container")
+        const container = document.querySelector(".tasks-list-container")
         container.innerHTML = ""
     }
 
@@ -29,7 +29,7 @@ export default class TasksList {
 
     static createList() {
         const list = document.createElement("ul")
-        list.classList.add("home-tasks-list")
+        list.classList.add("tasks-list")
         return list
     }
 
@@ -44,22 +44,22 @@ export default class TasksList {
         return list
     }
 
-    static addTaskToList(list, { task, category }, date) {
+    static addTaskToList(list, { task, folder }, date) {
         const listItem = document.createElement("li")
-        listItem.appendChild(Task.createTaskHtmlElement(task, category, () => this.update(date)))
+        listItem.appendChild(Task.createTaskHtmlElement(task, folder, () => this.update(date)))
         list.appendChild(listItem)
     }
 
     static createEmptyListMessage() {
         const message = document.createElement("div")
-        message.classList.add("home-tasks-list-empty")
+        message.classList.add("tasks-list-empty")
         message.innerHTML = "No tasks for this day. <br> Click + button to create one."
         return message
     }
 
     static createNewTaskButton(date) {
         const newTaskButton = document.createElement("button")
-        newTaskButton.classList.add("home-new-task-button", "floating-button")
+        newTaskButton.classList.add("calendar-tab-new-task-button", "floating-button")
         newTaskButton.textContent = "+"
 
         newTaskButton.addEventListener("click", () => Main.showSlideContent(new NewTaskForm(date).render()))

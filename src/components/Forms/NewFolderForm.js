@@ -1,7 +1,7 @@
-import Project from "../Project/Project"
+import Folder from "../Tasks/Folder"
 import Form from "./Form"
 
-export default class NewProjectForm extends Form {
+export default class NewFolderForm extends Form {
     constructor() {
         super()
         this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "title" }, { type: "placeholder", value: "Title" }])
@@ -13,9 +13,9 @@ export default class NewProjectForm extends Form {
         if (!this.validateForm()) {
             return
         }
-        const project = new Project(this.inputTitle.value, this.inputDescription.value)
-        project.save()
-        Project.display(project.id)
+        const folder = new Folder(this.inputTitle.value, this.inputDescription.value)
+        folder.save()
+        Folder.display(folder.id)
     }
 
     validateForm() {
@@ -33,7 +33,7 @@ export default class NewProjectForm extends Form {
         this.htmlElement.appendChild(this.createSubmit("Save"))
         this.htmlElement.appendChild(this.inputDescription)
         this.htmlElement.appendChild(this.errorBox)
-        this.htmlElement.classList.add("project-form")
+        this.htmlElement.classList.add("folder-form")
         return this.htmlElement
     }
 }

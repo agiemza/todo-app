@@ -1,9 +1,9 @@
 import Home from "../Tabs/Calendar/CalendarTab"
-import Task from "../Project/Task"
+import Task from "../Tasks/Task"
 import ConvertDate from "../Utils/ConvertDate"
 import TouchEvents from "../Utils/TouchEvent"
 import "./calendar.css"
-import TasksList from "../Tabs/Subcomponents/TasksList"
+import TasksList from "../Tasks/TasksList"
 
 export default class Calendar {
     static htmlElement = document.createElement("div")

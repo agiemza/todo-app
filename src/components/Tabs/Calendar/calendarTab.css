@@ -1,4 +1,4 @@
-.home-container {
+.calendar-tab-container {
     display: grid;
     grid-template-rows: auto auto 1fr;
     align-content: start;
@@ -6,7 +6,7 @@
     position: relative;
 }
 
-.home-tasks-list-title {
+.calendar-tab-tasks-list-title {
     display: grid;
     justify-items: center;
     align-items: center;
@@ -15,7 +15,7 @@
     border-bottom: 1px solid var(--lighter-gray);
 }
 
-.home-tasks-list-container {
+.tasks-list-container {
     min-width: 250px;
     width: 100%;
     max-width: 800px;
@@ -24,7 +24,7 @@
     overflow-y: auto;
 }
 
-.home-new-task-button {
+.calendar-tab-new-task-button {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -35,21 +35,13 @@
     font-weight: 300;
 }
 
-.home-tasks-list {
+.tasks-list {
     display: grid;
     gap: 10px;
     list-style: none;
 }
 
-.task-project-name {
-    color: gray;
-    width: 200px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.home-tasks-list-empty {
+.tasks-list-empty {
     height: 100%;
     display: grid;
     justify-items: center;

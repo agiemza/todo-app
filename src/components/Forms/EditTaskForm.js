@@ -1,8 +1,8 @@
 import SaveIcon from "../Icons/save"
 import RemoveIcon from "../Icons/remove"
-import Task from "../Project/Task"
+import Task from "../Tasks/Task"
 import Form from "./Form"
-import TasksList from "../Tabs/Subcomponents/TasksList"
+import TasksList from "../Tasks/TasksList"
 import Calendar from "../Calendar/Calendar"
 import Main from "../UI/Main"
 
@@ -10,7 +10,7 @@ export default class EditTaskForm extends Form {
     constructor(taskId) {
         super()
         this.object = { ...Task.get(taskId) }
-        this.category = this.object.category
+        this.folder = this.object.folder
         this.content = this.object.task.content
         this.dueDate = this.object.task.dueDate
         this.inputContent = this.addTextArea([
@@ -21,14 +21,17 @@ export default class EditTaskForm extends Form {
             { type: "type", value: "date" },
             { type: "value", value: this.object.task.dueDate }
         ])
-        this.inputCategory = this.createCategorySelect()
+        this.inputFolder = this.createFolderSelect()
     }
 
     createRemoveTaskButton() {
         const removeButton = document.createElement("button")
         removeButton.classList.add("task-remove-button")
         removeButton.innerHTML = RemoveIcon
-        removeButton.addEventListener("click", () => Task.remove(this.object.category, this.object.task))
+        removeButton.addEventListener("click", () => {
+            Task.remove(this.object.folder, this.object.task)
+            Main.closeSlideContainer()
+        })
 
         const output = document.querySelector(".slide-container")
         output.appendChild(removeButton)
@@ -46,16 +49,17 @@ export default class EditTaskForm extends Form {
         this.object.task.content = this.inputContent.value
         this.object.task.dueDate = this.inputDueDate.value
 
-        Task.delete(this.category, this.object.task)
-        Task.add(this.object.task, this.inputCategory.selectedOptions[0].getAttribute("data-category-id"))
+        Task.remove(this.folder, this.object.task)
+        Task.add(this.object.task, this.inputFolder.selectedOptions[0].getAttribute("data-folder-id"))
 
         Calendar.createWidget(new Date(this.dueDate))
         TasksList.update(this.dueDate)
+        Main.closeSlideContainer()
     }
 
     render() {
-        this.htmlElement.appendChild(this.addLabel("task-category", "Category:"))
-        this.htmlElement.appendChild(this.inputCategory)
+        this.htmlElement.appendChild(this.addLabel("task-folder", "Folder:"))
+        this.htmlElement.appendChild(this.inputFolder)
         this.htmlElement.appendChild(this.addLabel("task-due-date", "Due date:"))
         this.htmlElement.appendChild(this.inputDueDate)
         this.htmlElement.appendChild(this.inputContent)

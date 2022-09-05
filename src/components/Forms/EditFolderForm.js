@@ -1,20 +1,20 @@
-import NewProjectForm from "./NewProjectForm"
-import Project from '../Project/Project'
+import NewFolderForm from "./NewFolderForm"
+import Folder from '../Tasks/Folder'
 import LocalStorage from "../LocalStorage"
 
-export default class EditProjectForm extends NewProjectForm {
-    constructor(projectId) {
+export default class EditFolderForm extends NewFolderForm {
+    constructor(folderId) {
         super()
-        this.project = LocalStorage.getProject(projectId)
+        this.folder = LocalStorage.getFolder(folderId)
     }
 
     updateDefaultInputValues() {
-        this.inputTitle.value = this.project.title
-        this.inputDescription.value = this.project.description
+        this.inputTitle.value = this.folder.title
+        this.inputDescription.value = this.folder.description
     }
 
     cancelHandler() {
-        Project.display(this.project.id)
+        Folder.display(this.folder.id)
     }
 
     submitButtonHandler(e) {
@@ -22,9 +22,9 @@ export default class EditProjectForm extends NewProjectForm {
         if (!this.validateForm()) {
             return
         }
-        this.project.title = this.inputTitle.value
-        this.project.description = this.inputDescription.value
-        Project.update(this.project)
+        this.folder.title = this.inputTitle.value
+        this.folder.description = this.inputDescription.value
+        Folder.update(this.folder)
     }
 
     render() {
@@ -33,7 +33,7 @@ export default class EditProjectForm extends NewProjectForm {
         this.htmlElement.appendChild(this.createSubmit("Save"))
         this.htmlElement.appendChild(this.inputDescription)
         this.htmlElement.appendChild(this.errorBox)
-        this.htmlElement.classList.add("project-form", "edit-project-form")
+        this.htmlElement.classList.add("folder-form", "edit-folder-form")
         this.updateDefaultInputValues()
         return this.htmlElement
     }

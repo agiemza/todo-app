@@ -1,6 +1,6 @@
 import HomeIcon from "../Icons/home"
 import CalendarIcon from "../Icons/calendar"
-import CategoryIcon from "../Icons/category"
+import FolderIcon from "../Icons/folder"
 
 export default class Navbar {
 
@@ -25,8 +25,8 @@ export default class Navbar {
                 text: "calendar",
             },
             {
-                icon: CategoryIcon,
-                text: "Categories",
+                icon: FolderIcon,
+                text: "folders",
             },
         ]
 

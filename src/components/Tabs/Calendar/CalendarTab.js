@@ -2,7 +2,7 @@ import "./calendarTab.css"
 import Calendar from "../../Calendar/Calendar"
 import Nav from "../../UI/Nav"
 import ConvertDate from "../../Utils/ConvertDate"
-import TasksList from "../Subcomponents/TasksList"
+import TasksList from "../../Tasks/TasksList"
 
 export default class CalendarTab {
     static htmlElement = this.createHtmlElement()
@@ -18,7 +18,7 @@ export default class CalendarTab {
 
     static createHtmlElement() {
         const element = document.createElement("div")
-        element.classList.add("home-container")
+        element.classList.add("calendar-tab-container")
         return element
     }
 
@@ -28,12 +28,12 @@ export default class CalendarTab {
     }
 
     static clearDateContainer() {
-        document.querySelector(".home-tasks-list-title").innerHTML = ""
+        document.querySelector(".calendar-tab-tasks-list-title").innerHTML = ""
     }
 
     static createDateContainer(date) {
         const dateContainer = document.createElement("div")
-        dateContainer.classList.add("home-tasks-list-title")
+        dateContainer.classList.add("calendar-tab-tasks-list-title")
         dateContainer.appendChild(this.setDateContainerContent(date))
         return dateContainer
     }
@@ -42,7 +42,7 @@ export default class CalendarTab {
         const content = `Tasks for ${ConvertDate.toMoreHuman(date)}`
         const wrapper = document.createElement("div")
         wrapper.textContent = content
-        const dateContainer = document.querySelector(".home-tasks-list-title")
+        const dateContainer = document.querySelector(".calendar-tab-tasks-list-title")
         if (dateContainer) dateContainer.appendChild(wrapper)
         if (!dateContainer) return wrapper
     }

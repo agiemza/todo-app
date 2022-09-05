@@ -37,26 +37,24 @@ export default class Form {
         return textArea
     }
 
-    createCategorySelect() {
-        const category = document.createElement("select")
-        category.classList.add("task-category")
+    createFolderSelect() {
+        const folder = document.createElement("select")
+        folder.classList.add("task-folder")
 
         LocalStorage.get().forEach(item => {
             const option = document.createElement("option")
             option.textContent = item.title
-            option.setAttribute("data-category-id", item.id)
-            if (this.category && item.id === this.category.id) {
+            option.setAttribute("data-folder-id", item.id)
+            if (this.folder && item.id === this.folder.id) {
                 option.setAttribute("selected", "selected")
             }
-            if (!this.category) {
-
-                // do this and multiline form validation
-                // set category "default"
+            if (!this.folder && item.id === "0") {
+                option.setAttribute("selected", "selected")
             }
-            category.appendChild(option)
+            folder.appendChild(option)
         })
 
-        return category
+        return folder
     }
 
     createErrorBox() {
@@ -86,11 +84,12 @@ export default class Form {
 
     validateForm() {
         this.errorBox.textContent = ""
-        const contentPatern = /^.{1,}$/g
+        const contentPatern = /^(.|.\n){1,}$/g
         if (!contentPatern.test(this.inputContent.value.trim())) {
             this.errorBox.textContent = "Task must contain at least 1 character"
             return false
         }
+        this.inputContent.value = this.inputContent.value.trim()
         return true
     }
 }

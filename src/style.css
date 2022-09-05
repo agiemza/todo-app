@@ -35,7 +35,7 @@
 
 :root {
     --main-font: "Open Sans", sans-serif;
-    --project-container-padding: 25px;
+    --folder-container-padding: 25px;
     --nav-height: calc(3rem + 10px);
     --avalible-height: calc(100vh - var(--nav-height));
     --background-color: white;
@@ -210,6 +210,19 @@ main {
     background-color: var(--main-color-3);
     color: var(--lighter-gray);
     transition: all 0.5s;
+    position: absolute;
+    right: 1rem;
+    z-index: 1;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.floating-button svg {
+    width: 2rem;
+    height: 2rem;
+    fill: var(--lighter-gray);
 }
 
 .floating-button:hover {
@@ -237,21 +250,7 @@ form {
 }
 
 .submit-button {
-    display: grid;
-    grid-row-end: -1;
-    grid-column-end: -1;
-    align-items: center;
-    justify-items: center;
-    align-self: end;
-    justify-self: end;
-    margin-bottom: calc(1rem + var(--nav-height));
-    padding: 1rem;
-}
-
-.submit-button svg {
-    width: 2rem;
-    height: 2rem;
-    fill: var(--lighter-gray);
+    bottom: calc(1rem + var(--nav-height));
 }
 
 label {
@@ -261,7 +260,7 @@ label {
     grid-column: 1;
 }
 
-label[for="new-task-category"] {
+label[for="new-task-folder"] {
     grid-row: 1;
 }
 
@@ -311,56 +310,56 @@ select {
     overflow: auto;
 }
 
-.project-form {
+.folder-form {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 1rem;
     width: 100%;
 }
 
-.project-form>#title {
+.folder-form>#title {
     max-height: 2.4rem;
     line-height: 2rem;
     font-size: 1.2rem;
     font-weight: 700;
 }
 
-.project-form>#description {
+.folder-form>#description {
     grid-column: 1/-1;
     height: 10rem;
     resize: none;
     overflow: auto;
 }
 
-.edit-project-form {
+.edit-folder-form {
     grid-template-columns: 1fr auto auto;
 }
 
-/* Project */
+/* Folder */
 
-.project-container {
+.folder-container {
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: var(--project-container-padding);
-    padding: var(--project-container-padding);
+    gap: var(--folder-container-padding);
+    padding: var(--folder-container-padding);
     width: 100%;
 }
 
-.project-container>div:first-child {
+.folder-container>div:first-child {
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr auto auto;
     grid-template-rows: repeat(2, auto);
 }
 
-.project-container>div:first-child>h2 {
+.folder-container>div:first-child>h2 {
     overflow: auto;
     max-height: 2.4rem;
     line-height: 2rem;
     font-size: 1.2rem;
 }
 
-.project-container>div:first-child>p {
+.folder-container>div:first-child>p {
     max-height: 10rem;
     overflow: auto;
     grid-row: 2;
@@ -369,40 +368,18 @@ select {
 
 /* Tasks */
 
-.tasks-headline {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    padding-bottom: 0.5rem;
-    margin-bottom: var(--project-container-padding);
-    border-bottom: 1px solid gray;
-}
-
-.task-add-button {
-    width: 20px;
-}
-
-.tasks-list {
-    display: grid;
-    gap: 0.5rem;
-}
-
 .task-container {
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
     grid-auto-flow: column;
-    gap: 1rem;
+    column-gap: 1rem;
     background-color: var(--lighter-gray);
     overflow: hidden;
     border-radius: 5px;
-    padding: 1.2rem 2rem 1.2rem 0.8rem;
+    padding: 1rem 2rem 1rem 1rem;
     align-items: center;
     position: relative;
-}
-
-.task-text {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
 }
 
 .task-container-checked * {
@@ -417,7 +394,34 @@ select {
     opacity: 1;
 }
 
+.task-folder-name {
+    --size: 0.6rem;
+    --color: gray;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    grid-row: 1;
+    color: var(--color);
+    font-size: var(--size);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.task-folder-name svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: var(--color);
+}
+
+.task-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .task-check-button {
+    grid-row: 1/-1;
     width: 20px;
     height: 20px;
     background-color: var(--background-color);
@@ -476,13 +480,4 @@ select {
 
 .task-remove-button:hover {
     background-color: var(--lighter-gray);
-}
-
-
-/* Home section */
-
-@media screen and (min-width: 769px) {
-    .project-form {
-        padding: var(--project-container-padding);
-    }
 }
