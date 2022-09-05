@@ -11,11 +11,13 @@
     from {
         width: 100%;
         left: 0;
+        opacity: 1;
     }
 
     to {
         width: 500px;
         left: 100%;
+        opacity: 0.8;
     }
 }
 
@@ -222,7 +224,7 @@ form {
     overflow: auto;
 }
 
-.new-task-form {
+.task-form {
     grid-template-rows: auto auto 2fr auto 1fr;
     grid-template-columns: auto 1fr;
 }
@@ -248,7 +250,6 @@ form {
     width: 2rem;
     height: 2rem;
     fill: var(--lighter-gray);
-    transform: rotate(-90deg);
 }
 
 label {
@@ -285,7 +286,7 @@ select {
     justify-self: start;
 }
 
-#new-task-due-date {
+#task-due-date {
     grid-row: 2;
     grid-column: 2;
     max-width: fit-content;
@@ -295,7 +296,7 @@ select {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="gray" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
 }
 
-#new-task-content {
+#task-content {
     grid-column: 1/-1;
     resize: none;
     border: none;
@@ -450,16 +451,26 @@ select {
     background-image: url("./assets/done-icon.svg");
 }
 
-.task-options {
+/* .task-remove-button {
     display: grid;
-    justify-content: start;
-    width: 0.4rem;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    background-color: var(--main-color-3);
+    justify-items: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
+    border: none;
 }
+
+.task-remove-button svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--lighter-color);
+}
+
+.task-remove-button:hover {
+    background-color: (--lighter-color);
+} */
 
 /* Home section */
 

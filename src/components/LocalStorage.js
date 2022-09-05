@@ -31,7 +31,7 @@ export default class LocalStorage {
     static saveProject(project) {
         this.remove(project)
         this.add(project)
-        Navbar.upadateProjectList()
+        // Navbar.upadateProjectList()
     }
 
     static isEmpty() {

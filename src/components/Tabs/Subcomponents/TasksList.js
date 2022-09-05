@@ -44,9 +44,9 @@ export default class TasksList {
         return list
     }
 
-    static addTaskToList(list, { task, project }, date) {
+    static addTaskToList(list, { task, category }, date) {
         const listItem = document.createElement("li")
-        listItem.appendChild(Task.createTaskHtmlElement(task, project, () => this.update(date)))
+        listItem.appendChild(Task.createTaskHtmlElement(task, category, () => this.update(date)))
         list.appendChild(listItem)
     }
 

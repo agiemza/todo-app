@@ -1,6 +1,6 @@
 import HomeIcon from "../Icons/home"
 import CalendarIcon from "../Icons/calendar"
-import TaskIcon from "../Icons/task"
+import CategoryIcon from "../Icons/category"
 
 export default class Navbar {
 
@@ -25,8 +25,8 @@ export default class Navbar {
                 text: "calendar",
             },
             {
-                icon: TaskIcon,
-                text: "projects",
+                icon: CategoryIcon,
+                text: "Categories",
             },
         ]
 
