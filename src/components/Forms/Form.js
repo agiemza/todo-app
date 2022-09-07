@@ -1,4 +1,5 @@
 import LocalStorage from "../LocalStorage"
+import RemoveIcon from "../Icons/remove"
 
 export default class Form {
     constructor() {
@@ -9,6 +10,17 @@ export default class Form {
     createForm() {
         const form = document.createElement("form")
         return form
+    }
+
+    validateForm() {
+        this.errorBox.textContent = ""
+        const contentPatern = /^(.|.\n){1,}$/g
+        if (!contentPatern.test(this.inputName.value.trim())) {
+            this.errorBox.textContent = "Task must contain at least 1 character"
+            return false
+        }
+        this.inputName.value = this.inputName.value.trim()
+        return true
     }
 
     addInput(attributes) {
@@ -43,7 +55,7 @@ export default class Form {
 
         LocalStorage.get().forEach(item => {
             const option = document.createElement("option")
-            option.textContent = item.title
+            option.textContent = item.name
             option.setAttribute("data-folder-id", item.id)
             if (this.folder && item.id === this.folder.id) {
                 option.setAttribute("selected", "selected")
@@ -60,19 +72,15 @@ export default class Form {
     createErrorBox() {
         const errorBox = document.createElement("div")
         errorBox.classList.add("form-error")
-
         return errorBox
     }
 
-    createCancel() {
-        const button = document.createElement("button")
-        button.classList.add("cancel-button")
-        button.type = "button"
-        button.textContent = "x"
-        button.addEventListener("click", e => this.cancelHandler(e))
-        return button
+    createRemoveButton(removeHandler) {
+        const removeButton = document.createElement("button")
+        removeButton.innerHTML = RemoveIcon
+        removeButton.addEventListener("click", removeHandler)
+        return removeButton
     }
-
 
     createSubmit(buttonText) {
         const button = document.createElement("button")
@@ -80,16 +88,5 @@ export default class Form {
         button.innerHTML = buttonText
         button.addEventListener("click", e => this.submitButtonHandler(e))
         return button
-    }
-
-    validateForm() {
-        this.errorBox.textContent = ""
-        const contentPatern = /^(.|.\n){1,}$/g
-        if (!contentPatern.test(this.inputContent.value.trim())) {
-            this.errorBox.textContent = "Task must contain at least 1 character"
-            return false
-        }
-        this.inputContent.value = this.inputContent.value.trim()
-        return true
     }
 }

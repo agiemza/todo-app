@@ -1,10 +1,10 @@
-import Folder from "../Tasks/Folder"
+import Folder from "../Folders/Folder"
 import Form from "./Form"
 
 export default class NewFolderForm extends Form {
     constructor() {
         super()
-        this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "title" }, { type: "placeholder", value: "Title" }])
+        this.inputTitle = this.addInput([{ type: "type", value: "text" }, { type: "id", value: "name" }, { type: "placeholder", value: "Title" }])
         this.inputDescription = this.addTextArea([{ type: "id", value: "description" }, { type: "placeholder", value: "Description" }])
     }
 
@@ -16,16 +16,6 @@ export default class NewFolderForm extends Form {
         const folder = new Folder(this.inputTitle.value, this.inputDescription.value)
         folder.save()
         Folder.display(folder.id)
-    }
-
-    validateForm() {
-        this.errorBox.textContent = ""
-        const titlePattern = /^.{1,}$/g
-        if (!titlePattern.test(this.inputTitle.value)) {
-            this.errorBox.textContent = "Title must contain at least 1 character"
-            return false
-        }
-        return true
     }
 
     render() {

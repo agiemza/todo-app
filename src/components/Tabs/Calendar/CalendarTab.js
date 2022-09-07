@@ -8,6 +8,7 @@ export default class CalendarTab {
     static htmlElement = this.createHtmlElement()
 
     static render() {
+        this.clearHtmlElement()
         const today = ConvertDate.toYYYYMMDD(new Date())
         this.htmlElement.appendChild(Calendar.render())
         this.htmlElement.appendChild(this.createDateContainer(today))
@@ -16,10 +17,18 @@ export default class CalendarTab {
         return this.htmlElement
     }
 
+    static refresh(date) {
+        Calendar.createWidget(new Date(date))
+    }
+    
     static createHtmlElement() {
         const element = document.createElement("div")
         element.classList.add("calendar-tab-container")
         return element
+    }
+
+    static clearHtmlElement() {
+        this.htmlElement.innerHTML = ""
     }
 
     static updateDateContainer(date) {

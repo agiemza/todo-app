@@ -102,7 +102,7 @@ export default class Calendar {
         container.classList.add("calendar-grid-container")
 
         let touchEvent
-        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e))
+        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e), {passive:false})
         container.addEventListener("touchend", e => this.handleSwipe(e, touchEvent))
 
         for (let i = 0; i < 42; i++) {

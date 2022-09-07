@@ -1,8 +1,12 @@
 import HomeIcon from "../Icons/home"
 import CalendarIcon from "../Icons/calendar"
 import FolderIcon from "../Icons/folder"
+import Main from "./Main"
+import HomeTab from "../Tabs/HomeTab.js/HomeTab"
+import CalendarTab from "../Tabs/Calendar/CalendarTab"
+import FoldersTab from "../Tabs/Folders/FoldersTab"
 
-export default class Navbar {
+export default class Nav {
 
     static nav = document.createElement("nav")
 
@@ -19,14 +23,17 @@ export default class Navbar {
             {
                 icon: HomeIcon,
                 text: "home",
+                clickHandler: () => Main.changeContent(HomeTab.render())
             },
             {
                 icon: CalendarIcon,
                 text: "calendar",
+                clickHandler: () => Main.changeContent(CalendarTab.render())
             },
             {
                 icon: FolderIcon,
                 text: "folders",
+                clickHandler: () => Main.changeContent(FoldersTab.render())
             },
         ]
 
@@ -37,11 +44,11 @@ export default class Navbar {
         return wrapper
     }
 
-    static createButton({ icon, text }) {
+    static createButton({ icon, text, clickHandler }) {
         const button = document.createElement("button")
         button.classList.add("nav-button")
         button.setAttribute("id", `nav-button-${text}`)
-        button.addEventListener("click", () => this.handleButtonClick(button))
+        button.addEventListener("click", () => this.handleButtonClick(button, clickHandler))
 
         const iconContainer = document.createElement("div")
         iconContainer.classList.add("nav-button-icon-container")
@@ -64,8 +71,9 @@ export default class Navbar {
         document.querySelector(`#${id}`).classList.add("nav-button-active")
     }
 
-    static handleButtonClick(button) {
+    static handleButtonClick(button, clickHandler) {
         this.removeActiveClassFromButtons()
         this.setButtonActive(button.id)
+        clickHandler()
     }
 }

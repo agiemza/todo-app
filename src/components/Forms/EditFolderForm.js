@@ -1,41 +1,54 @@
-import NewFolderForm from "./NewFolderForm"
+import Form from "./Form"
 import Folder from '../Tasks/Folder'
-import LocalStorage from "../LocalStorage"
+import Main from "../UI/Main"
+import TasksList from "../Tasks/TasksList"
+import FoldersTab from "../Tabs/Folders/FoldersTab"
 
-export default class EditFolderForm extends NewFolderForm {
-    constructor(folderId) {
+export default class EditFolderForm extends Form {
+    constructor(folder, topBar) {
         super()
-        this.folder = LocalStorage.getFolder(folderId)
+        this.folder = folder
+        this.topBar = topBar
+        this.inputName = this.addInput([
+            { type: "type", value: "text" },
+            { type: "class", value: "folder-name" },
+            { type: "id", value: "name" },
+            { type: "value", value: this.folder.name }
+        ])
     }
 
-    updateDefaultInputValues() {
-        this.inputTitle.value = this.folder.title
-        this.inputDescription.value = this.folder.description
-    }
-
-    cancelHandler() {
-        Folder.display(this.folder.id)
+    createRemoveFolderButton() {
+        const removeButton = this.createRemoveButton(() => {
+            Folder.delete(this.folder.id)
+            Main.closeSlideContainer()
+        })
+        removeButton.classList.add("folder-remove-button")
+        const output = document.querySelector(".slide-container")
+        output.appendChild(removeButton)
     }
 
     submitButtonHandler(e) {
+        if (e.key !== "Enter") {
+            return
+        }
         e.preventDefault()
         if (!this.validateForm()) {
             return
         }
-        this.folder.title = this.inputTitle.value
-        this.folder.description = this.inputDescription.value
+        this.folder.name = this.inputName.value
         Folder.update(this.folder)
     }
 
     render() {
-        this.htmlElement.appendChild(this.inputTitle)
-        this.htmlElement.appendChild(this.createCancel())
-        this.htmlElement.appendChild(this.createSubmit("Save"))
-        this.htmlElement.appendChild(this.inputDescription)
-        this.htmlElement.appendChild(this.errorBox)
-        this.htmlElement.classList.add("folder-form", "edit-folder-form")
-        this.updateDefaultInputValues()
-        return this.htmlElement
+        this.topBar.querySelector(".folder-name").remove()
+        this.topBar.prepend(this.inputName)
+        this.inputName.addEventListener("keydown", e => this.submitButtonHandler(e))
+        this.inputName.focus()
+
+        // this.htmlElement.appendChild(this.createSubmit())
+        // this.htmlElement.appendChild(this.errorBox)
+        // this.htmlElement.classList.add("folder-form", "edit-folder-form")
+        // return this.htmlElement
     }
 
 }

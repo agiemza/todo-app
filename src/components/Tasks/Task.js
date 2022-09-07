@@ -5,12 +5,14 @@ import LocalStorage from "../LocalStorage"
 import TasksList from "./TasksList"
 import Main from "../UI/Main"
 import FolderIcon from '../Icons/folder'
+import CalendarTab from "../Tabs/Calendar/CalendarTab"
+import FoldersTab from "../Tabs/Folders/FoldersTab"
 
 export default class Task {
-    constructor(content, dueDate) {
+    constructor(name, dueDate) {
         this.id = nanoid()
         this.checked = false
-        this.content = content
+        this.name = name
         this.dueDate = dueDate
     }
 
@@ -35,15 +37,22 @@ export default class Task {
         LocalStorage.saveFolder(folder)
     }
 
-    static check(e, folder, task, refreshHandler) {
-        e.stopPropagation()
+    static check(taskId) {
+        const { task, folder } = this.get(taskId)
         folder.tasks.find(item => {
             if (item.id === task.id) {
                 item.checked = !item.checked
             }
         })
         LocalStorage.saveFolder(folder)
-        refreshHandler()
+        CalendarTab.refresh(task.dueDate)
+        FoldersTab.refresh(folder.id)
+        TasksList.update(task.dueDate)
+    }
+
+    static handleCheckButtonClick(e, taskId) {
+        e.stopPropagation()
+        this.check(taskId)
     }
 
     static edit(folder, task) {
@@ -57,7 +66,21 @@ export default class Task {
         folder.tasks = folder.tasks.filter(item => item.id !== task.id)
         LocalStorage.saveFolder(folder)
         Calendar.createWidget(new Date(task.dueDate))
-        TasksList.update(task.dueDate)
+    }
+
+    static getTasksFromFolder(folderId) {
+        const folder = LocalStorage.getFolder(folderId)
+        const tasks = []
+        const tasksDone = []
+        folder.tasks.forEach(task => {
+            if (task.checked) {
+                tasksDone.push({ task, folder })
+            }
+            if (!task.checked) {
+                tasks.push({ task, folder })
+            }
+        })
+        return tasks.concat(tasksDone)
     }
 
     static findTasksForDate(date) {
@@ -79,7 +102,7 @@ export default class Task {
         return tasks.concat(tasksDone)
     }
 
-    static createTaskHtmlElement(task, folder, refreshHandler) {
+    static createTaskHtmlElement(task, folder) {
         const container = document.createElement("div")
         container.classList.add("task-container")
         container.setAttribute("data-task-id", task.id)
@@ -91,18 +114,18 @@ export default class Task {
 
         const check = document.createElement("button")
         check.classList.add("task-check-button")
-        check.addEventListener("click", e => this.check(e, folder, task, refreshHandler))
+        check.addEventListener("click", e => this.handleCheckButtonClick(e, task.id))
         container.appendChild(check)
 
         const folderContainer = document.createElement("div")
         folderContainer.classList.add("task-folder-name")
-        folderContainer.innerHTML = `${FolderIcon} ${folder.title}`
+        folderContainer.innerHTML = `${FolderIcon} ${folder.name}`
         container.appendChild(folderContainer)
 
-        const content = document.createElement("div")
-        content.classList.add("task-text")
-        content.textContent = task.content
-        container.appendChild(content)
+        const name = document.createElement("div")
+        name.classList.add("task-text")
+        name.textContent = task.name
+        container.appendChild(name)
 
         if (task.checked) {
             container.classList.add("task-container-checked")
@@ -111,4 +134,5 @@ export default class Task {
 
         return container
     }
+
 }

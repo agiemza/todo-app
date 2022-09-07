@@ -6,7 +6,9 @@ export default class TasksList {
     static htmlElement = this.createHtmlElement()
 
     static render(date) {
-        this.htmlElement.appendChild(this.showTasks(date))
+        this.clearHtmlElement()
+        this.htmlElement.appendChild(this.createNewTaskButton(date))
+        this.htmlElement.appendChild(this.showTasks(Task.findTasksForDate(date), date))
         return this.htmlElement
     }
 
@@ -17,14 +19,14 @@ export default class TasksList {
     }
 
     static clearHtmlElement() {
-        const container = document.querySelector(".tasks-list-container")
-        container.innerHTML = ""
+        this.htmlElement.innerHTML = ""
     }
 
     static update(date) {
         this.clearHtmlElement()
         this.createHtmlElement()
-        this.htmlElement.appendChild(this.showTasks(date))
+        this.htmlElement.appendChild(this.createNewTaskButton(date))
+        this.htmlElement.appendChild(this.showTasks(Task.findTasksForDate(date), date))
     }
 
     static createList() {
@@ -33,27 +35,25 @@ export default class TasksList {
         return list
     }
 
-    static showTasks(date) {
-        this.htmlElement.appendChild(this.createNewTaskButton(date))
-        const tasks = Task.findTasksForDate(date)
+    static showTasks(tasks) {
         if (tasks.length === 0) {
             return this.createEmptyListMessage()
         }
         const list = this.createList()
-        tasks.forEach((task) => this.addTaskToList(list, task, date))
+        tasks.forEach((task) => this.addTaskToList(list, task))
         return list
     }
 
-    static addTaskToList(list, { task, folder }, date) {
+    static addTaskToList(list, { task, folder }) {
         const listItem = document.createElement("li")
-        listItem.appendChild(Task.createTaskHtmlElement(task, folder, () => this.update(date)))
+        listItem.appendChild(Task.createTaskHtmlElement(task, folder))
         list.appendChild(listItem)
     }
 
     static createEmptyListMessage() {
-        const message = document.createElement("div")
-        message.classList.add("tasks-list-empty")
-        message.innerHTML = "No tasks for this day. <br> Click + button to create one."
+        const message = document.createElement("ul")
+        message.classList.add("tasks-list", "tasks-list-empty")
+        message.innerHTML = "No tasks. <br> Click + button to create one."
         return message
     }
 

@@ -1,0 +1,71 @@
+.folders-tab-container {
+    overflow: auto;
+}
+
+.folders-list li {
+    overflow: hidden;
+}
+
+.folders-list .task-container {
+    grid-template-rows: auto;
+}
+
+.folders-list .task-folder-name {
+    display: none;
+}
+
+.folders-list .tasks-list {
+    height: 0;
+    overflow: hidden;
+}
+
+.tasks-list-expanded {
+    padding: 1rem 0;
+    height: 100% !important;
+}
+
+.folders-list {
+    padding: 1rem;
+}
+
+.folders-list-top-bar {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    background-color: var(--background-color);
+    padding: 10px;
+    border-bottom: 1px solid var(--lighter-gray);
+}
+
+.folder-name {
+    min-width: 150px;
+    max-width: 80%;
+    padding: 3px 1rem;
+    color: #fff;
+    background: var(--gradient);
+    font-weight: 300;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+}
+
+.folder-expand-button {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-column-end: -1;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.folder-expand-button svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--main-color-1);
+}
+
+.button-expanded svg {
+    fill: var(--main-color-2);
+}
