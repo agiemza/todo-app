@@ -1,8 +1,9 @@
 import Form from "./Form"
 import Folder from '../Tasks/Folder'
 import Main from "../UI/Main"
-import TasksList from "../Tasks/TasksList"
+import CalendarTab from "../Tabs/Calendar/CalendarTab"
 import FoldersTab from "../Tabs/Folders/FoldersTab"
+import TasksList from "../Tasks/TasksList"
 
 export default class EditFolderForm extends Form {
     constructor(folder, topBar) {
@@ -11,8 +12,7 @@ export default class EditFolderForm extends Form {
         this.topBar = topBar
         this.inputName = this.addInput([
             { type: "type", value: "text" },
-            { type: "class", value: "folder-name" },
-            { type: "id", value: "name" },
+            { type: "id", value: "folder-name" },
             { type: "value", value: this.folder.name }
         ])
     }
@@ -20,35 +20,36 @@ export default class EditFolderForm extends Form {
     createRemoveFolderButton() {
         const removeButton = this.createRemoveButton(() => {
             Folder.delete(this.folder.id)
+            FoldersTab.refresh(this.folder.id)
+            TasksList.update(this.dueDate)
             Main.closeSlideContainer()
         })
-        removeButton.classList.add("folder-remove-button")
+        removeButton.classList.add("task-remove-button")
         const output = document.querySelector(".slide-container")
         output.appendChild(removeButton)
     }
 
     submitButtonHandler(e) {
-        if (e.key !== "Enter") {
-            return
-        }
         e.preventDefault()
         if (!this.validateForm()) {
             return
         }
         this.folder.name = this.inputName.value
         Folder.update(this.folder)
+        
+        CalendarTab.refresh(this.dueDate)
+        FoldersTab.refresh(this.folder.id)
+        TasksList.update(this.dueDate)
+        Main.closeSlideContainer()
     }
 
     render() {
-        this.topBar.querySelector(".folder-name").remove()
-        this.topBar.prepend(this.inputName)
-        this.inputName.addEventListener("keydown", e => this.submitButtonHandler(e))
-        this.inputName.focus()
-
-        // this.htmlElement.appendChild(this.createSubmit())
-        // this.htmlElement.appendChild(this.errorBox)
-        // this.htmlElement.classList.add("folder-form", "edit-folder-form")
-        // return this.htmlElement
+        this.htmlElement.appendChild(this.addLabel("folder-name", "Folder name:"))
+        this.htmlElement.appendChild(this.inputName)
+        this.htmlElement.appendChild(this.createSubmit())
+        this.htmlElement.appendChild(this.errorBox)
+        this.htmlElement.classList.add("folder-form")
+        return this.htmlElement
     }
 
 }

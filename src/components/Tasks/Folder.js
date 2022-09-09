@@ -17,11 +17,23 @@ export default class Folder {
         LocalStorage.saveFolder(defaultFolder)
     }
 
+    static getSortedTasks(folderId) {
+        const folder = LocalStorage.getFolder(folderId)
+        const tasks = []
+        const tasksDone = []
+        folder.tasks.forEach(task => {
+            if (task.checked) {
+                tasksDone.push({ task, folder })
+            }
+            if (!task.checked) {
+                tasks.push({ task, folder })
+            }
+        })
+        return tasks.concat(tasksDone)
+    }
 
 
-    
     save() {
-        // Navbar.addFolderToList(this)
         LocalStorage.add(this)
     }
 

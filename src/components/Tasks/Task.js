@@ -68,21 +68,6 @@ export default class Task {
         Calendar.createWidget(new Date(task.dueDate))
     }
 
-    static getTasksFromFolder(folderId) {
-        const folder = LocalStorage.getFolder(folderId)
-        const tasks = []
-        const tasksDone = []
-        folder.tasks.forEach(task => {
-            if (task.checked) {
-                tasksDone.push({ task, folder })
-            }
-            if (!task.checked) {
-                tasks.push({ task, folder })
-            }
-        })
-        return tasks.concat(tasksDone)
-    }
-
     static findTasksForDate(date) {
         const folders = LocalStorage.get()
         const tasks = []

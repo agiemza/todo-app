@@ -61,7 +61,6 @@ export default class TasksList {
         const newTaskButton = document.createElement("button")
         newTaskButton.classList.add("calendar-tab-new-task-button", "floating-button")
         newTaskButton.textContent = "+"
-
         newTaskButton.addEventListener("click", () => Main.showSlideContent(new NewTaskForm(date).render()))
         return newTaskButton
     }

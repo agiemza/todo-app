@@ -3,7 +3,6 @@
     grid-template-rows: auto auto 1fr;
     align-content: start;
     overflow-y: auto;
-    position: relative;
 }
 
 .calendar-tab-tasks-list-title {

@@ -7,7 +7,7 @@ export default class LocalStorage {
 
     static add(item) {
         const array = this.get()
-        array.unshift(item)
+        array.push(item)
         localStorage.setItem(this.itemName, JSON.stringify(array))
     }
 
@@ -29,8 +29,15 @@ export default class LocalStorage {
     }
 
     static saveFolder(folder) {
-        this.remove(folder)
-        this.add(folder)
+        const array = this.get()
+        const currentFolderIndex = array.findIndex(item => item.id === folder.id)
+        if (currentFolderIndex === -1) {
+            array.push(folder)
+        }
+        if (currentFolderIndex !== -1) {
+            array[currentFolderIndex] = folder
+        }
+        localStorage.setItem(this.itemName, JSON.stringify(array))
     }
 
     static isEmpty() {

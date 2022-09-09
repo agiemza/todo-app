@@ -1,4 +1,3 @@
-import SaveIcon from "../Icons/save"
 import Task from "../Tasks/Task"
 import Form from "./Form"
 import Main from "../UI/Main"
@@ -65,7 +64,7 @@ export default class EditTaskForm extends Form {
         this.htmlElement.appendChild(this.inputDueDate)
         this.htmlElement.appendChild(this.inputName)
         this.htmlElement.appendChild(this.errorBox)
-        this.htmlElement.appendChild(this.createSubmit(SaveIcon))
+        this.htmlElement.appendChild(this.createSubmit())
         this.htmlElement.classList.add("task-form")
         return this.htmlElement
     }

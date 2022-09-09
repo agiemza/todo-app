@@ -1,4 +1,5 @@
 import LocalStorage from "../LocalStorage"
+import SaveIcon from "../Icons/save"
 import RemoveIcon from "../Icons/remove"
 
 export default class Form {
@@ -82,10 +83,10 @@ export default class Form {
         return removeButton
     }
 
-    createSubmit(buttonText) {
+    createSubmit(buttonContent) {
         const button = document.createElement("button")
         button.classList.add("submit-button", "floating-button")
-        button.innerHTML = buttonText
+        button.innerHTML = buttonContent || SaveIcon
         button.addEventListener("click", e => this.submitButtonHandler(e))
         return button
     }

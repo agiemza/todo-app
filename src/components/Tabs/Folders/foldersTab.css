@@ -1,5 +1,38 @@
 .folders-tab-container {
+    padding: 1rem;
     overflow: auto;
+}
+
+
+.folder-new-button {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.folder-new-button:hover {
+    background-color: var(--lighter-gray);
+}
+
+.folder-new-button::before {
+    content: "+";
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    color: var(--lighter-gray);
+    background: var(--gradient);
 }
 
 .folders-list li {
@@ -24,45 +57,72 @@
     height: 100% !important;
 }
 
-.folders-list {
-    padding: 1rem;
-}
-
 .folders-list-top-bar {
     display: grid;
+    gap: 2rem;
     align-items: center;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
     background-color: var(--background-color);
-    padding: 10px;
+    padding: 10px 0;
     border-bottom: 1px solid var(--lighter-gray);
 }
 
 .folder-name {
-    min-width: 150px;
-    max-width: 80%;
-    padding: 3px 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    max-height: 2rem;
+    width: 100%;
+    padding: 5px 0.5rem 5px 1rem;
+    ;
     color: #fff;
     background: var(--gradient);
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 0.9rem;
     border-radius: 10px;
     border: none;
+    margin-right: 1rem;
 }
 
-.folder-expand-button {
+.folder-name div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.folder-list-top-bar-button {
     display: grid;
     justify-content: center;
     align-content: center;
-    grid-column-end: -1;
     width: 20px;
     height: 20px;
     border-radius: 5px;
     border: none;
 }
 
-.folder-expand-button svg {
+.folder-list-top-bar-button svg {
     width: 20px;
     height: 20px;
+}
+
+.folder-edit-button {
+    border: none;
+    background: none;
+}
+
+.folder-edit-button svg {
+    fill: var(--lighter-color);
+    transition: all 0.5s;
+}
+
+.folder-edit-button:hover svg {
+    fill: var(--lighter-gray);
+}
+
+.folder-expand-button svg {
     fill: var(--main-color-1);
 }
 

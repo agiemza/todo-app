@@ -1,5 +1,4 @@
 import Form from "./Form"
-import SaveIcon from "../Icons/save"
 import Task from "../Tasks/Task"
 import CalendarTab from "../Tabs/Calendar/CalendarTab"
 import FoldersTab from "../Tabs/Folders/FoldersTab"
@@ -46,7 +45,7 @@ export default class NewTaskForm extends Form {
         this.htmlElement.appendChild(this.inputDueDate)
         this.htmlElement.appendChild(this.inputName)
         this.htmlElement.appendChild(this.errorBox)
-        this.htmlElement.appendChild(this.createSubmit(SaveIcon))
+        this.htmlElement.appendChild(this.createSubmit())
         this.htmlElement.classList.add("task-form")
         return this.htmlElement
     }
