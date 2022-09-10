@@ -6,7 +6,7 @@ import TasksList from "../Tasks/TasksList"
 import Main from "../UI/Main"
 
 export default class NewTaskForm extends Form {
-    constructor(date) {
+    constructor(date = new Date().toISOString().split("T")[0]) {
         super()
         this.date = date
         this.inputName = this.addTextArea([

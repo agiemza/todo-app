@@ -141,7 +141,7 @@ export default class FoldersTab {
     static createNewFolderButton() {
         const newFolderButton = document.createElement("button")
         newFolderButton.classList.add("folder-new-button")
-        newFolderButton.textContent = "Add folder"
+        newFolderButton.textContent = "+ Add folder"
         newFolderButton.addEventListener("click", () => Main.showSlideContent(new NewFolderForm().render()))
         return newFolderButton
     }

@@ -102,7 +102,7 @@ export default class Calendar {
         container.classList.add("calendar-grid-container")
 
         let touchEvent
-        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e), {passive:false})
+        container.addEventListener("touchstart", e => touchEvent = new TouchEvents(e), { passive: false })
         container.addEventListener("touchend", e => this.handleSwipe(e, touchEvent))
 
         for (let i = 0; i < 42; i++) {
@@ -132,7 +132,7 @@ export default class Calendar {
             this.highlightToday(new Date(date), dayContainer)
             this.markDayWithTask(date, dayNumberContainer)
 
-            dayContainer.addEventListener("click", () => this.handleDayClick(date))
+            dayContainer.addEventListener("click", () => this.handleDayClick(date, dayContainer))
 
             dayNumberContainer.textContent = day
         }
@@ -148,7 +148,7 @@ export default class Calendar {
             this.markDayWithTask(date, dayNumberContainer)
 
             dayContainer.addEventListener("click", () => {
-                this.handleDayClick(date)
+                this.handleDayClick(date, dayContainer)
                 this.switchToPreviousMonth()
             })
 
@@ -166,7 +166,7 @@ export default class Calendar {
             this.markDayWithTask(date, dayNumberContainer)
 
             dayContainer.addEventListener("click", () => {
-                this.handleDayClick(date)
+                this.handleDayClick(date, dayContainer)
                 this.switchToNextMonth()
             })
 
@@ -255,6 +255,14 @@ export default class Calendar {
         }
     }
 
+    static highlightSelectedDay(selectedElement) {
+        const dateContainers = document.querySelectorAll(".day-container")
+        dateContainers.forEach(dateContainer => dateContainer.classList.remove("day-container-selected"))
+        if (!selectedElement.classList.contains("day-container-today")) {
+            selectedElement.classList.add("day-container-selected")
+        }
+    }
+
     static markDayWithTask(date, container) {
         if (Task.findTasksForDate(date).length) {
             container.classList.add("day-with-task")
@@ -271,7 +279,8 @@ export default class Calendar {
         }
     }
 
-    static handleDayClick(date) {
+    static handleDayClick(date, selectedElement) {
+        this.highlightSelectedDay(selectedElement)
         TasksList.update(date)
         Home.updateDateContainer(date)
     }

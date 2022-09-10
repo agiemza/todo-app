@@ -45,6 +45,7 @@
     justify-items: center;
     align-items: center;
     width: 100%;
+    transition: all 0.3s;
 }
 
 .day-container:active {
@@ -55,7 +56,10 @@
 
 .day-container:hover {
     text-shadow: 0 0 5px white;
-    transition: all 0.3s;
+}
+
+.day-container-selected {
+    text-shadow: 0 0 5px white;
 }
 
 .day-container-today {
