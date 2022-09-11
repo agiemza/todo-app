@@ -20,7 +20,7 @@ export default class CalendarTab {
     static refresh(date) {
         Calendar.createWidget(new Date(date))
     }
-    
+
     static createHtmlElement() {
         const element = document.createElement("div")
         element.classList.add("calendar-tab-container")

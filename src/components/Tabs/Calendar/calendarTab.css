@@ -19,19 +19,8 @@
     width: 100%;
     max-width: 800px;
     justify-self: center;
-    padding: 1rem 1rem 5.5rem;
+    padding: 1rem 1rem calc(var(--nav-height) + 5.5rem);
     overflow-y: auto;
-}
-
-.calendar-tab-new-task-button {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    z-index: 1;
-    width: 4rem;
-    height: 4rem;
-    font-size: 2.5rem;
-    font-weight: 300;
 }
 
 .tasks-list {
@@ -48,4 +37,9 @@
     font-size: 0.8rem;
     color: gray;
     text-align: center;
+}
+
+.tasks-list-expanded {
+    padding: 1rem 0;
+    height: 100% !important;
 }

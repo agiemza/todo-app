@@ -1,14 +1,15 @@
-import Form from "./Form"
-import Task from "../Tasks/Task"
-import CalendarTab from "../Tabs/Calendar/CalendarTab"
-import FoldersTab from "../Tabs/Folders/FoldersTab"
-import TasksList from "../Tasks/TasksList"
-import Main from "../UI/Main"
+import Form from "../Form"
+import Task from "../../Tasks/Task"
+import CalendarTab from "../../Tabs/Calendar/CalendarTab"
+import TasksList from "../../Tasks/TasksList"
+import Main from "../../UI/Main"
+import FoldersList from "../../Folders/FoldersList"
 
 export default class NewTaskForm extends Form {
-    constructor(date = new Date().toISOString().split("T")[0]) {
+    constructor(date, folder) {
         super()
-        this.date = date
+        this.date = date || new Date().toISOString().split("T")[0]
+        this.folder = folder
         this.inputName = this.addTextArea([
             { type: "id", value: "task-name" },
             { type: "placeholder", value: "Input new task here" }
@@ -32,8 +33,9 @@ export default class NewTaskForm extends Form {
         }
         const task = new Task(this.inputName.value, this.inputDueDate.value)
         Task.add(task, this.inputFolder.selectedOptions[0].getAttribute("data-folder-id"))
+
         CalendarTab.refresh(this.date)
-        FoldersTab.refresh(this.inputFolder.selectedOptions[0].getAttribute("data-folder-id"))
+        FoldersList.refresh(this.inputFolder.selectedOptions[0].getAttribute("data-folder-id"))
         TasksList.update(this.date)
         Main.closeSlideContainer()
     }

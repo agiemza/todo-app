@@ -1,6 +1,8 @@
-import LocalStorage from "../LocalStorage"
+import "./forms.css"
+import LocalStorage from "../Utils/LocalStorage"
 import SaveIcon from "../Icons/save"
 import RemoveIcon from "../Icons/remove"
+
 
 export default class Form {
     constructor() {

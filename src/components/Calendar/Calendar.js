@@ -148,8 +148,8 @@ export default class Calendar {
             this.markDayWithTask(date, dayNumberContainer)
 
             dayContainer.addEventListener("click", () => {
-                this.handleDayClick(date, dayContainer)
                 this.switchToPreviousMonth()
+                this.handleDayClick(date)
             })
 
             dayNumberContainer.textContent = day
@@ -166,8 +166,8 @@ export default class Calendar {
             this.markDayWithTask(date, dayNumberContainer)
 
             dayContainer.addEventListener("click", () => {
-                this.handleDayClick(date, dayContainer)
                 this.switchToNextMonth()
+                this.handleDayClick(date)
             })
 
             dayNumberContainer.textContent = day
@@ -255,12 +255,15 @@ export default class Calendar {
         }
     }
 
-    static highlightSelectedDay(selectedElement) {
-        const dateContainers = document.querySelectorAll(".day-container")
-        dateContainers.forEach(dateContainer => dateContainer.classList.remove("day-container-selected"))
-        if (!selectedElement.classList.contains("day-container-today")) {
-            selectedElement.classList.add("day-container-selected")
-        }
+    static highlightSelectedDay(date) {
+        const dateContainers = document.querySelectorAll(".current-month-day")
+        date = date.slice(-2) < 10 ? date.slice(-1) : date.slice(-2)
+        dateContainers.forEach(container => {
+            container.classList.remove("day-container-selected")
+            if (container.querySelector(".day-number").textContent === date) {
+                container.classList.add("day-container-selected")
+            }
+        })
     }
 
     static markDayWithTask(date, container) {
@@ -279,8 +282,8 @@ export default class Calendar {
         }
     }
 
-    static handleDayClick(date, selectedElement) {
-        this.highlightSelectedDay(selectedElement)
+    static handleDayClick(date) {
+        this.highlightSelectedDay(date)
         TasksList.update(date)
         Home.updateDateContainer(date)
     }

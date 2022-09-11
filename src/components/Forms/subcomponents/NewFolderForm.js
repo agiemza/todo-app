@@ -1,8 +1,9 @@
-import FoldersTab from "../Tabs/Folders/FoldersTab"
-import Folder from "../Tasks/Folder"
-import TasksList from "../Tasks/TasksList"
-import Main from "../UI/Main"
-import Form from "./Form"
+import LocalStorage from "../../Utils/LocalStorage"
+import FoldersList from "../../Folders/FoldersList"
+import Folder from "../../Folders/Folder"
+import TasksList from "../../Tasks/TasksList"
+import Main from "../../UI/Main"
+import Form from "../Form"
 
 export default class NewFolderForm extends Form {
     constructor() {
@@ -21,8 +22,8 @@ export default class NewFolderForm extends Form {
             return
         }
         this.folder = new Folder(this.inputName.value)
-        this.folder.save()
-        FoldersTab.refresh(this.folder.id)
+        LocalStorage.add(this.folder)
+        FoldersList.refresh(this.folder.id)
         TasksList.update(this.dueDate)
         Main.closeSlideContainer()
     }

@@ -1,9 +1,9 @@
-import Task from "../Tasks/Task"
-import Form from "./Form"
-import Main from "../UI/Main"
-import CalendarTab from "../Tabs/Calendar/CalendarTab"
-import FoldersTab from "../Tabs/Folders/FoldersTab"
-import TasksList from "../Tasks/TasksList"
+import Task from "../../Tasks/Task"
+import Form from "../Form"
+import Main from "../../UI/Main"
+import CalendarTab from "../../Tabs/Calendar/CalendarTab"
+import TasksList from "../../Tasks/TasksList"
+import FoldersList from "../../Folders/FoldersList"
 
 export default class EditTaskForm extends Form {
     constructor(taskId) {
@@ -27,7 +27,7 @@ export default class EditTaskForm extends Form {
         const removeButton = this.createRemoveButton(() => {
             Task.remove(this.folder, this.object.task)
             CalendarTab.refresh(this.dueDate)
-            FoldersTab.refresh(this.folder.id)
+            FoldersList.refresh(this.folder.id)
             TasksList.update(this.dueDate)
             Main.closeSlideContainer()
         })
@@ -52,7 +52,7 @@ export default class EditTaskForm extends Form {
         Task.add(this.object.task, this.inputFolder.selectedOptions[0].getAttribute("data-folder-id"))
 
         CalendarTab.refresh(this.dueDate)
-        FoldersTab.refresh(this.folder.id)
+        FoldersList.refresh(this.folder.id)
         TasksList.update(this.dueDate)
         Main.closeSlideContainer()
     }

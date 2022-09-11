@@ -1,4 +1,4 @@
-import NewTaskForm from "../Forms/NewTaskForm"
+import NewTaskForm from "../Forms/subcomponents/NewTaskForm"
 import Task from "./Task"
 import Main from "../UI/Main"
 
@@ -59,7 +59,7 @@ export default class TasksList {
 
     static createNewTaskButton(date) {
         const newTaskButton = document.createElement("button")
-        newTaskButton.classList.add("calendar-tab-new-task-button", "floating-button")
+        newTaskButton.classList.add("floating-button")
         newTaskButton.textContent = "+"
         newTaskButton.addEventListener("click", () => Main.showSlideContent(new NewTaskForm(date).render()))
         return newTaskButton

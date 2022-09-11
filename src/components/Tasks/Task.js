@@ -1,12 +1,12 @@
 import { nanoid } from "nanoid"
 import Calendar from "../Calendar/Calendar"
-import EditTaskForm from "../Forms/EditTaskForm"
-import LocalStorage from "../LocalStorage"
+import EditTaskForm from "../Forms/subcomponents/EditTaskForm"
+import LocalStorage from "../Utils/LocalStorage"
 import TasksList from "./TasksList"
 import Main from "../UI/Main"
 import FolderIcon from '../Icons/folder'
 import CalendarTab from "../Tabs/Calendar/CalendarTab"
-import FoldersTab from "../Tabs/Folders/FoldersTab"
+import FoldersList from "../Folders/FoldersList"
 
 export default class Task {
     constructor(name, dueDate) {
@@ -46,7 +46,7 @@ export default class Task {
         })
         LocalStorage.saveFolder(folder)
         CalendarTab.refresh(task.dueDate)
-        FoldersTab.refresh(folder.id)
+        FoldersList.refresh(folder.id)
         TasksList.update(task.dueDate)
     }
 

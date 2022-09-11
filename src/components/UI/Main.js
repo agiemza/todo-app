@@ -11,6 +11,9 @@ export default class Main {
     }
 
     static changeContent(content) {
+        if(this.main.querySelector(".slide-container")) {
+            this.closeSlideContainer()
+        }
         this.main.innerHTML = ""
         this.main.appendChild(content)
     }
@@ -18,7 +21,7 @@ export default class Main {
     static showSlideContent(content) {
         const container = this.createSlideContainer()
         container.appendChild(content)
-        document.querySelector("#root").classList.add("disabled")
+        document.querySelector("main").classList.add("disabled")
         this.main.appendChild(container)
     }
 
@@ -42,7 +45,7 @@ export default class Main {
         document.removeEventListener("keydown", this.handleEscClick, true)
         container.classList.remove("slide-in")
         container.classList.add("slide-out")
-        document.querySelector("#root").classList.remove("disabled")
+        document.querySelector("main").classList.remove("disabled")
         setTimeout(() => container.remove(), 500)
     }
 

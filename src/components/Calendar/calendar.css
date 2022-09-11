@@ -58,13 +58,13 @@
     text-shadow: 0 0 5px white;
 }
 
-.day-container-selected {
-    text-shadow: 0 0 5px white;
+.day-container-selected > div { 
+    font-weight: 500;
 }
 
 .day-container-today {
     font-weight: 400;
-    text-shadow: 0 0 5px rgba(210, 210, 210);
+    text-shadow: 0 0 3px rgba(210, 210, 210);
 }
 
 .another-month-day {
