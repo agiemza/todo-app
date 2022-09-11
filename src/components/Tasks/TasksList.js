@@ -1,6 +1,10 @@
 import NewTaskForm from "../Forms/subcomponents/NewTaskForm"
+import EditTaskForm from "../Forms/subcomponents/EditTaskForm"
 import Task from "./Task"
 import Main from "../UI/Main"
+import FolderIcon from '../Icons/folder'
+import StarIcon from "../Icons/star"
+import Folder from "../Folders/Folder"
 
 export default class TasksList {
     static htmlElement = this.createHtmlElement()
@@ -46,7 +50,7 @@ export default class TasksList {
 
     static addTaskToList(list, { task, folder }) {
         const listItem = document.createElement("li")
-        listItem.appendChild(Task.createTaskHtmlElement(task, folder))
+        listItem.appendChild(this.createTaskHtmlElement(task, folder))
         list.appendChild(listItem)
     }
 
@@ -63,5 +67,64 @@ export default class TasksList {
         newTaskButton.textContent = "+"
         newTaskButton.addEventListener("click", () => Main.showSlideContent(new NewTaskForm(date).render()))
         return newTaskButton
+    }
+
+    static createTaskHtmlElement(task, folder) {
+        const container = document.createElement("div")
+        container.classList.add("task-container")
+        container.setAttribute("data-task-id", task.id)
+        container.addEventListener("click", () => {
+            const form = new EditTaskForm(task.id)
+            Main.showSlideContent(form.render())
+            form.createRemoveTaskButton()
+        })
+
+        const check = document.createElement("button")
+        check.classList.add("task-check-button")
+        check.addEventListener("click", e => this.handleCheckButtonClick(e, task.id))
+        container.appendChild(check)
+
+        if (task.checked) {
+            container.classList.add("task-container-checked")
+            check.classList.add("task-check-button-checked")
+        }
+
+        const folderContainer = document.createElement("div")
+        folderContainer.classList.add("task-folder-name")
+        folderContainer.innerHTML = `${FolderIcon} ${folder.name}`
+        container.appendChild(folderContainer)
+        folderContainer.addEventListener("click", e => this.handleFolderClick(e, folder.id))
+
+        const name = document.createElement("div")
+        name.classList.add("task-text")
+        name.textContent = task.name
+        container.appendChild(name)
+
+        const important = document.createElement("button")
+        important.classList.add("task-important-button")
+        important.innerHTML = StarIcon
+        important.addEventListener("click", e => this.handleImportantButtonClick(e, task.id))
+        container.appendChild(important)
+
+        if (task.important) {
+            important.classList.add("task-important-button-active")
+        }
+
+        return container
+    }
+
+    static handleFolderClick(e, folderId) {
+        e.stopPropagation()
+        Folder.show(folderId)
+    }
+
+    static handleCheckButtonClick(e, taskId) {
+        e.stopPropagation()
+        Task.check(taskId)
+    }
+
+    static handleImportantButtonClick(e, taskId) {
+        e.stopPropagation()
+        Task.important(taskId)
     }
 }

@@ -7,10 +7,10 @@ import FoldersList from "../../Folders/FoldersList"
 export default class FoldersTab {
     static htmlElement = this.createHtmlElement()
 
-    static render() {
+    static render(folderId) {
         this.clearHtmlElement()
         this.htmlElement.appendChild(this.createNewFolderButton())
-        this.htmlElement.appendChild(FoldersList.render())
+        this.htmlElement.appendChild(FoldersList.render(folderId))
         Nav.setButtonActive("nav-button-folders")
         return this.htmlElement
     }

@@ -70,6 +70,10 @@ input {
     cursor: pointer;
 }
 
+button:active {
+    transform: scale(0.95);
+}
+
 /* Navbar section */
 
 nav {
@@ -83,6 +87,7 @@ nav {
     box-shadow: 0px 0px 5px lightgray;
     overflow: hidden;
     padding: 0 2rem;
+    z-index: 11;
 }
 
 nav {
@@ -210,7 +215,7 @@ main {
     width: 3rem;
     background: none;
     border: none;
-    border-radius: 50%;
+    border-radius: 5px;
     transition: all 0.5s;
 }
 
@@ -272,18 +277,6 @@ main {
     color: gray;
 }
 
-.task-container-checked>.task-text {
-    text-decoration: line-through;
-}
-
-.task-container-checked .task-check-button {
-    border: 1px solid gray;
-}
-
-.task-container-checked .task-check-button::before {
-    opacity: 1;
-}
-
 .task-folder-name {
     --size: 0.6rem;
     --color: gray;
@@ -306,6 +299,10 @@ main {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.task-container-checked>.task-text {
+    text-decoration: line-through;
 }
 
 .task-check-button {
@@ -345,6 +342,43 @@ main {
     background-image: url("./assets/done-icon.svg");
 }
 
+.task-container-checked .task-check-button {
+    border: 1px solid gray;
+}
+
+.task-container-checked .task-check-button::before {
+    opacity: 1;
+}
+
+.task-important-button {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-row: 1/-1;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+.task-important-button svg {
+    width: 25px;
+    height: 25px;
+    fill: gray;
+    transition: fill 0.5s;
+}
+
+.task-important-button:hover svg {
+    fill: var(--main-color-2);
+}
+
+.task-important-button-active svg {
+    fill: var(--main-color-2);
+}
+
+.task-container-checked .task-important-button svg {
+    fill: gray;
+}
+
 .task-remove-button {
     display: grid;
     grid-column-end: -1;
@@ -355,7 +389,7 @@ main {
     align-items: center;
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
+    border-radius: 5px;
     border: none;
     background: none;
     transition: all 0.5s;
@@ -373,6 +407,9 @@ main {
 @media only screen and (min-width: 800px) {
     .floating-button {
         right: calc((100vw - 800px) / 2 + 1rem) !important;
+    }
+    .slide-container {
+        padding: 1rem 10%;
     }
 }
 

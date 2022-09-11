@@ -1,4 +1,6 @@
 import { nanoid } from "nanoid"
+import FoldersTab from "../Tabs/Folders/FoldersTab"
+import Main from "../UI/Main"
 import LocalStorage from "../Utils/LocalStorage"
 
 export default class Folder {
@@ -6,6 +8,10 @@ export default class Folder {
         this.id = nanoid()
         this.name = name
         this.tasks = []
+    }
+
+    static show(folderId) {
+        Main.changeContent(FoldersTab.render(folderId))
     }
 
     static generateDefaultFolder() {
