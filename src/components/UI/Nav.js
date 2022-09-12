@@ -68,11 +68,11 @@ export default class Nav {
     }
 
     static setButtonActive(id) {
+        this.removeActiveClassFromButtons()
         document.querySelector(`#${id}`).classList.add("nav-button-active")
     }
 
     static handleButtonClick(button, clickHandler) {
-        this.removeActiveClassFromButtons()
         this.setButtonActive(button.id)
         clickHandler()
     }

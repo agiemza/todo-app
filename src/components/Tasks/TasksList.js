@@ -91,9 +91,13 @@ export default class TasksList {
 
         const folderContainer = document.createElement("div")
         folderContainer.classList.add("task-folder-name")
-        folderContainer.innerHTML = `${FolderIcon} ${folder.name}`
+        folderContainer.innerHTML = FolderIcon
         container.appendChild(folderContainer)
         folderContainer.addEventListener("click", e => this.handleFolderClick(e, folder.id))
+
+        const folderName = document.createElement("p")
+        folderName.textContent =  folder.name
+        folderContainer.appendChild(folderName)
 
         const name = document.createElement("div")
         name.classList.add("task-text")

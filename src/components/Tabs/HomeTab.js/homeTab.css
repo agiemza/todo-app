@@ -1,0 +1,134 @@
+.home-tab-container {
+    display: grid;
+    align-items: start;
+    justify-items: center;
+    background-color: var(--background-color);
+    padding: 3rem 1rem calc(var(--nav-height) + 1rem) 1rem;
+    overflow-y: auto;
+}
+
+.home-content-container {
+    display: grid;
+    gap: 1.5rem;
+    min-width: 250px;
+    width: 100%;
+    max-width: 800px;
+}
+
+header {
+    display: grid;
+    gap: 1rem;
+    align-items: end;
+    grid-template-columns: auto;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.home-section-label {
+    grid-row: 1;
+    grid-column: 1/-1;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 0.5rem;
+    color: var(--darker-gray);
+}
+
+.tasks-overview-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.task-widget {
+    display: grid;
+    gap: 0.5rem;
+    align-items: center;
+    justify-items: center;
+    border-radius: 5px;
+    background-color: var(--lighter-color);
+    padding: 1rem;
+}
+
+.task-counter {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.home-widget-label {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.upcoming-tasks-wigdet {
+    grid-column: 1/-1;
+}
+
+.upcoming-tasks-wigdet ul {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.upcoming-tasks-wigdet ul {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.upcoming-tasks-wigdet ul:empty {
+    height: 1.5rem;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+}
+
+.upcoming-tasks-wigdet ul:empty::after {
+    content: "No tasks";
+    font-size: 0.8rem;
+    color: gray;
+    text-align: center;
+}
+
+.upcoming-tasks-label {
+    justify-self: start;
+    color: var(--darker-gray);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.upcoming-task {
+    display: grid;
+    align-items: center;
+    gap: 10px;
+    grid-template-columns: auto 1fr auto;
+}
+
+.upcoming-task svg {
+    width: 20px;
+    height: 20px;
+}
+
+.upcoming-task-icon {
+    display: grid;
+    align-items: center;
+    fill: var(--darker-gray);
+}
+
+.upcoming-task-name {
+    cursor: pointer;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.upcoming-task-date {
+    font-size: 0.8rem;
+    color: var(--darker-gray);
+}

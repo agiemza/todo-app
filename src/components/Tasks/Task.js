@@ -5,6 +5,7 @@ import LocalStorage from "../Utils/LocalStorage"
 import TasksList from "./TasksList"
 import CalendarTab from "../Tabs/Calendar/CalendarTab"
 import FoldersList from "../Folders/FoldersList"
+import "./task.css"
 
 export default class Task {
     constructor(name, dueDate) {
@@ -28,6 +29,25 @@ export default class Task {
             })
         })
         return { task: wantedTask, folder: wantedFolder }
+    }
+
+    static getAll() {
+        const folders = LocalStorage.get()
+        const tasks = []
+        folders.forEach(folder => {
+            folder.tasks.filter(task => {
+                tasks.push(task)
+            })
+        })
+        return tasks
+    }
+
+    static getAllPendingTasks() {
+        return this.getAll().filter(task => !task.checked)
+    }
+
+    static getAllCompletedTasks() {
+        return this.getAll().filter(task => task.checked)
     }
 
     static add(task, folderId) {

@@ -6,6 +6,10 @@ export default class ConvertDate {
         return `${year}-${month}-${day}`
     }
 
+    static YYYYMMDDtoDDMM(date) {
+        return `${date.slice(-2)}-${date.slice(5,7)}`
+    }
+
     static getDay(date) {
         const d = new Date(date.getFullYear(), date.getMonth(), 1)
         return (d.getDay() === 0 ? 7 : d.getDay())
