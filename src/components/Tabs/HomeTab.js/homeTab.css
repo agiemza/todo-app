@@ -3,7 +3,8 @@
     align-items: start;
     justify-items: center;
     background-color: var(--background-color);
-    padding: 3rem 1rem calc(var(--nav-height) + 1rem) 1rem;
+    padding: 1rem;
+    padding-bottom: calc(var(--nav-height) + 1rem);
     overflow-y: auto;
 }
 
@@ -20,9 +21,14 @@ header {
     gap: 1rem;
     align-items: end;
     grid-template-columns: auto;
+    background: var(--gradient);
+    border-radius: 5px;
+    padding: 1rem;
 }
 
 h1 {
+    color: var(--lighter-gray);
+    text-shadow: 0 0 10px var(--darker-gray);
     font-size: 2rem;
     font-weight: 600;
 }
@@ -32,6 +38,7 @@ h1 {
     grid-column: 1/-1;
     font-size: 1rem;
     font-weight: 600;
+    padding-left: 0.5rem;
     padding-top: 0.5rem;
     color: var(--darker-gray);
 }
@@ -97,8 +104,8 @@ h1 {
 .upcoming-tasks-label {
     justify-self: start;
     color: var(--darker-gray);
-    font-size: 0.9rem;
-    font-weight: 400;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .upcoming-task {

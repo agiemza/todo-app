@@ -34,13 +34,11 @@ export default class HomeTab {
 
     static createHeader() {
         const welcomeMessage = document.createElement("h1")
-        welcomeMessage.textContent = "Hello"
+        welcomeMessage.textContent = "To-Do List"
 
         const header = document.createElement("header")
         header.appendChild(welcomeMessage)
 
         return header
     }
-
-    // ----
 }
