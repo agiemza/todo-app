@@ -27,7 +27,7 @@ export default class HomeTab {
         homeContentContainer.classList.add("home-content-container")
 
         homeContentContainer.appendChild(this.createHeader())
-        homeContentContainer.appendChild(TasksOverview.createWidget())
+        homeContentContainer.appendChild(TasksOverview.render())
 
         return homeContentContainer
     }

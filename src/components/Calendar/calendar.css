@@ -58,7 +58,7 @@
     text-shadow: 0 0 5px white;
 }
 
-.day-container-selected > div { 
+.day-container-selected>div {
     font-weight: 500;
 }
 

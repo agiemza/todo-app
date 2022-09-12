@@ -19,6 +19,7 @@ export default class CalendarTab {
 
     static refresh(date) {
         Calendar.createWidget(new Date(date))
+        Calendar.highlightSelectedDay(date)
     }
 
     static createHtmlElement() {

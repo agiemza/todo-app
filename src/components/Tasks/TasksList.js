@@ -96,7 +96,7 @@ export default class TasksList {
         folderContainer.addEventListener("click", e => this.handleFolderClick(e, folder.id))
 
         const folderName = document.createElement("p")
-        folderName.textContent =  folder.name
+        folderName.textContent = folder.name
         folderContainer.appendChild(folderName)
 
         const name = document.createElement("div")

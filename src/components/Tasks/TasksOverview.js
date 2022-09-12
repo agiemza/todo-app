@@ -7,7 +7,7 @@ import PriorityIcon from "../Icons/priority"
 
 export default class TasksOverview {
 
-    static createWidget() {
+    static render() {
         const tasksOverviewContainer = document.createElement("section")
         tasksOverviewContainer.classList.add("tasks-overview-container")
 
@@ -16,8 +16,9 @@ export default class TasksOverview {
         tasksOverviewContainer.appendChild(this.createTaskCounterWidget(Task.getAllPendingTasks().length, "Pending tasks"))
         tasksOverviewContainer.appendChild(this.createTaskCounterWidget(Task.getAllCompletedTasks().length, "Completed tasks"))
 
-        tasksOverviewContainer.appendChild(this.createImportantTasksWidget())
+
         tasksOverviewContainer.appendChild(this.createUpcomingTasksWidget(0))
+        tasksOverviewContainer.appendChild(this.createImportantTasksWidget())
         tasksOverviewContainer.appendChild(this.createUpcomingTasksWidget(7))
         tasksOverviewContainer.appendChild(this.createMissedTasksWidget())
 
@@ -86,13 +87,13 @@ export default class TasksOverview {
     static createImportantTasksWidget() {
         const container = this.createListWidget()
         const date = new Date()
-        container.childNodes[0].textContent = "Upcoming important tasks"
+        container.childNodes[0].textContent = "Important tasks for next 3 days"
 
         for (let i = 0; i < 3; i++) {
             const tasks = Task.findTasksForDate(ConvertDate.toYYYYMMDD(date))
             tasks.forEach(({ task, folder }) => {
                 if (task.important && !task.checked) {
-                    container.childNodes[1].appendChild(this.createListWidgetListItem(task, folder, StarIcon))
+                    container.childNodes[1].appendChild(this.createListWidgetListItem(task, folder))
                 }
             })
             date.setDate(date.getDate() + 1)
@@ -106,8 +107,9 @@ export default class TasksOverview {
         container.childNodes[0].textContent = "Missed tasks"
 
         const tasks = Task.getAllPendingTasks()
+        const today = ConvertDate.toYYYYMMDD(new Date())
         tasks.forEach(item => {
-            if (!item.checked && new Date(item.dueDate) < new Date()) {
+            if (!item.checked && item.dueDate < today) {
                 const { task, folder } = Task.get(item.id)
                 container.childNodes[1].appendChild(this.createListWidgetListItem(task, folder, PriorityIcon))
             }
@@ -130,12 +132,12 @@ export default class TasksOverview {
         return container
     }
 
-    static createListWidgetListItem(task, folder, icon) {
+    static createListWidgetListItem(task, folder) {
         const listItem = document.createElement("li")
         listItem.classList.add("upcoming-task")
 
         const calendarIcon = document.createElement("div")
-        calendarIcon.innerHTML = icon || CalendarIcon
+        calendarIcon.innerHTML = task.important ? StarIcon : CalendarIcon
         calendarIcon.classList.add("upcoming-task-icon")
         listItem.appendChild(calendarIcon)
 

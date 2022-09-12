@@ -29,7 +29,7 @@ header {
 h1 {
     color: var(--lighter-gray);
     text-shadow: 0 0 10px var(--darker-gray);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 

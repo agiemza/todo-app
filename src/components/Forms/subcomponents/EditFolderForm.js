@@ -36,7 +36,7 @@ export default class EditFolderForm extends Form {
         }
         this.folder.name = this.inputName.value
         Folder.update(this.folder)
-        
+
         CalendarTab.refresh(this.dueDate)
         FoldersList.refresh(this.folder.id)
         TasksList.update(this.dueDate)

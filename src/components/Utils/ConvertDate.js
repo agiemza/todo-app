@@ -7,7 +7,7 @@ export default class ConvertDate {
     }
 
     static YYYYMMDDtoDDMM(date) {
-        return `${date.slice(-2)}-${date.slice(5,7)}`
+        return `${date.slice(-2)}-${date.slice(5, 7)}`
     }
 
     static getDay(date) {

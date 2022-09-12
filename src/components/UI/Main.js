@@ -11,7 +11,7 @@ export default class Main {
     }
 
     static changeContent(content) {
-        if(this.main.querySelector(".slide-container")) {
+        if (this.main.querySelector(".slide-container")) {
             this.closeSlideContainer()
         }
         this.main.innerHTML = ""
