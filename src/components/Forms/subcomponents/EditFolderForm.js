@@ -25,8 +25,7 @@ export default class EditFolderForm extends Form {
             Main.closeSlideContainer()
         })
         removeButton.classList.add("task-remove-button")
-        const output = document.querySelector(".slide-container")
-        output.appendChild(removeButton)
+        return removeButton
     }
 
     submitButtonHandler(e) {
@@ -49,6 +48,7 @@ export default class EditFolderForm extends Form {
         this.htmlElement.appendChild(this.createSubmit())
         this.htmlElement.appendChild(this.errorBox)
         this.htmlElement.classList.add("folder-form")
+        this.htmlElement.appendChild(this.createRemoveFolderButton())
         return this.htmlElement
     }
 

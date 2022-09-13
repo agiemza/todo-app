@@ -15,6 +15,12 @@ export default class ConvertDate {
         return (d.getDay() === 0 ? 7 : d.getDay())
     }
 
+    static getNextDay(date) {
+        const d = new Date(date)
+        d.setDate(d.getDate() + 1)
+        return d
+    }
+
     static toMoreHuman(date) {
         const today = this.toYYYYMMDD(new Date())
         if (date === today) {
@@ -28,4 +34,5 @@ export default class ConvertDate {
         }
         return `${date.slice(-2)}.${date.slice(5, 7)}.${date.slice(0, 4)}`
     }
+
 }

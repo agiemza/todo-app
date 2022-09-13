@@ -32,8 +32,7 @@ export default class EditTaskForm extends Form {
             Main.closeSlideContainer()
         })
         removeButton.classList.add("task-remove-button")
-        const output = document.querySelector(".slide-container")
-        output.appendChild(removeButton)
+        return removeButton
     }
 
     submitButtonHandler(e) {
@@ -65,6 +64,7 @@ export default class EditTaskForm extends Form {
         this.htmlElement.appendChild(this.inputName)
         this.htmlElement.appendChild(this.errorBox)
         this.htmlElement.appendChild(this.createSubmit())
+        this.htmlElement.appendChild(this.createRemoveTaskButton())
         this.htmlElement.classList.add("task-form")
         return this.htmlElement
     }

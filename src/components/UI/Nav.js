@@ -2,7 +2,7 @@ import HomeIcon from "../Icons/home"
 import CalendarIcon from "../Icons/calendar"
 import FolderIcon from "../Icons/folder"
 import Main from "./Main"
-import HomeTab from "../Tabs/HomeTab.js/HomeTab"
+import HomeTab from "../Tabs/Home/HomeTab"
 import CalendarTab from "../Tabs/Calendar/CalendarTab"
 import FoldersTab from "../Tabs/Folders/FoldersTab"
 

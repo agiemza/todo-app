@@ -179,20 +179,24 @@ main {
 
 .slide-container {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto 1fr;
     position: fixed;
     z-index: 10;
     top: 0;
     right: 0;
     bottom: var(--nav-height);
     left: 0;
-    padding: 1rem 10px 0 10px;
+    padding: 1rem 5% var(--nav-height) 5%;
     pointer-events: all;
     overflow: visible;
     background-color: var(--background-color);
-    translate: 0;
+    transition: all 0.3s;
+}
+
+.slide-container-content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto 1fr;
 }
 
 .slide-in {
@@ -244,6 +248,7 @@ main {
     height: 4rem;
     font-size: 2.5rem;
     font-weight: 300;
+    line-height: 0;
 }
 
 .floating-button svg {
@@ -258,9 +263,27 @@ main {
 
 @media only screen and (min-width: 800px) {
     .floating-button {
-        right: calc((100vw - 800px) / 2 + 1rem) !important;
+        right: calc((100vw - 800px) / 2 + 1rem);
     }
+
+    .submit-button {
+        right: 1rem;
+        position: absolute;
+    }
+
     .slide-container {
-        padding: 1rem 10%;
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 0 10% var(--nav-height) 10%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .slide-container-content {
+        background-color: var(--background-color);
+        border-radius: 5px;
+        padding: 1rem;
+        position: relative;
     }
 }

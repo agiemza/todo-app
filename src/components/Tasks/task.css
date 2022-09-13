@@ -64,39 +64,25 @@
     position: relative;
 }
 
-.task-check-button::before {
-    content: "";
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    left: 0;
+.task-check-button svg {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
-    background-size: cover;
-    background-image: url("../../assets/done-icon.svg");
-    transition: opacity 0.3s;
+    fill: transparent;
+    transition: fill 0.3s;
 }
 
-.task-check-button:hover::before {
-    content: "";
-    position: absolute;
-    opacity: 1;
-    top: 0;
-    left: 0;
+.task-check-button:hover svg {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
-    background-size: cover;
-    background-image: url("../../assets/done-icon.svg");
+    fill: gray;
 }
 
 .task-container-checked .task-check-button {
     border: 1px solid gray;
 }
 
-.task-container-checked .task-check-button::before {
-    opacity: 1;
+.task-container-checked .task-check-button svg {
+    fill: gray;
 }
 
 .task-important-button {
@@ -130,8 +116,6 @@
 
 .task-remove-button {
     display: grid;
-    grid-column-end: -1;
-    grid-row: 1;
     align-self: center;
     justify-self: end;
     justify-items: center;
@@ -142,6 +126,9 @@
     border: none;
     background: none;
     transition: all 0.5s;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
 
 .task-remove-button svg {

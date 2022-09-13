@@ -94,7 +94,6 @@ export default class FoldersList {
         editFolderButton.addEventListener("click", () => {
             const form = new EditFolderForm(folder)
             Main.showSlideContent(form.render())
-            form.createRemoveFolderButton()
         })
         return editFolderButton
     }

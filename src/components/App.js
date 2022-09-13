@@ -1,6 +1,6 @@
 import Nav from "./UI/Nav"
 import Main from "./UI/Main"
-import HomeTab from "./Tabs/HomeTab.js/HomeTab"
+import HomeTab from "./Tabs/Home/HomeTab"
 import LocalStorage from "./Utils/LocalStorage"
 import Folder from "./Folders/Folder"
 

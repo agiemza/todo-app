@@ -4,6 +4,8 @@ import ConvertDate from "../Utils/ConvertDate"
 import TouchEvents from "../Utils/TouchEvent"
 import "./calendar.css"
 import TasksList from "../Tasks/TasksList"
+import ArrowLeftIcon from "../Icons/arrow-left"
+import ArrowRightIcon from "../Icons/arrow-right"
 
 export default class Calendar {
     static htmlElement = document.createElement("div")
@@ -15,6 +17,46 @@ export default class Calendar {
         this.htmlElement.appendChild(this.createCalendars(date))
     }
 
+    // static createMonthSwitch(date) {
+    //     const container = document.createElement("div")
+    //     container.classList.add("month-switch-contianer")
+
+    //     const monthSwitch = document.createElement("div")
+    //     monthSwitch.classList.add("month-switch")
+    //     container.appendChild(monthSwitch)
+
+    //     const arrowLeft = document.createElement("button")
+    //     arrowLeft.classList.add("month-switch-left")
+    //     arrowLeft.addEventListener("click", () => this.switchToPreviousMonth())
+
+    //     const arrowRight = document.createElement("button")
+    //     arrowRight.classList.add("month-switch-right")
+    //     arrowRight.addEventListener("click", () => this.switchToNextMonth())
+
+    //     const monthContainer = document.createElement("div")
+    //     if ((date.getMonth() === new Date().getMonth()) && (date.getFullYear() === new Date().getFullYear())) {
+    //         monthContainer.classList.add("month-current")
+    //     } else {
+    //         monthContainer.classList.add("month-container")
+    //     }
+
+    //     monthContainer.textContent = this.convertMonthName(date.getMonth())
+
+    //     const yearContianer = document.createElement("div")
+    //     yearContianer.classList.add("year-container")
+    //     yearContianer.textContent = date.getFullYear()
+
+    //     const dateWrapper = document.createElement("div")
+    //     dateWrapper.appendChild(monthContainer)
+    //     dateWrapper.appendChild(yearContianer)
+    //     dateWrapper.addEventListener("dblclick", () => this.switchToCurrentMonth())
+
+    //     monthSwitch.appendChild(arrowLeft)
+    //     monthSwitch.appendChild(dateWrapper)
+    //     monthSwitch.appendChild(arrowRight)
+
+    //     this.htmlElement.appendChild(container)
+    // }
     static createMonthSwitch(date) {
         const container = document.createElement("div")
         container.classList.add("month-switch-contianer")
@@ -25,10 +67,12 @@ export default class Calendar {
 
         const arrowLeft = document.createElement("button")
         arrowLeft.classList.add("month-switch-left")
+        arrowLeft.innerHTML = ArrowLeftIcon
         arrowLeft.addEventListener("click", () => this.switchToPreviousMonth())
 
         const arrowRight = document.createElement("button")
         arrowRight.classList.add("month-switch-right")
+        arrowRight.innerHTML = ArrowRightIcon
         arrowRight.addEventListener("click", () => this.switchToNextMonth())
 
         const monthContainer = document.createElement("div")

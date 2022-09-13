@@ -114,23 +114,28 @@
 }
 
 .month-switch>button {
+    display: grid;
     min-height: 1.5rem;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    background: none;
     background-color: transparent;
     border: none;
     cursor: pointer;
     width: 100%;
 }
 
+.month-switch>button>svg {
+    display: grid;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: rgba(210, 210, 210);
+}
+
 .month-switch-left {
-    background-position-x: right;
-    background-image: url("../../assets/arrow-left-icon.svg");
+    justify-content: end;
 }
 
 .month-switch-right {
-    background-image: url("../../assets/arrow-right-icon.svg");
+    justify-content: start;
 }
 
 .month-switch div {

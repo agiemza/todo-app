@@ -81,6 +81,7 @@ export default class Form {
     createRemoveButton(removeHandler) {
         const removeButton = document.createElement("button")
         removeButton.innerHTML = RemoveIcon
+        removeButton.setAttribute("type", "button")
         removeButton.addEventListener("click", removeHandler)
         return removeButton
     }

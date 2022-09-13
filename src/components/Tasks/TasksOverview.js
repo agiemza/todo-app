@@ -86,17 +86,17 @@ export default class TasksOverview {
 
     static createImportantTasksWidget() {
         const container = this.createListWidget()
-        const date = new Date()
+        const tomorrow = ConvertDate.getNextDay(new Date)
         container.childNodes[0].textContent = "Important tasks for next 3 days"
 
         for (let i = 0; i < 3; i++) {
-            const tasks = Task.findTasksForDate(ConvertDate.toYYYYMMDD(date))
+            const tasks = Task.findTasksForDate(ConvertDate.toYYYYMMDD(tomorrow))
             tasks.forEach(({ task, folder }) => {
                 if (task.important && !task.checked) {
                     container.childNodes[1].appendChild(this.createListWidgetListItem(task, folder))
                 }
             })
-            date.setDate(date.getDate() + 1)
+            tomorrow.setDate(tomorrow.getDate() + 1)
         }
 
         return container

@@ -4,7 +4,9 @@ import Task from "./Task"
 import Main from "../UI/Main"
 import FolderIcon from '../Icons/folder'
 import StarIcon from "../Icons/star"
+import StarIconFilled from "../Icons/star-filled"
 import Folder from "../Folders/Folder"
+import DoneIcon from "../Icons/done"
 
 export default class TasksList {
     static htmlElement = this.createHtmlElement()
@@ -73,14 +75,11 @@ export default class TasksList {
         const container = document.createElement("div")
         container.classList.add("task-container")
         container.setAttribute("data-task-id", task.id)
-        container.addEventListener("click", () => {
-            const form = new EditTaskForm(task.id)
-            Main.showSlideContent(form.render())
-            form.createRemoveTaskButton()
-        })
+        container.addEventListener("click", () => this.handleTaskClick(task.id))
 
         const check = document.createElement("button")
         check.classList.add("task-check-button")
+        check.innerHTML = DoneIcon
         check.addEventListener("click", e => this.handleCheckButtonClick(e, task.id))
         container.appendChild(check)
 
@@ -106,7 +105,7 @@ export default class TasksList {
 
         const important = document.createElement("button")
         important.classList.add("task-important-button")
-        important.innerHTML = StarIcon
+        important.innerHTML = task.important ? StarIconFilled : StarIcon
         important.addEventListener("click", e => this.handleImportantButtonClick(e, task.id))
         container.appendChild(important)
 
@@ -115,6 +114,11 @@ export default class TasksList {
         }
 
         return container
+    }
+
+    static handleTaskClick(taskId) {
+        const form = new EditTaskForm(taskId)
+        Main.showSlideContent(form.render())
     }
 
     static handleFolderClick(e, folderId) {

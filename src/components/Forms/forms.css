@@ -73,7 +73,9 @@ input[type="date"] {
 }
 
 .folder-form {
-    align-content: start;
+    align-content: center;
+    padding: 0 2rem;
+    padding-bottom: calc(1rem + var(--nav-height));
 }
 
 #folder-name {
